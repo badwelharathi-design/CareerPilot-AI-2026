@@ -1,0 +1,896 @@
+/* =====================================================
+   CAREERPILOT AI - COMPLETE STYLE
+===================================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #080b1a;
+    color: white;
+    min-height: 100vh;
+}
+
+
+/* =====================================================
+   NORMAL NAVBAR
+===================================================== */
+
+nav {
+    height: 70px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 0 8%;
+
+    background: #0d1126;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.nav-links {
+    display: flex;
+    gap: 30px;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+}
+
+.nav-links a:hover {
+    color: #00e5ff;
+}
+
+
+/* =====================================================
+   HERO
+===================================================== */
+
+.hero {
+    min-height: 650px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 60px 10%;
+}
+
+.hero-content {
+    max-width: 600px;
+}
+
+.tag {
+    color: #00e5ff;
+    margin-bottom: 20px;
+}
+
+h1 {
+    font-size: 55px;
+    line-height: 1.1;
+}
+
+h1 span {
+    color: #00e5ff;
+}
+
+.description {
+    margin: 25px 0;
+
+    font-size: 18px;
+
+    line-height: 1.7;
+
+    color: #c5c8d8;
+}
+
+
+/* =====================================================
+   BUTTON
+===================================================== */
+
+.main-button,
+button {
+    display: inline-block;
+
+    padding: 15px 30px;
+
+    border: none;
+
+    border-radius: 30px;
+
+    background: #00e5ff;
+
+    color: #08101b;
+
+    font-size: 17px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    text-decoration: none;
+
+    transition: 0.25s ease;
+}
+
+.main-button:hover,
+button:hover {
+    transform: scale(1.05);
+}
+
+
+/* =====================================================
+   AI HERO
+===================================================== */
+
+.ai-container {
+    width: 400px;
+    height: 400px;
+
+    position: relative;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.circle {
+    width: 300px;
+    height: 300px;
+
+    border: 2px solid #00e5ff;
+
+    border-radius: 50%;
+
+    animation: rotate 8s linear infinite;
+}
+
+.robot {
+    position: absolute;
+
+    font-size: 120px;
+
+    animation: float 3s ease-in-out infinite;
+}
+
+
+/* =====================================================
+   FEATURES
+===================================================== */
+
+section:not(.hero) {
+    padding: 80px 10%;
+    text-align: center;
+}
+
+h2 {
+    font-size: 40px;
+    margin-bottom: 50px;
+}
+
+.features {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+}
+
+.card {
+    width: 280px;
+
+    padding: 35px;
+
+    background: #111631;
+
+    border: 1px solid #252c4d;
+
+    border-radius: 20px;
+
+    font-size: 40px;
+}
+
+.card h3 {
+    font-size: 21px;
+    margin: 20px 0;
+}
+
+.card p {
+    font-size: 15px;
+
+    color: #bbbfd0;
+
+    line-height: 1.6;
+}
+
+
+/* =====================================================
+   STEPS
+===================================================== */
+
+.steps {
+    display: flex;
+    justify-content: center;
+    gap: 80px;
+}
+
+.steps div {
+    width: 200px;
+}
+
+.steps span {
+    display: inline-flex;
+
+    width: 60px;
+    height: 60px;
+
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 50%;
+
+    background: #00e5ff;
+
+    color: #08101b;
+
+    font-size: 25px;
+
+    font-weight: bold;
+}
+
+
+/* =====================================================
+   AUTH PAGE
+===================================================== */
+
+.auth-page {
+    min-height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: radial-gradient(
+        circle at top,
+        #182451,
+        #080b1a
+    );
+
+    padding: 20px;
+}
+
+.auth-card {
+    width: 400px;
+
+    max-width: 100%;
+
+    padding: 45px;
+
+    text-align: center;
+
+    background: #111631;
+
+    border: 1px solid #252c4d;
+
+    border-radius: 25px;
+
+    box-shadow:
+        0 0 40px rgba(0, 229, 255, 0.15);
+
+    animation: appear 0.8s ease;
+}
+
+.auth-icon {
+    font-size: 55px;
+
+    margin-bottom: 15px;
+
+    animation: float 3s ease-in-out infinite;
+}
+
+.auth-card h1 {
+    font-size: 32px;
+}
+
+.auth-card p {
+    color: #aaaec0;
+
+    margin: 10px 0 25px;
+}
+
+.auth-card input {
+    width: 100%;
+
+    padding: 15px;
+
+    margin-bottom: 15px;
+
+    border: 1px solid #303755;
+
+    border-radius: 10px;
+
+    background: #080b1a;
+
+    color: white;
+
+    outline: none;
+
+    font-size: 15px;
+}
+
+.auth-card input:focus {
+    border-color: #00e5ff;
+}
+
+.auth-card button {
+    width: 100%;
+}
+
+.switch a,
+.auth-card > a {
+    color: #00e5ff;
+
+    text-decoration: none;
+}
+
+.error-message {
+    padding: 10px;
+
+    margin-bottom: 15px;
+
+    border-radius: 8px;
+
+    background: #4a1f2b;
+
+    color: #ff9aaa;
+}
+
+
+/* =====================================================
+   SIDEBAR APPLICATION
+===================================================== */
+
+.app-layout {
+    display: flex;
+    min-height: 100vh;
+}
+
+
+/* SIDEBAR */
+
+.sidebar {
+    width: 280px;
+    min-width: 280px;
+
+    height: 100vh;
+
+    position: fixed;
+
+    left: 0;
+    top: 0;
+
+    background: #0d1226;
+
+    border-right: 1px solid #252d4d;
+
+    display: flex;
+
+    flex-direction: column;
+
+    z-index: 1000;
+
+    overflow-y: auto;
+}
+
+
+/* BRAND */
+
+.brand {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    padding: 25px 20px;
+
+    font-size: 21px;
+
+    font-weight: bold;
+
+    color: #00d9ff;
+
+    border-bottom: 1px solid #252d4d;
+}
+
+.brand span:first-child {
+    font-size: 27px;
+}
+
+
+/* MENU TITLE */
+
+.menu-title {
+    padding: 22px 20px 9px;
+
+    font-size: 11px;
+
+    font-weight: bold;
+
+    color: #737b9c;
+
+    letter-spacing: 1.5px;
+}
+
+
+/* SIDE MENU */
+
+.side-menu {
+    padding: 0 12px;
+}
+
+
+/* MENU BUTTON */
+
+.menu-item {
+    display: flex;
+
+    align-items: center;
+
+    gap: 13px;
+
+    padding: 13px 14px;
+
+    margin-bottom: 5px;
+
+    border-radius: 10px;
+
+    color: #c8cee3;
+
+    text-decoration: none;
+
+    font-size: 14px;
+
+    transition: 0.25s ease;
+}
+
+.menu-item span:first-child {
+    width: 25px;
+
+    text-align: center;
+
+    font-size: 18px;
+}
+
+.menu-item:hover {
+    background: #18213d;
+
+    color: #00d9ff;
+
+    transform: translateX(3px);
+}
+
+
+/* CHATBOT BUTTON */
+
+.chatbot-button {
+    margin-top: 8px;
+
+    background: #131d38;
+
+    border: 1px solid #26365e;
+}
+
+.chatbot-button:hover {
+    background: #1a294b;
+}
+
+
+/* LOGOUT */
+
+.sidebar-bottom {
+    margin-top: auto;
+
+    padding: 15px 12px;
+
+    border-top: 1px solid #252d4d;
+}
+
+.logout-button {
+    display: flex;
+
+    align-items: center;
+
+    gap: 13px;
+
+    padding: 13px 14px;
+
+    border-radius: 10px;
+
+    text-decoration: none;
+
+    color: #ff8d8d;
+
+    font-size: 14px;
+}
+
+.logout-button:hover {
+    background: #321d29;
+}
+
+
+/* =====================================================
+   MAIN CONTENT WITH SIDEBAR
+===================================================== */
+
+.main-content {
+    margin-left: 280px;
+
+    width: calc(100% - 280px);
+
+    min-height: 100vh;
+}
+
+.page-content {
+    width: 100%;
+
+    min-height: 100vh;
+
+    padding: 35px;
+}
+
+
+/* =====================================================
+   DASHBOARD / CONTENT CARDS
+===================================================== */
+
+.dashboard-container {
+    max-width: 1200px;
+
+    margin: 0 auto;
+}
+
+.dashboard-header {
+    margin-bottom: 30px;
+}
+
+.dashboard-header h1 {
+    font-size: 38px;
+}
+
+.dashboard-header p {
+    color: #aeb3c8;
+
+    margin-top: 10px;
+}
+
+
+/* =====================================================
+   SKILL GAP
+===================================================== */
+
+.skill-gap-container {
+    max-width: 1200px;
+
+    margin: 0 auto;
+}
+
+.skill-gap-header {
+    margin-bottom: 30px;
+}
+
+.skill-gap-header h1 {
+    font-size: 40px;
+}
+
+.skill-gap-header span {
+    color: #00e5ff;
+}
+
+.skill-gap-header p {
+    color: #aeb3c8;
+
+    margin-top: 12px;
+}
+
+
+/* =====================================================
+   PROGRESS
+===================================================== */
+
+.progress-card {
+    background: #111631;
+
+    border: 1px solid #252c4d;
+
+    border-radius: 20px;
+
+    padding: 25px;
+
+    margin-top: 25px;
+}
+
+.progress-number {
+    font-size: 42px;
+
+    font-weight: bold;
+
+    color: #00e5ff;
+
+    margin: 15px 0;
+}
+
+.progress-track {
+    width: 100%;
+
+    height: 14px;
+
+    background: #252c4d;
+
+    border-radius: 20px;
+
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+
+    background: #00e5ff;
+
+    border-radius: 20px;
+
+    transition: width 1.5s ease;
+}
+
+.progress-card p {
+    color: #aeb3c8;
+
+    margin-top: 12px;
+}
+
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+footer {
+    padding: 30px;
+
+    text-align: center;
+
+    background: #0d1126;
+
+    color: #aaa;
+}
+
+
+/* =====================================================
+   MOBILE HEADER
+===================================================== */
+
+.mobile-header {
+    display: none;
+}
+
+.menu-toggle {
+    border: none;
+
+    background: #18213d;
+
+    color: white;
+
+    font-size: 23px;
+
+    padding: 7px 12px;
+
+    border-radius: 8px;
+
+    cursor: pointer;
+}
+
+
+/* =====================================================
+   ANIMATIONS
+===================================================== */
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-25px);
+    }
+}
+
+@keyframes rotate {
+
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes appear {
+
+    from {
+        opacity: 0;
+
+        transform: translateY(40px);
+    }
+
+    to {
+        opacity: 1;
+
+        transform: translateY(0);
+    }
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 900px) {
+
+    .sidebar {
+        transform: translateX(-100%);
+
+        transition:
+            transform 0.3s ease;
+    }
+
+    .sidebar.show {
+        transform: translateX(0);
+    }
+
+    .main-content {
+        margin-left: 0;
+
+        width: 100%;
+    }
+
+    .mobile-header {
+        height: 65px;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: space-between;
+
+        padding: 0 18px;
+
+        background: #0d1226;
+
+        border-bottom: 1px solid #252d4d;
+
+        position: sticky;
+
+        top: 0;
+
+        z-index: 900;
+    }
+
+    .mobile-brand {
+        color: #00d9ff;
+
+        font-size: 18px;
+
+        font-weight: bold;
+    }
+
+    .page-content {
+        padding: 20px 15px;
+    }
+
+    .hero {
+        flex-direction: column;
+
+        text-align: center;
+
+        padding: 40px 5%;
+    }
+
+    h1 {
+        font-size: 40px;
+    }
+
+    .ai-container {
+        width: 300px;
+
+        height: 300px;
+
+        margin-top: 30px;
+    }
+
+    .features {
+        flex-direction: column;
+
+        align-items: center;
+    }
+
+    .steps {
+        flex-direction: column;
+
+        align-items: center;
+    }
+
+    .nav-links {
+        gap: 10px;
+    }
+}
+
+
+/* =====================================================
+   SMALL MOBILE
+===================================================== */
+
+@media (max-width: 500px) {
+
+    .auth-card {
+        padding: 30px 20px;
+    }
+
+    .auth-card h1 {
+        font-size: 28px;
+    }
+
+    .page-content {
+        padding: 15px;
+    }
+
+    .dashboard-header h1,
+    .skill-gap-header h1 {
+        font-size: 30px;
+    }
+
+}
+.progress-card {
+    background: #111631;
+    border: 1px solid #252c4d;
+    border-radius: 20px;
+    padding: 25px;
+    margin-top: 25px;
+}
+
+.progress-number {
+    font-size: 42px;
+    font-weight: bold;
+    color: #00e5ff;
+    margin: 15px 0;
+}
+
+.progress-track {
+    width: 100%;
+    height: 14px;
+    background: #252c4d;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: #00e5ff;
+    border-radius: 20px;
+    transition: width 1.5s ease;
+}
+
+.progress-card p {
+    color: #aeb3c8;
+    margin-top: 12px;
+}

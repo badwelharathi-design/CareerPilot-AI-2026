@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>
+        Resume Builder | CareerPilot AI
+    </title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/dashboard.css') }}">
+
+    <style>
+
+        .resume-container {
+
+            width: 92%;
+            max-width: 1100px;
+
+            margin: 40px auto;
+
+        }
+
+        .header {
+
+            text-align: center;
+
+            margin-bottom: 35px;
+
+        }
+
+        .header h1 {
+
+            font-size: 40px;
+
+        }
+
+        .header span {
+
+            color: #00e5ff;
+
+        }
+
+        .header p {
+
+            color: #aeb3c8;
+
+        }
+
+        .resume-layout {
+
+            display: grid;
+
+            grid-template-columns:
+                1fr 1fr;
+
+            gap: 25px;
+
+        }
+
+        .form-card {
+
+            background: #111631;
+
+            border: 1px solid #252c4d;
+
+            border-radius: 20px;
+
+            padding: 25px;
+
+        }
+
+        .form-card h2 {
+
+            margin-bottom: 20px;
+
+        }
+
+        label {
+
+            display: block;
+
+            margin-top: 15px;
+
+            margin-bottom: 7px;
+
+            color: #b5b9ca;
+
+        }
+
+        input,
+        textarea {
+
+            width: 100%;
+
+            padding: 13px;
+
+            border-radius: 10px;
+
+            border: 1px solid #252c4d;
+
+            background: #080b1a;
+
+            color: white;
+
+            outline: none;
+
+        }
+
+        textarea {
+
+            min-height: 100px;
+
+            resize: vertical;
+
+        }
+
+        input:focus,
+        textarea:focus {
+
+            border-color: #00e5ff;
+
+        }
+
+        .resume-preview {
+
+            background: white;
+
+            color: #111;
+
+            border-radius: 5px;
+
+            padding: 35px;
+
+            min-height: 650px;
+
+            box-shadow:
+                0 10px 30px
+                rgba(0,0,0,0.3);
+
+        }
+
+        .resume-name {
+
+            font-size: 30px;
+
+            font-weight: bold;
+
+        }
+
+        .resume-career {
+
+            color: #087f8c;
+
+            font-size: 18px;
+
+            margin-top: 5px;
+
+        }
+
+        .resume-contact {
+
+            color: #555;
+
+            margin-top: 8px;
+
+            font-size: 14px;
+
+        }
+
+        .resume-line {
+
+            border: none;
+
+            border-top: 1px solid #ddd;
+
+            margin: 20px 0;
+
+        }
+
+        .resume-section {
+
+            margin-bottom: 22px;
+
+        }
+
+        .resume-section h3 {
+
+            color: #087f8c;
+
+            margin-bottom: 8px;
+
+            text-transform: uppercase;
+
+            font-size: 15px;
+
+        }
+
+        .resume-section p {
+
+            line-height: 1.6;
+
+            color: #333;
+
+        }
+
+        .skills-list {
+
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 8px;
+
+        }
+
+        .skill-tag {
+
+            padding: 7px 10px;
+
+            background: #eef8f9;
+
+            border-radius: 5px;
+
+            font-size: 13px;
+
+        }
+
+        .buttons {
+
+            display: flex;
+
+            justify-content: center;
+
+            gap: 15px;
+
+            flex-wrap: wrap;
+
+            margin-top: 30px;
+
+        }
+
+        .button {
+
+            border: none;
+
+            padding: 13px 22px;
+
+            border-radius: 10px;
+
+            background: #00e5ff;
+
+            color: #07101c;
+
+            text-decoration: none;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+        }
+
+        .secondary {
+
+            background: #252c4d;
+
+            color: white;
+
+        }
+
+        @media(max-width:800px) {
+
+            .resume-layout {
+
+                grid-template-columns: 1fr;
+
+            }
+
+            .header h1 {
+
+                font-size: 30px;
+
+            }
+
+        }
+
+        @media print {
+
+            body * {
+
+                visibility: hidden;
+
+            }
+
+            .resume-preview,
+            .resume-preview * {
+
+                visibility: visible;
+
+            }
+
+            .resume-preview {
+
+                position: absolute;
+
+                left: 0;
+
+                top: 0;
+
+                width: 100%;
+
+                box-shadow: none;
+
+            }
+
+        }
+
+    </style>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/app-enhancements.css') }}">
+    <script src="{{ url_for('static', filename='css/app-enhancements.js') }}" defer></script>
+
+</head>
+
+
+<body>
+
+
+<!-- NAVBAR -->
+
+<nav class="navbar">
+
+    <div class="logo">
+
+        🚀 CareerPilot AI
+
+    </div>
+
+    <div class="nav-right">
+
+        <span>
+
+            👋 {{ name }}
+
+        </span>
+
+        <a href="{{ url_for('logout') }}"
+           class="logout">
+
+            Logout
+
+        </a>
+
+    </div>
+
+</nav>
+
+
+<div class="resume-container">
+
+
+    <!-- HEADER -->
+
+    <div class="header">
+
+        <h1>
+
+            📄 Resume
+            <span>Builder</span>
+
+        </h1>
+
+        <p>
+
+            Create a career-focused resume
+            using your CareerPilot AI profile.
+
+        </p>
+
+    </div>
+
+
+    <div class="resume-layout">
+
+
+        <!-- FORM -->
+
+        <div class="form-card">
+
+            <h2>
+
+                ✏️ Edit Your Resume
+
+            </h2>
+
+
+            <label>
+
+                Full Name
+
+            </label>
+
+            <input
+                id="inputName"
+                type="text"
+                value="{{ name }}"
+                oninput="updateResume()">
+
+
+            <label>
+
+                Email
+
+            </label>
+
+            <input
+                id="inputEmail"
+                type="email"
+                value="{{ email }}"
+                oninput="updateResume()">
+
+
+            <label>
+
+                Professional Title
+
+            </label>
+
+            <input
+                id="inputCareer"
+                type="text"
+                value="{{ career }}"
+                oninput="updateResume()">
+
+
+            <label>
+
+                About Me
+
+            </label>
+
+            <textarea
+                id="inputAbout"
+                oninput="updateResume()">Motivated student interested in {{ career }} with a strong interest in learning and developing industry-relevant skills.</textarea>
+
+
+            <label>
+
+                Skills
+
+            </label>
+
+            <textarea
+                id="inputSkills"
+                oninput="updateResume()">{{ skills }}</textarea>
+
+
+            <label>
+
+                Career Goal
+
+            </label>
+
+            <textarea
+                id="inputGoal"
+                oninput="updateResume()">{{ career_goal }}</textarea>
+
+
+            <div class="buttons">
+
+                <button
+                    onclick="window.print()"
+                    class="button">
+
+                    📥 Download / Print
+
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- PREVIEW -->
+
+        <div class="resume-preview"
+             id="resumePreview">
+
+
+            <div class="resume-name"
+                 id="previewName">
+
+                {{ name }}
+
+            </div>
+
+
+            <div class="resume-career"
+                 id="previewCareer">
+
+                {{ career }}
+
+            </div>
+
+
+            <div class="resume-contact"
+                 id="previewEmail">
+
+                {{ email }}
+
+            </div>
+
+
+            <hr class="resume-line">
+
+
+            <!-- ABOUT -->
+
+            <div class="resume-section">
+
+                <h3>
+
+                    Profile
+
+                </h3>
+
+                <p id="previewAbout">
+
+                    Motivated student interested in
+                    {{ career }} with a strong interest
+                    in learning and developing
+                    industry-relevant skills.
+
+                </p>
+
+            </div>
+
+
+            <!-- SKILLS -->
+
+            <div class="resume-section">
+
+                <h3>
+
+                    Skills
+
+                </h3>
+
+                <div class="skills-list"
+                     id="previewSkills">
+
+                </div>
+
+            </div>
+
+
+            <!-- CAREER GOAL -->
+
+            <div class="resume-section">
+
+                <h3>
+
+                    Career Objective
+
+                </h3>
+
+                <p id="previewGoal">
+
+                    {{ career_goal }}
+
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+    <!-- BUTTONS -->
+
+    <div class="buttons">
+
+        <a href="{{ url_for('jobs') }}"
+           class="button">
+
+            💼 Jobs
+
+        </a>
+
+        <a href="{{ url_for('dashboard') }}"
+           class="button secondary">
+
+            ← Dashboard
+
+        </a>
+
+    </div>
+
+
+</div>
+
+
+<script>
+
+function updateResume() {
+
+    const name =
+        document.getElementById(
+            "inputName"
+        ).value;
+
+    const email =
+        document.getElementById(
+            "inputEmail"
+        ).value;
+
+    const career =
+        document.getElementById(
+            "inputCareer"
+        ).value;
+
+    const about =
+        document.getElementById(
+            "inputAbout"
+        ).value;
+
+    const skills =
+        document.getElementById(
+            "inputSkills"
+        ).value;
+
+    const goal =
+        document.getElementById(
+            "inputGoal"
+        ).value;
+
+
+    document.getElementById(
+        "previewName"
+    ).textContent = name;
+
+
+    document.getElementById(
+        "previewEmail"
+    ).textContent = email;
+
+
+    document.getElementById(
+        "previewCareer"
+    ).textContent = career;
+
+
+    document.getElementById(
+        "previewAbout"
+    ).textContent = about;
+
+
+    document.getElementById(
+        "previewGoal"
+    ).textContent = goal;
+
+
+    const skillsContainer =
+        document.getElementById(
+            "previewSkills"
+        );
+
+    skillsContainer.innerHTML = "";
+
+
+    const skillArray =
+        skills
+        .split(",")
+        .map(skill => skill.trim())
+        .filter(skill => skill);
+
+
+    skillArray.forEach(skill => {
+
+        const tag =
+            document.createElement("span");
+
+        tag.className =
+            "skill-tag";
+
+        tag.textContent =
+            skill;
+
+        skillsContainer.appendChild(tag);
+
+    });
+
+}
+
+
+updateResume();
+
+</script>
+
+
+</body>
+
+</html>

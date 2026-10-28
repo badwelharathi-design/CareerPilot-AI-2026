@@ -1,0 +1,1356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>CareerPilot AI - Job Preparation</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f7fb;
+    color: #1f2937;
+}
+
+header {
+    background: #111827;
+    color: white;
+    padding: 20px 8%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.logo span {
+    color: #60a5fa;
+}
+
+.container {
+    width: 90%;
+    max-width: 1000px;
+    margin: 35px auto;
+}
+
+.title {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.title h1 {
+    margin-bottom: 10px;
+}
+
+.title p {
+    color: #6b7280;
+}
+
+/* ROLE SELECTION */
+
+.roles {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 18px;
+}
+
+.role {
+    background: white;
+    padding: 25px;
+    text-align: center;
+    border-radius: 15px;
+    cursor: pointer;
+    box-shadow: 0 5px 18px rgba(0,0,0,.08);
+    border: 2px solid transparent;
+    transition: .3s;
+}
+
+.role:hover {
+    transform: translateY(-5px);
+    border-color: #2563eb;
+}
+
+.role-icon {
+    font-size: 38px;
+    margin-bottom: 10px;
+}
+
+.role h3 {
+    margin-bottom: 7px;
+}
+
+.role p {
+    font-size: 13px;
+    color: #6b7280;
+}
+
+/* TEST */
+
+#testSection,
+#resultSection {
+    display: none;
+}
+
+.test-header {
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    box-shadow: 0 5px 18px rgba(0,0,0,.08);
+}
+
+.timer {
+    color: #dc2626;
+    font-weight: bold;
+}
+
+.question-card {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 5px 18px rgba(0,0,0,.08);
+}
+
+.question-number {
+    color: #2563eb;
+    font-weight: bold;
+    margin-bottom: 12px;
+}
+
+.question {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.option {
+    display: block;
+    padding: 14px;
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    margin: 10px 0;
+    cursor: pointer;
+}
+
+.option:hover {
+    background: #eff6ff;
+}
+
+.option input {
+    margin-right: 10px;
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 25px;
+}
+
+button {
+    padding: 11px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.primary {
+    background: #2563eb;
+    color: white;
+}
+
+.secondary {
+    background: #374151;
+    color: white;
+}
+
+.progress-bar {
+    height: 10px;
+    background: #e5e7eb;
+    border-radius: 20px;
+    overflow: hidden;
+    margin-top: 10px;
+}
+
+.progress {
+    height: 100%;
+    width: 0%;
+    background: #2563eb;
+}
+
+/* RESULT */
+
+.result {
+    background: white;
+    padding: 35px;
+    text-align: center;
+    border-radius: 18px;
+    box-shadow: 0 5px 18px rgba(0,0,0,.08);
+}
+
+.score {
+    font-size: 55px;
+    font-weight: bold;
+    color: #2563eb;
+    margin: 20px;
+}
+
+.status {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.skills {
+    margin-top: 25px;
+    text-align: left;
+}
+
+.skill {
+    padding: 12px;
+    margin: 8px 0;
+    border-radius: 8px;
+    background: #f9fafb;
+}
+
+.weak {
+    border-left: 5px solid #dc2626;
+}
+
+.strong {
+    border-left: 5px solid #16a34a;
+}
+
+@media(max-width:600px) {
+
+    .test-header {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .question {
+        font-size: 17px;
+    }
+}
+
+        .cp-roadmap-badge{display:inline-block;padding:8px 14px;border:1px solid rgba(103,232,249,.25);border-radius:999px;color:#67e8f9;background:rgba(103,232,249,.06);font-size:11px;letter-spacing:2px;margin-bottom:14px;}
+    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/app-enhancements.css') }}">
+    <script src="{{ url_for('static', filename='css/app-enhancements.js') }}" defer></script>
+
+
+<style>
+.cp-navbar{position:sticky;top:0;z-index:9999;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:14px 4%;background:rgba(8,11,26,.96);backdrop-filter:blur(16px);border-bottom:1px solid rgba(103,232,249,.18);box-shadow:0 8px 30px rgba(0,0,0,.22);font-family:Arial,sans-serif}
+.cp-brand{color:#67e8f9;text-decoration:none;font-size:21px;font-weight:800;white-space:nowrap}.cp-brand span{color:#a78bfa}
+.cp-nav-links{display:flex;align-items:center;justify-content:flex-end;gap:7px;flex-wrap:wrap}.cp-nav-links a{color:#dbe4ff;text-decoration:none;padding:8px 10px;border-radius:9px;font-size:12px;font-weight:700;transition:.2s}.cp-nav-links a:hover{background:rgba(103,232,249,.12);color:#67e8f9;transform:translateY(-1px)}.cp-nav-links .cp-logout{background:rgba(167,139,250,.15);color:#e9ddff}
+@media(max-width:900px){.cp-navbar{align-items:flex-start;flex-direction:column}.cp-nav-links{justify-content:flex-start;width:100%}}
+@media(max-width:600px){.cp-nav-links a{font-size:11px;padding:7px 8px}}
+</style>
+</head>
+
+<body class="prep-page">
+<nav class="cp-navbar">
+  <a class="cp-brand" href="{{ url_for('dashboard') }}">🚀 CareerPilot <span>AI</span></a>
+  <div class="cp-nav-links">
+    <a href="{{ url_for('dashboard') }}">🏠 Dashboard</a>
+    <a href="{{ url_for('assessment') }}">🎯 Assessment</a>
+    <a href="{{ url_for('skill_gap') }}">📊 Skill Gap</a>
+    <a href="{{ url_for('roadmap') }}">🛣️ Roadmap</a>
+    <a href="{{ url_for('projects') }}">🛠️ Projects</a>
+    <a href="{{ url_for('preparation') }}">⚡ Job Prep</a>
+    <a href="{{ url_for('courses') }}">📚 Courses</a>
+    <a href="{{ url_for('chatbot') }}">🤖 AI Chat</a>
+    <a href="{{ url_for('profile') }}">👤 Profile</a>
+    <a class="cp-logout" href="{{ url_for('logout') }}">Logout</a>
+  </div>
+</nav>
+
+
+<header>
+    <div class="logo">
+        Career<span>Pilot</span> AI
+    </div>
+
+    <div>
+        Job Preparation
+    </div>
+</header>
+
+
+<div class="container">
+
+<!-- ================= ROLE SELECTION ================= -->
+
+<section id="roleSection">
+
+    <div class="title">
+            <div class="cp-roadmap-badge">⚡ INTERVIEW ARENA • 100% FREE PRACTICE</div>
+        <h1>🎯 Job Role Preparation</h1>
+        <p>Select a role and test your job-ready knowledge.</p>
+    </div>
+
+    <div class="roles">
+
+        <div class="role" onclick="startTest('Software Developer')">
+            <div class="role-icon">💻</div>
+            <h3>Software Developer</h3>
+            <p>Programming • DSA • OOP</p>
+        </div>
+
+        <div class="role" onclick="startTest('Web Developer')">
+            <div class="role-icon">🌐</div>
+            <h3>Web Developer</h3>
+            <p>HTML • CSS • JavaScript</p>
+        </div>
+
+        <div class="role" onclick="startTest('Data Analyst')">
+            <div class="role-icon">📊</div>
+            <h3>Data Analyst</h3>
+            <p>SQL • Excel • Power BI</p>
+        </div>
+
+        <div class="role" onclick="startTest('Data Scientist')">
+            <div class="role-icon">🔬</div>
+            <h3>Data Scientist</h3>
+            <p>Python • Statistics • ML</p>
+        </div>
+
+        <div class="role" onclick="startTest('Data Engineer')">
+            <div class="role-icon">🗄️</div>
+            <h3>Data Engineer</h3>
+            <p>SQL • ETL • Cloud</p>
+        </div>
+
+        <div class="role" onclick="startTest('AI/ML Engineer')">
+            <div class="role-icon">🤖</div>
+            <h3>AI/ML Engineer</h3>
+            <p>ML • Deep Learning • Python</p>
+        </div>
+
+        <div class="role" onclick="startTest('Cybersecurity Analyst')">
+            <div class="role-icon">🔐</div>
+            <h3>Cybersecurity Analyst</h3>
+            <p>Security • Linux • Networking</p>
+        </div>
+
+        <div class="role" onclick="startTest('Cloud Engineer')">
+            <div class="role-icon">☁️</div>
+            <h3>Cloud Engineer</h3>
+            <p>AWS • Azure • Cloud</p>
+        </div>
+
+        <div class="role" onclick="startTest('DevOps Engineer')">
+            <div class="role-icon">⚙️</div>
+            <h3>DevOps Engineer</h3>
+            <p>Docker • Kubernetes • CI/CD</p>
+        </div>
+
+        <div class="role" onclick="startTest('Business Analyst')">
+            <div class="role-icon">📈</div>
+            <h3>Business Analyst</h3>
+            <p>Excel • SQL • Business</p>
+        </div>
+
+        <div class="role" onclick="startTest('UI/UX Designer')">
+            <div class="role-icon">🎨</div>
+            <h3>UI/UX Designer</h3>
+            <p>Figma • UI • UX</p>
+        </div>
+
+        <div class="role" onclick="startTest('Database Administrator')">
+            <div class="role-icon">🗃️</div>
+            <h3>Database Administrator</h3>
+            <p>SQL • DBMS • Security</p>
+        </div>
+
+    </div>
+</section>
+
+
+<!-- ================= TEST ================= -->
+
+<section id="testSection">
+
+    <div class="test-header">
+
+        <div>
+            <strong id="roleName"></strong>
+
+            <div class="progress-bar">
+                <div class="progress" id="questionProgress"></div>
+            </div>
+        </div>
+
+        <div class="timer">
+            ⏱️ <span id="timer">05:00</span>
+        </div>
+
+    </div>
+
+
+    <div class="question-card">
+
+        <div class="question-number" id="questionNumber"></div>
+
+        <div class="question" id="question"></div>
+
+        <div id="options"></div>
+
+        <div class="buttons">
+
+            <button
+                class="secondary"
+                onclick="previousQuestion()">
+                ← Previous
+            </button>
+
+            <button
+                class="primary"
+                id="nextButton"
+                onclick="nextQuestion()">
+                Next →
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= RESULT ================= -->
+
+<section id="resultSection">
+
+    <div class="result">
+
+        <h1>🎯 Preparation Result</h1>
+
+        <h2 id="resultRole"></h2>
+
+        <div class="score" id="score"></div>
+
+        <div class="status" id="status"></div>
+
+        <div class="skills">
+
+            <h3>Skill Analysis</h3>
+
+            <div id="skillAnalysis"></div>
+
+        </div>
+
+        <br>
+
+        <button
+            class="primary"
+            onclick="restart()">
+            Try Again
+        </button>
+
+    </div>
+
+</section>
+
+</div>
+
+
+<script>
+
+/* =========================================================
+   QUESTION BANK
+========================================================= */
+
+const questionBank = {
+
+"Software Developer": [
+
+{
+q:"Which data structure follows FIFO?",
+options:["Stack","Queue","Tree","Graph"],
+answer:1,
+skill:"Data Structures"
+},
+
+{
+q:"Which keyword is used to inherit a class in Java?",
+options:["this","extends","super","implements"],
+answer:1,
+skill:"OOP"
+},
+
+{
+q:"Which is an object-oriented programming concept?",
+options:["Encapsulation","Compilation","Parsing","Linking"],
+answer:0,
+skill:"OOP"
+},
+
+{
+q:"Which data structure is commonly used for recursion?",
+options:["Queue","Stack","Array","Graph"],
+answer:1,
+skill:"Data Structures"
+},
+
+{
+q:"Which language is commonly used for software development?",
+options:["Python","HTML","CSS","XML"],
+answer:0,
+skill:"Programming"
+}
+
+],
+
+
+"Web Developer":[
+
+{
+q:"What does HTML stand for?",
+options:[
+"Hyper Text Markup Language",
+"High Text Machine Language",
+"Hyperlink Text Management Language",
+"Home Tool Markup Language"
+],
+answer:0,
+skill:"HTML"
+},
+
+{
+q:"Which language is used for web page styling?",
+options:["HTML","CSS","SQL","Python"],
+answer:1,
+skill:"CSS"
+},
+
+{
+q:"Which language adds interactivity to web pages?",
+options:["CSS","HTML","JavaScript","SQL"],
+answer:2,
+skill:"JavaScript"
+},
+
+{
+q:"React is mainly used for?",
+options:[
+"Database management",
+"UI development",
+"Networking",
+"Operating systems"
+],
+answer:1,
+skill:"React"
+},
+
+{
+q:"Which HTML tag creates a hyperlink?",
+options:["<p>","<a>","<h1>","<img>"],
+answer:1,
+skill:"HTML"
+}
+
+],
+
+
+"Data Analyst":[
+
+{
+q:"Which SQL clause filters grouped data?",
+options:["WHERE","GROUP BY","HAVING","ORDER BY"],
+answer:2,
+skill:"SQL"
+},
+
+{
+q:"Which Excel feature summarizes large datasets?",
+options:["Paint","Pivot Table","Notepad","WordArt"],
+answer:1,
+skill:"Excel"
+},
+
+{
+q:"What does SQL stand for?",
+options:[
+"Structured Query Language",
+"Simple Query Language",
+"System Query Logic",
+"Structured Question Language"
+],
+answer:0,
+skill:"SQL"
+},
+
+{
+q:"Which chart is commonly used to show trends over time?",
+options:["Pie Chart","Line Chart","Table","Map"],
+answer:1,
+skill:"Data Visualization"
+},
+
+{
+q:"Power BI is mainly used for?",
+options:[
+"Video editing",
+"Data visualization and analytics",
+"Programming operating systems",
+"Email"
+],
+answer:1,
+skill:"Power BI"
+}
+
+],
+
+
+"Data Scientist":[
+
+{
+q:"Which Python library is widely used for data analysis?",
+options:["Pandas","Flask","Django","Tkinter"],
+answer:0,
+skill:"Python"
+},
+
+{
+q:"Machine Learning is a subset of?",
+options:[
+"Artificial Intelligence",
+"Networking",
+"DBMS",
+"Operating Systems"
+],
+answer:0,
+skill:"Machine Learning"
+},
+
+{
+q:"Which measure represents the middle value?",
+options:["Mean","Median","Variance","Range"],
+answer:1,
+skill:"Statistics"
+},
+
+{
+q:"Which is a supervised learning algorithm?",
+options:[
+"Linear Regression",
+"K-Means",
+"PCA",
+"Apriori"
+],
+answer:0,
+skill:"Machine Learning"
+},
+
+{
+q:"Which language is most commonly used in Data Science?",
+options:["Python","HTML","CSS","XML"],
+answer:0,
+skill:"Python"
+}
+
+],
+
+
+"Data Engineer":[
+
+{
+q:"ETL stands for?",
+options:[
+"Extract Transform Load",
+"Enter Transfer Load",
+"Extract Test Link",
+"Execute Transform Link"
+],
+answer:0,
+skill:"ETL"
+},
+
+{
+q:"Which language is widely used for querying databases?",
+options:["SQL","HTML","CSS","XML"],
+answer:0,
+skill:"SQL"
+},
+
+{
+q:"Apache Spark is mainly used for?",
+options:[
+"Image editing",
+"Distributed data processing",
+"Web design",
+"Email"
+],
+answer:1,
+skill:"Apache Spark"
+},
+
+{
+q:"Which is a cloud platform?",
+options:["AWS","HTML","CSS","Git"],
+answer:0,
+skill:"Cloud"
+},
+
+{
+q:"A data pipeline is used to?",
+options:[
+"Move and process data",
+"Design websites",
+"Create logos",
+"Edit videos"
+],
+answer:0,
+skill:"ETL"
+}
+
+],
+
+
+"AI/ML Engineer":[
+
+{
+q:"Which technique is used to train neural networks?",
+options:[
+"Backpropagation",
+"Sorting",
+"Indexing",
+"Routing"
+],
+answer:0,
+skill:"Deep Learning"
+},
+
+{
+q:"Which is an ML framework?",
+options:["TensorFlow","HTML","CSS","Git"],
+answer:0,
+skill:"TensorFlow"
+},
+
+{
+q:"Which language is commonly used for AI?",
+options:["Python","HTML","CSS","SQL"],
+answer:0,
+skill:"Python"
+},
+
+{
+q:"Deep Learning mainly uses?",
+options:[
+"Neural Networks",
+"Spreadsheets",
+"Web pages",
+"Databases"
+],
+answer:0,
+skill:"Deep Learning"
+},
+
+{
+q:"Which is a classification algorithm?",
+options:[
+"Decision Tree",
+"K-Means",
+"PCA",
+"Apriori"
+],
+answer:0,
+skill:"Machine Learning"
+}
+
+],
+
+
+"Cybersecurity Analyst":[
+
+{
+q:"What does HTTPS provide?",
+options:[
+"Secure communication",
+"Faster CPU",
+"Database storage",
+"Image compression"
+],
+answer:0,
+skill:"Cybersecurity"
+},
+
+{
+q:"Which OS is widely used in cybersecurity?",
+options:["Linux","DOS","Calculator","BIOS"],
+answer:0,
+skill:"Linux"
+},
+
+{
+q:"What does a firewall do?",
+options:[
+"Filters network traffic",
+"Creates websites",
+"Stores images",
+"Compiles code"
+],
+answer:0,
+skill:"Cybersecurity"
+},
+
+{
+q:"Which protocol is used for secure remote login?",
+options:["SSH","HTTP","FTP","SMTP"],
+answer:0,
+skill:"Networking"
+},
+
+{
+q:"Ethical hacking means?",
+options:[
+"Authorized security testing",
+"Illegal hacking",
+"Data deletion",
+"Password sharing"
+],
+answer:0,
+skill:"Ethical Hacking"
+}
+
+],
+
+
+"Cloud Engineer":[
+
+{
+q:"AWS stands for?",
+options:[
+"Amazon Web Services",
+"Advanced Web System",
+"Amazon Wide Software",
+"Application Web Services"
+],
+answer:0,
+skill:"AWS"
+},
+
+{
+q:"Which is a cloud platform?",
+options:["Azure","HTML","CSS","Git"],
+answer:0,
+skill:"Azure"
+},
+
+{
+q:"Docker is used for?",
+options:[
+"Containerization",
+"Spreadsheet analysis",
+"Graphic design",
+"Email"
+],
+answer:0,
+skill:"Docker"
+},
+
+{
+q:"Which OS is widely used in cloud servers?",
+options:["Linux","Android only","BIOS","DOS"],
+answer:0,
+skill:"Linux"
+},
+
+{
+q:"Cloud computing provides?",
+options:[
+"On-demand computing resources",
+"Only offline storage",
+"Only word processing",
+"Only graphics"
+],
+answer:0,
+skill:"Cloud Computing"
+}
+
+],
+
+
+"DevOps Engineer":[
+
+{
+q:"What does CI/CD help automate?",
+options:[
+"Software build and deployment",
+"Image editing",
+"Database design only",
+"Email"
+],
+answer:0,
+skill:"CI/CD"
+},
+
+{
+q:"Docker provides?",
+options:[
+"Containers",
+"Spreadsheets",
+"Databases",
+"Browsers"
+],
+answer:0,
+skill:"Docker"
+},
+
+{
+q:"Kubernetes is used for?",
+options:[
+"Container orchestration",
+"Graphic design",
+"Excel analysis",
+"Video editing"
+],
+answer:0,
+skill:"Kubernetes"
+},
+
+{
+q:"Git is mainly used for?",
+options:[
+"Version control",
+"Database hosting",
+"UI design",
+"Cloud storage only"
+],
+answer:0,
+skill:"Git"
+},
+
+{
+q:"Which OS is common in DevOps?",
+options:["Linux","BIOS","DOS","Calculator"],
+answer:0,
+skill:"Linux"
+}
+
+],
+
+
+"Business Analyst":[
+
+{
+q:"A Business Analyst mainly analyzes?",
+options:[
+"Business requirements",
+"Computer hardware",
+"Graphics",
+"Operating systems"
+],
+answer:0,
+skill:"Business Analysis"
+},
+
+{
+q:"Which tool is commonly used for spreadsheet analysis?",
+options:["Excel","Photoshop","Paint","Notepad"],
+answer:0,
+skill:"Excel"
+},
+
+{
+q:"Which language is used to query databases?",
+options:["SQL","HTML","CSS","XML"],
+answer:0,
+skill:"SQL"
+},
+
+{
+q:"Which skill is important for a Business Analyst?",
+options:[
+"Communication",
+"Video editing",
+"Game development",
+"Animation"
+],
+answer:0,
+skill:"Communication"
+},
+
+{
+q:"Power BI is useful for?",
+options:[
+"Business dashboards",
+"Operating systems",
+"Video editing",
+"Programming CPUs"
+],
+answer:0,
+skill:"Power BI"
+}
+
+],
+
+
+"UI/UX Designer":[
+
+{
+q:"Figma is mainly used for?",
+options:[
+"UI/UX design",
+"Database management",
+"Networking",
+"Programming"
+],
+answer:0,
+skill:"Figma"
+},
+
+{
+q:"UX stands for?",
+options:[
+"User Experience",
+"User Extension",
+"Universal XML",
+"User Execution"
+],
+answer:0,
+skill:"UX Research"
+},
+
+{
+q:"UI stands for?",
+options:[
+"User Interface",
+"Universal Internet",
+"User Information",
+"Utility Interface"
+],
+answer:0,
+skill:"UI Design"
+},
+
+{
+q:"A prototype is used to?",
+options:[
+"Represent a product design",
+"Store passwords",
+"Run servers",
+"Compile code"
+],
+answer:0,
+skill:"Prototyping"
+},
+
+{
+q:"Which is important in UX research?",
+options:[
+"Understanding users",
+"Writing SQL",
+"Configuring servers",
+"Network routing"
+],
+answer:0,
+skill:"UX Research"
+}
+
+],
+
+
+"Database Administrator":[
+
+{
+q:"Which language is used to query relational databases?",
+options:["SQL","HTML","CSS","JavaScript"],
+answer:0,
+skill:"SQL"
+},
+
+{
+q:"DBMS stands for?",
+options:[
+"Database Management System",
+"Data Backup Management Service",
+"Database Machine System",
+"Data Management Software"
+],
+answer:0,
+skill:"DBMS"
+},
+
+{
+q:"Database backup is used to?",
+options:[
+"Recover data",
+"Design websites",
+"Create graphics",
+"Send emails"
+],
+answer:0,
+skill:"Backup and Recovery"
+},
+
+{
+q:"Database security protects?",
+options:[
+"Data and database access",
+"Only images",
+"Only websites",
+"Only emails"
+],
+answer:0,
+skill:"Database Security"
+},
+
+{
+q:"Which is a relational database?",
+options:[
+"MySQL",
+"HTML",
+"CSS",
+"Git"
+],
+answer:0,
+skill:"DBMS"
+}
+
+]
+
+};
+
+
+/* =========================================================
+   VARIABLES
+========================================================= */
+
+let currentRole = "";
+let questions = [];
+let currentQuestion = 0;
+let userAnswers = [];
+let timer;
+let timeLeft = 300;
+
+
+/* =========================================================
+   START TEST
+========================================================= */
+
+function startTest(role) {
+
+    currentRole = role;
+
+    questions = questionBank[role] || [];
+
+    if (questions.length === 0) {
+        alert("Questions are not available for this role.");
+        return;
+    }
+
+    currentQuestion = 0;
+
+    userAnswers = new Array(questions.length).fill(null);
+
+    timeLeft = 300;
+
+    document.getElementById("roleSection").style.display = "none";
+
+    document.getElementById("testSection").style.display = "block";
+
+    document.getElementById("resultSection").style.display = "none";
+
+    document.getElementById("roleName").innerText =
+        "🎯 " + role;
+
+    startTimer();
+
+    showQuestion();
+}
+
+
+/* =========================================================
+   SHOW QUESTION
+========================================================= */
+
+function showQuestion() {
+
+    const q = questions[currentQuestion];
+
+    document.getElementById("questionNumber").innerText =
+        "Question " +
+        (currentQuestion + 1) +
+        " / " +
+        questions.length;
+
+    document.getElementById("question").innerText =
+        q.q;
+
+    const options =
+        document.getElementById("options");
+
+    options.innerHTML = "";
+
+    q.options.forEach((option, index) => {
+
+        const checked =
+            userAnswers[currentQuestion] === index
+            ? "checked"
+            : "";
+
+        options.innerHTML += `
+
+            <label class="option">
+
+                <input
+                    type="radio"
+                    name="answer"
+                    value="${index}"
+                    ${checked}
+                    onchange="saveAnswer(${index})"
+                >
+
+                ${option}
+
+            </label>
+        `;
+    });
+
+
+    const progress =
+        ((currentQuestion + 1) / questions.length) * 100;
+
+    document.getElementById("questionProgress")
+        .style.width = progress + "%";
+
+
+    const button =
+        document.getElementById("nextButton");
+
+    if (currentQuestion === questions.length - 1) {
+
+        button.innerText = "Finish Test ✓";
+
+    } else {
+
+        button.innerText = "Next →";
+
+    }
+}
+
+
+/* =========================================================
+   SAVE ANSWER
+========================================================= */
+
+function saveAnswer(answer) {
+
+    userAnswers[currentQuestion] =
+        Number(answer);
+}
+
+/* =========================================================
+   NEXT QUESTION
+========================================================= */
+
+function nextQuestion() {
+
+    if (userAnswers[currentQuestion] === null) {
+        alert("Please select an answer before proceeding.");
+        return;
+    }
+    if (currentQuestion < questions.length - 1) {
+        currentQuestion++;
+        showQuestion();
+    } else {
+        finishTest();
+    }
+}
+
+function previousQuestion() {
+    if (currentQuestion > 0) {
+        currentQuestion--;
+        showQuestion();
+    }
+}
+
+function startTimer() {
+    clearInterval(timer);
+    updateTimer();
+    timer = setInterval(function () {
+        timeLeft--;
+        updateTimer();
+        if (timeLeft <= 0) {
+            clearInterval(timer);
+            finishTest();
+        }
+    }, 1000);
+}
+
+function updateTimer() {
+    const minutes = Math.floor(timeLeft / 60).toString().padStart(2, "0");
+    const seconds = (timeLeft % 60).toString().padStart(2, "0");
+    const timerElement = document.getElementById("timer");
+    if (timerElement) timerElement.innerText = minutes + ":" + seconds;
+}
+
+function finishTest() {
+    clearInterval(timer);
+
+    let correct = 0;
+    const skillScores = {};
+
+    questions.forEach(function (q, index) {
+        const isCorrect = userAnswers[index] === q.answer;
+        if (isCorrect) correct++;
+
+        if (!skillScores[q.skill]) skillScores[q.skill] = { correct: 0, total: 0 };
+        skillScores[q.skill].total++;
+        if (isCorrect) skillScores[q.skill].correct++;
+    });
+
+    const percentage = Math.round((correct / questions.length) * 100);
+
+    document.getElementById("testSection").style.display = "none";
+    document.getElementById("resultSection").style.display = "block";
+    document.getElementById("resultRole").innerText = "🎯 " + currentRole;
+    document.getElementById("score").innerText = percentage + "%";
+
+    let status = "Keep Practicing 💪";
+    if (percentage >= 80) status = "Excellent! 🌟";
+    else if (percentage >= 60) status = "Good Progress 👍";
+    else if (percentage >= 40) status = "Needs Improvement 📚";
+    document.getElementById("status").innerText = status;
+
+    const analysis = document.getElementById("skillAnalysis");
+    analysis.innerHTML = "";
+    Object.keys(skillScores).forEach(function (skill) {
+        const item = skillScores[skill];
+        const percent = Math.round((item.correct / item.total) * 100);
+        const div = document.createElement("div");
+        div.className = "skill " + (percent >= 60 ? "strong" : "weak");
+        div.innerHTML = "<strong>" + skill + "</strong> — " + percent + "% (" + item.correct + "/" + item.total + ")";
+        analysis.appendChild(div);
+    });
+}
+
+function restart() {
+    clearInterval(timer);
+    document.getElementById("resultSection").style.display = "none";
+    document.getElementById("testSection").style.display = "none";
+    document.getElementById("roleSection").style.display = "block";
+    currentRole = "";
+    questions = [];
+    currentQuestion = 0;
+    userAnswers = [];
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>
+        Career Insights | CareerPilot AI
+    </title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/dashboard.css') }}">
+
+    <style>
+
+        .container {
+
+            width: 90%;
+            max-width: 1000px;
+            margin: 50px auto;
+
+        }
+
+        .header {
+
+            text-align: center;
+            margin-bottom: 40px;
+
+        }
+
+        .header h1 {
+
+            font-size: 40px;
+
+        }
+
+        .header span {
+
+            color: #00e5ff;
+
+        }
+
+        .header p {
+
+            color: #aeb3c8;
+
+        }
+
+        .hero {
+
+            text-align: center;
+
+            background: #111631;
+
+            border: 1px solid #00e5ff;
+
+            border-radius: 22px;
+
+            padding: 40px;
+
+            margin-bottom: 25px;
+
+            animation: fadeUp 0.8s ease;
+
+        }
+
+        .icon {
+
+            font-size: 65px;
+
+        }
+
+        .hero h2 {
+
+            font-size: 32px;
+
+            color: #00e5ff;
+
+            margin: 15px 0;
+
+        }
+
+        .hero p {
+
+            color: #b5b9ca;
+
+            line-height: 1.8;
+
+        }
+
+        .card {
+
+            background: #111631;
+
+            border: 1px solid #252c4d;
+
+            border-radius: 20px;
+
+            padding: 30px;
+
+            margin-bottom: 25px;
+
+            animation: fadeUp 0.8s ease;
+
+        }
+
+        .card h2 {
+
+            margin-bottom: 15px;
+
+        }
+
+        .card p {
+
+            color: #b5b9ca;
+
+            line-height: 1.8;
+
+        }
+
+        .skill-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 15px;
+
+        }
+
+        .skill {
+
+            background: #080b1a;
+
+            border: 1px solid #252c4d;
+
+            border-radius: 12px;
+
+            padding: 18px;
+
+            transition: 0.3s;
+
+        }
+
+        .skill:hover {
+
+            transform: translateY(-4px);
+
+            border-color: #00e5ff;
+
+        }
+
+        .skill span {
+
+            color: #00e5ff;
+
+            font-weight: bold;
+
+        }
+
+        .buttons {
+
+            display: flex;
+
+            justify-content: center;
+
+            gap: 15px;
+
+            flex-wrap: wrap;
+
+            margin-top: 30px;
+
+        }
+
+        .button {
+
+            padding: 14px 22px;
+
+            border-radius: 10px;
+
+            background: #00e5ff;
+
+            color: #07101c;
+
+            text-decoration: none;
+
+            font-weight: bold;
+
+        }
+
+        .secondary {
+
+            background: #252c4d;
+
+            color: white;
+
+        }
+
+        @keyframes fadeUp {
+
+            from {
+
+                opacity: 0;
+
+                transform:
+                    translateY(25px);
+
+            }
+
+            to {
+
+                opacity: 1;
+
+                transform:
+                    translateY(0);
+
+            }
+
+        }
+
+        @media(max-width:700px) {
+
+            .header h1 {
+
+                font-size: 30px;
+
+            }
+
+            .skill-grid {
+
+                grid-template-columns: 1fr;
+
+            }
+
+        }
+
+    </style>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/app-enhancements.css') }}">
+    <script src="{{ url_for('static', filename='css/app-enhancements.js') }}" defer></script>
+
+</head>
+
+
+<body>
+
+
+<nav class="navbar">
+
+    <div class="logo">
+
+        🚀 CareerPilot AI
+
+    </div>
+
+    <div class="nav-right">
+
+        <span>
+
+            👋 {{ session.get("user_name") }}
+
+        </span>
+
+        <a href="{{ url_for('logout') }}"
+           class="logout">
+
+            Logout
+
+        </a>
+
+    </div>
+
+</nav>
+
+
+<div class="container">
+
+
+    <div class="header">
+
+        <h1>
+
+            🤖 AI Career
+            <span>Insights</span>
+
+        </h1>
+
+        <p>
+
+            Personalized explanation based on
+            your assessment.
+
+        </p>
+
+    </div>
+
+
+    <!-- CAREER -->
+
+    <div class="hero">
+
+        <div class="icon">
+
+            {{ icon }}
+
+        </div>
+
+        <h2>
+
+            {{ title }}
+
+        </h2>
+
+        <p>
+
+            {{ reason }}
+
+        </p>
+
+    </div>
+
+
+    <!-- WHY -->
+
+    <div class="card">
+
+        <h2>
+
+            💡 Why This Career?
+
+        </h2>
+
+        <p>
+
+            CareerPilot AI analyzed your skills,
+            interests and career goal.
+
+            Based on your current profile,
+
+            <strong style="color:#00e5ff;">
+
+                {{ career }}
+
+            </strong>
+
+            is one of the strongest career
+            directions for you.
+
+        </p>
+
+    </div>
+
+
+    <!-- USER PROFILE -->
+
+    <div class="card">
+
+        <h2>
+
+            🧠 Your Profile
+
+        </h2>
+
+        <p>
+
+            <strong>Skills:</strong>
+
+            {{ user_skills if user_skills
+               else "Not provided" }}
+
+        </p>
+
+        <p>
+
+            <strong>Interests:</strong>
+
+            {{ interests if interests
+               else "Not provided" }}
+
+        </p>
+
+        <p>
+
+            <strong>Career Goal:</strong>
+
+            {{ career_goal if career_goal
+               else "Not provided" }}
+
+        </p>
+
+    </div>
+
+
+    <!-- REQUIRED SKILLS -->
+
+    <div class="card">
+
+        <h2>
+
+            📚 Skills You Should Develop
+
+        </h2>
+
+        <br>
+
+        <div class="skill-grid">
+
+            {% for skill in required_skills %}
+
+            <div class="skill">
+
+                🎯
+
+                <span>
+                    {{ skill }}
+                </span>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+
+    <!-- BUTTONS -->
+
+    <div class="buttons">
+
+        <a href="{{ url_for('skill_gap') }}"
+           class="button">
+
+            📊 Skill Gap
+
+        </a>
+
+        <a href="{{ url_for('roadmap') }}"
+           class="button">
+
+            🛣️ Learning Roadmap
+
+        </a>
+
+        <a href="{{ url_for('recommendation') }}"
+           class="button secondary">
+
+            ← Recommendations
+
+        </a>
+
+    </div>
+
+
+</div>
+
+
+</body>
+
+</html>

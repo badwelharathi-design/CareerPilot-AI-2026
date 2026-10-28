@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CareerPilot AI - Career Roadmap</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            color: #1f2937;
+        }
+
+        .header {
+            background: #111827;
+            color: white;
+            padding: 22px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .header span {
+            color: #60a5fa;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1100px;
+            margin: 35px auto;
+        }
+
+        .title {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .title h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .title p {
+            color: #6b7280;
+        }
+
+        /* ROLE SELECTION */
+
+        .roles {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 18px;
+        }
+
+        .role-card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: 0.3s;
+            text-align: center;
+        }
+
+        .role-card:hover {
+            transform: translateY(-5px);
+            border-color: #2563eb;
+        }
+
+        .role-icon {
+            font-size: 40px;
+            margin-bottom: 12px;
+        }
+
+        .role-card h3 {
+            margin-bottom: 8px;
+        }
+
+        .role-card p {
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+        /* ROADMAP */
+
+        #roadmapSection {
+            display: none;
+        }
+
+        .selected-role {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .selected-role h2 {
+            font-size: 30px;
+        }
+
+        .progress-container {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 35px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        .progress-bar {
+            height: 15px;
+            background: #e5e7eb;
+            border-radius: 20px;
+            overflow: hidden;
+            margin-top: 12px;
+        }
+
+        .progress {
+            width: 0%;
+            height: 100%;
+            background: #2563eb;
+            transition: 0.4s;
+        }
+
+        .progress-text {
+            text-align: right;
+            margin-top: 8px;
+            font-weight: bold;
+        }
+
+        /* ROADMAP LINE */
+
+        .roadmap {
+            position: relative;
+            max-width: 800px;
+            margin: auto;
+        }
+
+        .roadmap::before {
+            content: "";
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 5px;
+            background: #dbeafe;
+            transform: translateX(-50%);
+        }
+
+        .step {
+            position: relative;
+            width: 50%;
+            padding: 15px 35px;
+            margin-bottom: 35px;
+        }
+
+        .step:nth-child(odd) {
+            left: 0;
+            text-align: right;
+        }
+
+        .step:nth-child(even) {
+            left: 50%;
+        }
+
+        .step-card {
+            background: white;
+            padding: 22px;
+            border-radius: 16px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        .step-number {
+            position: absolute;
+            top: 25px;
+            width: 42px;
+            height: 42px;
+            background: #2563eb;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            z-index: 2;
+        }
+
+        .step:nth-child(odd) .step-number {
+            right: -21px;
+        }
+
+        .step:nth-child(even) .step-number {
+            left: -21px;
+        }
+
+        .step-card h3 {
+            margin-bottom: 8px;
+        }
+
+        .level {
+            display: inline-block;
+            margin: 8px 0;
+            padding: 5px 10px;
+            background: #eff6ff;
+            color: #2563eb;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .courses {
+            margin-top: 15px;
+            text-align: left;
+        }
+
+        .course {
+            padding: 10px;
+            background: #f9fafb;
+            margin-top: 8px;
+            border-radius: 8px;
+        }
+
+        .course label {
+            cursor: pointer;
+            display: block;
+        }
+
+        .course input {
+            margin-right: 8px;
+        }
+
+        .select-btn {
+            margin-top: 15px;
+            padding: 10px 16px;
+            border: none;
+            border-radius: 8px;
+            background: #2563eb;
+            color: white;
+            cursor: pointer;
+        }
+
+        .select-btn:hover {
+            background: #1d4ed8;
+        }
+
+        .completed {
+            border: 2px solid #16a34a;
+        }
+
+        .completed .step-number {
+            background: #16a34a;
+        }
+
+        .back-btn {
+            display: block;
+            margin: 0 auto 30px;
+            padding: 11px 20px;
+            border: none;
+            border-radius: 8px;
+            background: #374151;
+            color: white;
+            cursor: pointer;
+        }
+
+        .back-btn:hover {
+            background: #111827;
+        }
+
+        @media (max-width: 700px) {
+
+            .roadmap::before {
+                left: 20px;
+            }
+
+            .step,
+            .step:nth-child(even),
+            .step:nth-child(odd) {
+                width: 100%;
+                left: 0;
+                text-align: left;
+                padding-left: 60px;
+                padding-right: 0;
+            }
+
+            .step:nth-child(odd) .step-number,
+            .step:nth-child(even) .step-number {
+                left: -1px;
+                right: auto;
+            }
+        }
+    
+        .cp-roadmap-badge{display:inline-block;padding:8px 14px;border:1px solid rgba(103,232,249,.25);border-radius:999px;color:#67e8f9;background:rgba(103,232,249,.06);font-size:11px;letter-spacing:2px;margin-bottom:14px;box-shadow:0 0 25px rgba(103,232,249,.08);}
+    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/app-enhancements.css') }}">
+    <script src="{{ url_for('static', filename='css/app-enhancements.js') }}" defer></script>
+
+</head>
+
+<body class="roadmap-page">
+
+<header class="header">
+    <div class="logo">
+        Career<span>Pilot</span> AI
+    </div>
+
+    <div>
+        Career Roadmap
+    </div>
+</header>
+
+
+<div class="container">
+
+    <!-- ROLE SELECTION -->
+
+    <section id="roleSection">
+
+        <div class="title">
+            <div class="cp-roadmap-badge">🧭 YOUR CAREER MISSION</div>
+            <h1>🎯 Select Your Career</h1>
+            <p>Choose a career role to generate your personalized roadmap.</p>
+        </div>
+
+        <div class="roles">
+
+            <div class="role-card" onclick="selectRole('Software Developer')">
+                <div class="role-icon">💻</div>
+                <h3>Software Developer</h3>
+                <p>Programming, DSA, OOP and DBMS</p>
+            </div>
+
+            <div class="role-card" onclick="selectRole('Web Developer')">
+                <div class="role-icon">🌐</div>
+                <h3>Web Developer</h3>
+                <p>HTML, CSS, JavaScript and React</p>
+            </div>
+
+            <div class="role-card" onclick="selectRole('Data Analyst')">
+                <div class="role-icon">📊</div>
+                <h3>Data Analyst</h3>
+                <p>SQL, Excel, Statistics and Power BI</p>
+            </div>
+
+            <div class="role-card" onclick="selectRole('Data Scientist')">
+                <div class="role-icon">🔬</div>
+                <h3>Data Scientist</h3>
+                <p>Python, Statistics and Machine Learning</p>
+            </div>
+
+            <div class="role-card" onclick="selectRole('Data Engineer')">
+                <div class="role-icon">🗄️</div>
+                <h3>Data Engineer</h3>
+                <p>SQL, ETL, Cloud and Data Pipelines</p>
+            </div>
+
+            <div class="role-card" onclick="selectRole('AI/ML Engineer')">
+                <div class="role-icon">🤖</div>
+                <h3>AI/ML Engineer</h3>
+                <p>AI, Machine Learning and Deep Learning</p>
+            </div>
+
+            <div class="role-card" onclick="selectRole('Cybersecurity Analyst')">
+                <div class="role-icon">🔐</div>
+                <h3>Cybersecurity Analyst</h3>
+                <p>Security, Networking and Linux</p>
+            </div>
+
+            <div class="role-card" onclick="selectRole('Cloud Engineer')">
+                <div class="role-icon">☁️</div>
+                <h3>Cloud Engineer</h3>
+                <p>AWS, Azure, Linux and Cloud</p>
+            </div>
+
+            <div class="role-card" onclick="selectRole('DevOps Engineer')">
+                <div class="role-icon">⚙️</div>
+                <h3>DevOps Engineer</h3>
+                <p>Docker, Kubernetes and CI/CD</p>
+            </div>
+
+            <div class="role-card" onclick="selectRole('Business Analyst')">
+                <div class="role-icon">📈</div>
+                <h3>Business Analyst</h3>
+                <p>Business Analysis, SQL and Excel</p>
+            </div>
+
+            <div class="role-card" onclick="selectRole('UI/UX Designer')">
+                <div class="role-icon">🎨</div>
+                <h3>UI/UX Designer</h3>
+                <p>Figma, UI Design and UX Research</p>
+            </div>
+
+            <div class="role-card" onclick="selectRole('Database Administrator')">
+                <div class="role-icon">🗃️</div>
+                <h3>Database Administrator</h3>
+                <p>SQL, DBMS and Database Security</p>
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- ROADMAP SECTION -->
+
+    <section id="roadmapSection">
+
+        <button class="back-btn" onclick="goBack()">
+            ← Choose Another Career
+        </button>
+
+        <div class="selected-role">
+            <h2 id="roleTitle"></h2>
+            <p>Your personalized learning roadmap</p>
+        </div>
+
+        <div class="progress-container">
+
+            <strong>Roadmap Progress</strong>
+
+            <div class="progress-bar">
+                <div class="progress" id="progress"></div>
+            </div>
+
+            <div class="progress-text" id="progressText">
+                0%
+            </div>
+
+        </div>
+
+        <div class="roadmap" id="roadmap"></div>
+
+    </section>
+
+</div>
+
+
+<script>
+
+const roadmaps = {
+
+    "Software Developer": [
+        ["Programming Fundamentals", "Beginner",
+            ["Python / Java Basics", "Programming Fundamentals"]],
+
+        ["Data Structures", "Intermediate",
+            ["Arrays and Strings", "Trees and Graphs", "Algorithms"]],
+
+        ["OOP", "Intermediate",
+            ["Object Oriented Programming", "Classes and Objects"]],
+
+        ["DBMS", "Intermediate",
+            ["Database Fundamentals", "SQL"]],
+
+        ["Git & Projects", "Advanced",
+            ["Git and GitHub", "Build Software Projects"]]
+    ],
+
+    "Web Developer": [
+        ["HTML", "Beginner",
+            ["HTML Fundamentals", "Semantic HTML"]],
+
+        ["CSS", "Beginner",
+            ["CSS Fundamentals", "Responsive Design"]],
+
+        ["JavaScript", "Intermediate",
+            ["JavaScript Basics", "DOM and Events"]],
+
+        ["React", "Intermediate",
+            ["React Fundamentals", "React Projects"]],
+
+        ["Web Projects", "Advanced",
+            ["Build Full Stack Website", "Deploy Website"]]
+    ],
+
+    "Data Analyst": [
+        ["Excel", "Beginner",
+            ["Excel Fundamentals", "Advanced Excel"]],
+
+        ["SQL", "Beginner",
+            ["SQL Basics", "SQL for Data Analysis"]],
+
+        ["Statistics", "Intermediate",
+            ["Statistics Fundamentals", "Data Analysis Statistics"]],
+
+        ["Power BI", "Intermediate",
+            ["Power BI Fundamentals", "Dashboard Development"]],
+
+        ["Python", "Advanced",
+            ["Python for Data Analysis", "Pandas and NumPy"]],
+
+        ["Projects", "Advanced",
+            ["Sales Dashboard", "Customer Data Analysis"]]
+    ],
+
+    "Data Scientist": [
+        ["Python", "Beginner",
+            ["Python Fundamentals", "Python for Data Science"]],
+
+        ["Statistics", "Intermediate",
+            ["Probability", "Statistics for Data Science"]],
+
+        ["SQL", "Intermediate",
+            ["SQL Fundamentals", "Advanced SQL"]],
+
+        ["Machine Learning", "Advanced",
+            ["ML Fundamentals", "ML Algorithms"]],
+
+        ["Projects", "Advanced",
+            ["ML Prediction Project", "End-to-End Data Science Project"]]
+    ],
+
+    "Data Engineer": [
+        ["Python", "Beginner",
+            ["Python Fundamentals", "Python for Data Engineering"]],
+
+        ["SQL", "Intermediate",
+            ["SQL Fundamentals", "Advanced SQL"]],
+
+        ["ETL", "Intermediate",
+            ["ETL Fundamentals", "Data Pipelines"]],
+
+        ["Cloud", "Advanced",
+            ["AWS / Azure Fundamentals", "Cloud Data Services"]],
+
+        ["Big Data", "Advanced",
+            ["Apache Spark", "Big Data Processing"]]
+    ],
+
+    "AI/ML Engineer": [
+        ["Python", "Beginner",
+            ["Python Programming", "NumPy and Pandas"]],
+
+        ["Mathematics", "Intermediate",
+            ["Linear Algebra", "Probability"]],
+
+        ["Machine Learning", "Advanced",
+            ["ML Algorithms", "Model Training"]],
+
+        ["Deep Learning", "Advanced",
+            ["Neural Networks", "Deep Learning"]],
+
+        ["AI Projects", "Advanced",
+            ["Computer Vision Project", "AI Application"]]
+    ],
+
+    "Cybersecurity Analyst": [
+        ["Networking", "Beginner",
+            ["Networking Fundamentals", "TCP/IP"]],
+
+        ["Linux", "Intermediate",
+            ["Linux Fundamentals", "Linux Security"]],
+
+        ["Cybersecurity", "Intermediate",
+            ["Security Fundamentals", "Threat Detection"]],
+
+        ["Ethical Hacking", "Advanced",
+            ["Security Testing", "Web Security"]],
+
+        ["Security Projects", "Advanced",
+            ["Security Monitoring Project", "Security Lab"]]
+    ],
+
+    "Cloud Engineer": [
+        ["Linux", "Beginner",
+            ["Linux Fundamentals", "Linux Administration"]],
+
+        ["Networking", "Intermediate",
+            ["Networking Fundamentals", "Cloud Networking"]],
+
+        ["AWS / Azure", "Intermediate",
+            ["Cloud Fundamentals", "Cloud Services"]],
+
+        ["Docker", "Advanced",
+            ["Docker Fundamentals", "Containerization"]],
+
+        ["Cloud Projects", "Advanced",
+            ["Deploy Cloud Application", "Cloud Infrastructure Project"]]
+    ],
+
+    "DevOps Engineer": [
+        ["Linux", "Beginner",
+            ["Linux Fundamentals", "Linux Administration"]],
+
+        ["Git", "Beginner",
+            ["Git Fundamentals", "GitHub"]],
+
+        ["Docker", "Intermediate",
+            ["Docker Fundamentals", "Containers"]],
+
+        ["Kubernetes", "Advanced",
+            ["Kubernetes Fundamentals", "Container Orchestration"]],
+
+        ["CI/CD", "Advanced",
+            ["CI/CD Fundamentals", "Deployment Pipeline"]]
+    ],
+
+    "Business Analyst": [
+        ["Excel", "Beginner",
+            ["Excel Fundamentals", "Advanced Excel"]],
+
+        ["Business Analysis", "Intermediate",
+            ["Business Requirements", "Business Process Analysis"]],
+
+        ["SQL", "Intermediate",
+            ["SQL Fundamentals", "Data Queries"]],
+
+        ["Power BI", "Intermediate",
+            ["Power BI", "Business Dashboards"]],
+
+        ["Projects", "Advanced",
+            ["Business Case Study", "Business Analysis Project"]]
+    ],
+
+    "UI/UX Designer": [
+        ["Design Fundamentals", "Beginner",
+            ["Design Principles", "Color and Typography"]],
+
+        ["Figma", "Beginner",
+            ["Figma Fundamentals", "Figma Components"]],
+
+        ["UI Design", "Intermediate",
+            ["UI Design", "Design Systems"]],
+
+        ["UX Research", "Intermediate",
+            ["User Research", "User Personas"]],
+
+        ["Portfolio", "Advanced",
+            ["UX Case Study", "Design Portfolio"]]
+    ],
+
+    "Database Administrator": [
+        ["SQL", "Beginner",
+            ["SQL Fundamentals", "Advanced SQL"]],
+
+        ["DBMS", "Intermediate",
+            ["Database Fundamentals", "Database Design"]],
+
+        ["Database Administration", "Intermediate",
+            ["Database Administration", "Performance Tuning"]],
+
+        ["Backup & Recovery", "Advanced",
+            ["Database Backup", "Recovery Techniques"]],
+
+        ["Database Security", "Advanced",
+            ["Database Security", "Access Control"]]
+    ]
+};
+
+
+let currentRoadmap = [];
+let selectedCourses = 0;
+let totalCourses = 0;
+
+
+function selectRole(role) {
+
+    currentRoadmap = roadmaps[role] || [];
+    if (!currentRoadmap.length) {
+        alert("A roadmap is not available for this career yet.");
+        return;
+    }
+
+    document.getElementById("roleSection").style.display = "none";
+
+    document.getElementById("roadmapSection").style.display = "block";
+
+    document.getElementById("roleTitle").innerText =
+        "🎯 " + role + " Roadmap";
+
+    renderRoadmap();
+}
+
+
+function renderRoadmap() {
+
+    const roadmap = document.getElementById("roadmap");
+
+    roadmap.innerHTML = "";
+
+    selectedCourses = 0;
+    totalCourses = 0;
+
+    currentRoadmap.forEach((step, index) => {
+
+        const skill = step[0];
+        const level = step[1];
+        const courses = step[2];
+
+        totalCourses += courses.length;
+
+        let coursesHTML = "";
+
+        courses.forEach((course, courseIndex) => {
+
+            coursesHTML += `
+                <div class="course">
+
+                    <label>
+
+                        <input
+                            type="checkbox"
+                            onchange="updateProgress(this)"
+                        >
+
+                        ${course}
+
+                    </label>
+
+                </div>
+            `;
+        });
+
+
+        roadmap.innerHTML += `
+
+            <div class="step">
+
+                <div class="step-number">
+                    ${index + 1}
+                </div>
+
+                <div class="step-card">
+
+                    <h3>${skill}</h3>
+
+                    <span class="level">
+                        ${level}
+                    </span>
+
+                    <div class="courses">
+
+                        <strong>
+                            📚 Select Courses
+                        </strong>
+
+                        ${coursesHTML}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        `;
+
+    });
+
+    updateProgressBar();
+}
+
+
+function updateProgress(checkbox) {
+
+    if (checkbox.checked) {
+        selectedCourses++;
+    } else {
+        selectedCourses--;
+    }
+
+    updateProgressBar();
+}
+
+
+function updateProgressBar() {
+
+    let percentage = 0;
+
+    if (totalCourses > 0) {
+        percentage =
+            Math.round(
+                (selectedCourses / totalCourses) * 100
+            );
+    }
+
+    document.getElementById("progress").style.width =
+        percentage + "%";
+
+    document.getElementById("progressText").innerText =
+        percentage + "% Completed";
+
+    if (percentage === 100) {
+
+        document.getElementById("progressText").innerText =
+            "🎉 100% Completed - Career Ready!";
+    }
+}
+
+
+function goBack() {
+
+    document.getElementById("roadmapSection").style.display =
+        "none";
+
+    document.getElementById("roleSection").style.display =
+        "block";
+}
+
+</script>
+
+</body>
+</html>

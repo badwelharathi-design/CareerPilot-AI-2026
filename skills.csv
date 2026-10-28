@@ -1,0 +1,50 @@
+skill_id,skill_name,category,description
+1,Programming,Career Skill,Programming skill
+2,Data Structures,Career Skill,Data Structures skill
+3,OOP,Career Skill,OOP skill
+4,DBMS,Career Skill,DBMS skill
+5,Git,Career Skill,Git skill
+6,Problem Solving,Career Skill,Problem Solving skill
+7,HTML,Career Skill,HTML skill
+8,CSS,Career Skill,CSS skill
+9,JavaScript,Career Skill,JavaScript skill
+10,React,Career Skill,React skill
+11,Web Development,Career Skill,Web Development skill
+12,Excel,Career Skill,Excel skill
+13,SQL,Career Skill,SQL skill
+14,Statistics,Career Skill,Statistics skill
+15,Power BI,Career Skill,Power BI skill
+16,Python,Career Skill,Python skill
+17,Data Visualization,Career Skill,Data Visualization skill
+18,Machine Learning,Career Skill,Machine Learning skill
+19,Pandas,Career Skill,Pandas skill
+20,ETL,Career Skill,ETL skill
+21,Databases,Career Skill,Databases skill
+22,Cloud,Career Skill,Cloud skill
+23,Apache Spark,Career Skill,Apache Spark skill
+24,Deep Learning,Career Skill,Deep Learning skill
+25,TensorFlow,Career Skill,TensorFlow skill
+26,PyTorch,Career Skill,PyTorch skill
+27,Mathematics,Career Skill,Mathematics skill
+28,Networking,Career Skill,Networking skill
+29,Linux,Career Skill,Linux skill
+30,Cybersecurity,Career Skill,Cybersecurity skill
+31,Cryptography,Career Skill,Cryptography skill
+32,Ethical Hacking,Career Skill,Ethical Hacking skill
+33,Security Tools,Career Skill,Security Tools skill
+34,AWS,Career Skill,AWS skill
+35,Azure,Career Skill,Azure skill
+36,Docker,Career Skill,Docker skill
+37,Cloud Computing,Career Skill,Cloud Computing skill
+38,Kubernetes,Career Skill,Kubernetes skill
+39,CI/CD,Career Skill,CI/CD skill
+40,Business Analysis,Career Skill,Business Analysis skill
+41,Communication,Career Skill,Communication skill
+42,Figma,Career Skill,Figma skill
+43,UI Design,Career Skill,UI Design skill
+44,UX Research,Career Skill,UX Research skill
+45,Prototyping,Career Skill,Prototyping skill
+46,Graphic Design,Career Skill,Graphic Design skill
+47,Database Administration,Career Skill,Database Administration skill
+48,Backup and Recovery,Career Skill,Backup and Recovery skill
+49,Database Security,Career Skill,Database Security skill

@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Dashboard | CareerPilot AI</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #080b1a;
+            color: white;
+        }
+
+        /* ================= NAVBAR ================= */
+
+        .navbar {
+            height: 70px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 6%;
+            background: #0d1128;
+            border-bottom: 1px solid #252c4d;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #00e5ff;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .user-name {
+            color: #c8ccda;
+        }
+
+        .logout {
+            text-decoration: none;
+            padding: 10px 18px;
+            border-radius: 10px;
+            background: #252c4d;
+            color: white;
+            transition: 0.3s;
+        }
+
+        .logout:hover {
+            background: #00e5ff;
+            color: #07101c;
+        }
+
+        /* ================= MAIN ================= */
+
+        .dashboard-container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 45px auto;
+        }
+
+        /* ================= WELCOME ================= */
+
+        .welcome {
+            margin-bottom: 35px;
+            animation: fadeDown 0.8s ease;
+        }
+
+        .welcome h1 {
+            font-size: 42px;
+            margin: 0 0 10px;
+        }
+
+        .welcome h1 span {
+            color: #00e5ff;
+        }
+
+        .welcome p {
+            color: #aeb3c8;
+            font-size: 17px;
+        }
+
+        /* ================= CAREER CARD ================= */
+
+        .career-card {
+            background: linear-gradient(
+                135deg,
+                #111631,
+                #151b3d
+            );
+
+            border: 1px solid #252c4d;
+            border-radius: 22px;
+            padding: 30px;
+            margin-bottom: 25px;
+            animation: fadeUp 0.8s ease;
+        }
+
+        .career-card h2 {
+            margin-top: 0;
+        }
+
+        .career-name {
+            font-size: 30px;
+            color: #00e5ff;
+            font-weight: bold;
+            margin: 15px 0;
+        }
+
+        .career-description {
+            color: #aeb3c8;
+            line-height: 1.7;
+        }
+
+        .assessment-button {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 13px 20px;
+            background: #00e5ff;
+            color: #07101c;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .assessment-button:hover {
+            transform: translateY(-2px);
+        }
+
+        /* ================= PROGRESS ================= */
+
+        .progress-card {
+            background: #111631;
+            border: 1px solid #252c4d;
+            border-radius: 20px;
+            padding: 28px;
+            margin-bottom: 35px;
+            animation: fadeUp 1s ease;
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 18px;
+        }
+
+        .progress-header h2 {
+            margin: 0;
+        }
+
+        .progress-number {
+            font-size: 34px;
+            font-weight: bold;
+            color: #00e5ff;
+        }
+
+        .progress-track {
+            width: 100%;
+            height: 16px;
+            background: #252c4d;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            width: {{ progress|default(0) }}%;
+            background: #00e5ff;
+            border-radius: 20px;
+            transition: width 1.5s ease;
+        }
+
+        .progress-info {
+            color: #aeb3c8;
+            margin-top: 12px;
+        }
+
+        /* ================= SECTION TITLE ================= */
+
+        .section-title {
+            margin: 35px 0 20px;
+        }
+
+        .section-title h2 {
+            font-size: 28px;
+            margin: 0;
+        }
+
+        /* ================= CARDS ================= */
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .action-card {
+            display: block;
+
+            background: #111631;
+
+            border: 1px solid #252c4d;
+
+            border-radius: 20px;
+
+            padding: 25px;
+
+            text-decoration: none;
+
+            color: white;
+
+            min-height: 210px;
+
+            transition: 0.3s ease;
+
+            animation: fadeUp 0.8s ease;
+        }
+
+        .action-card:hover {
+            transform: translateY(-8px);
+
+            border-color: #00e5ff;
+
+            box-shadow:
+                0 12px 35px
+                rgba(0, 229, 255, 0.15);
+        }
+
+        .action-icon {
+            width: 60px;
+            height: 60px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: #080b1a;
+
+            border: 1px solid #252c4d;
+
+            border-radius: 15px;
+
+            font-size: 32px;
+
+            margin-bottom: 18px;
+        }
+
+        .action-card h3 {
+            margin: 0 0 10px;
+            font-size: 20px;
+        }
+
+        .action-card p {
+            margin: 0;
+
+            color: #aeb3c8;
+
+            font-size: 14px;
+
+            line-height: 1.6;
+        }
+
+        /* ================= ACCOUNT SUMMARY ================= */
+
+        .profile-card {
+            background: #111631;
+
+            border: 1px solid #252c4d;
+
+            border-radius: 20px;
+
+            padding: 28px;
+
+            margin-top: 40px;
+
+            animation: fadeUp 1.2s ease;
+        }
+
+        .profile-card h2 {
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+
+        .profile-row {
+            display: flex;
+
+            justify-content: space-between;
+
+            padding: 15px 0;
+
+            border-bottom: 1px solid #252c4d;
+        }
+
+        .profile-row:last-child {
+            border-bottom: none;
+        }
+
+        .profile-label {
+            color: #8e94aa;
+        }
+
+        .profile-value {
+            color: white;
+            font-weight: 500;
+        }
+
+        /* ================= FOOTER ================= */
+
+        .footer {
+            text-align: center;
+
+            padding: 40px 20px;
+
+            color: #70778f;
+
+            font-size: 14px;
+        }
+
+        /* ================= FLOATING CHATBOT ================= */
+
+        .chatbot-button {
+            position: fixed;
+
+            right: 25px;
+            bottom: 25px;
+
+            width: 65px;
+            height: 65px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 50%;
+
+            background: #00e5ff;
+
+            color: #07101c;
+
+            text-decoration: none;
+
+            font-size: 30px;
+
+            box-shadow:
+                0 8px 30px
+                rgba(0, 229, 255, 0.3);
+
+            z-index: 2000;
+
+            transition: 0.3s;
+        }
+
+        .chatbot-button:hover {
+            transform: scale(1.1);
+        }
+
+        /* ================= SIDE BUTTON ================= */
+
+        .skill-gap-side {
+            position: fixed;
+
+            left: 0;
+            top: 50%;
+
+            transform: translateY(-50%);
+
+            background: #00e5ff;
+
+            color: #07101c;
+
+            padding: 14px 10px;
+
+            border-radius: 0 12px 12px 0;
+
+            text-decoration: none;
+
+            font-weight: bold;
+
+            writing-mode: vertical-rl;
+
+            z-index: 1500;
+
+            box-shadow:
+                0 5px 25px
+                rgba(0, 229, 255, 0.25);
+
+            transition: 0.3s;
+        }
+
+        .skill-gap-side:hover {
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+
+        /* ================= ANIMATIONS ================= */
+
+        @keyframes fadeDown {
+
+            from {
+                opacity: 0;
+                transform: translateY(-25px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+        }
+
+        @keyframes fadeUp {
+
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+        }
+
+        /* ================= TABLET ================= */
+
+        @media(max-width: 1000px) {
+
+            .cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .dashboard-container {
+                width: 88%;
+            }
+
+        }
+
+        /* ================= MOBILE ================= */
+
+        @media(max-width: 650px) {
+
+            .navbar {
+                padding: 0 4%;
+            }
+
+            .logo {
+                font-size: 19px;
+            }
+
+            .user-name {
+                display: none;
+            }
+
+            .dashboard-container {
+                width: 92%;
+                margin: 30px auto;
+            }
+
+            .welcome h1 {
+                font-size: 30px;
+            }
+
+            .career-name {
+                font-size: 24px;
+            }
+
+            .cards {
+                grid-template-columns: 1fr;
+            }
+
+            .progress-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            .profile-row {
+                flex-direction: column;
+                gap: 7px;
+            }
+
+            .skill-gap-side {
+                font-size: 12px;
+                padding: 12px 8px;
+            }
+
+            .chatbot-button {
+                width: 58px;
+                height: 58px;
+                right: 18px;
+                bottom: 18px;
+            }
+
+        }
+
+    </style>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/app-enhancements.css') }}">
+    <script src="{{ url_for('static', filename='css/app-enhancements.js') }}" defer></script>
+
+</head>
+
+
+<body>
+
+
+<!-- ================= NAVBAR ================= -->
+
+<nav class="navbar">
+
+    <div class="logo">
+        🚀 CareerPilot AI
+    </div>
+
+    <div class="nav-right">
+
+        <span class="user-name">
+            👋 {{ name }}
+        </span>
+
+        <a
+            href="{{ url_for('logout') }}"
+            class="logout">
+
+            Logout
+
+        </a>
+
+    </div>
+
+</nav>
+
+
+<!-- ================= DASHBOARD ================= -->
+
+<main class="dashboard-container">
+
+
+    <!-- ================= WELCOME ================= -->
+
+    <section class="welcome">
+
+        <h1>
+
+            Welcome back,
+            <span>{{ name }}</span> 👋
+
+        </h1>
+
+        <p>
+            Your personalized career journey starts here.
+        </p>
+
+    </section>
+
+
+    <!-- ================= CAREER ================= -->
+
+    <section class="career-card">
+
+        <h2>
+            🎯 Your Recommended Career
+        </h2>
+
+        {% if career and career != "Not Assessed" %}
+
+            <div class="career-name">
+                {{ career }}
+            </div>
+
+            <p class="career-description">
+
+                CareerPilot AI has identified this
+                career as a suitable direction based
+                on your profile, interests and
+                skill development.
+
+            </p>
+
+        {% else %}
+
+            <p class="career-description">
+
+                You haven't completed your career
+                assessment yet.
+
+            </p>
+
+            <a
+                href="{{ url_for('recommendation') }}"
+                class="assessment-button">
+
+                🧠 Start Career Assessment →
+
+            </a>
+
+        {% endif %}
+
+    </section>
+
+
+    <!-- ================= PROGRESS ================= -->
+
+    <section class="progress-card">
+
+        <div class="progress-header">
+
+            <h2>
+                🚀 Career Readiness
+            </h2>
+
+            <div class="progress-number">
+                {{ progress|default(0) }}%
+            </div>
+
+        </div>
+
+        <div class="progress-track">
+
+            <div
+                class="progress-fill"
+                style="width: {{ progress|default(0) }}%;">
+            </div>
+
+        </div>
+
+        <div class="progress-info">
+
+            {{ completed_count|default(0) }}
+            of
+            {{ total_skills|default(0) }}
+            recommended skills completed.
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= FEATURES ================= -->
+
+    <section class="section-title">
+
+        <h2>
+            ⚡ CareerPilot AI Features
+        </h2>
+
+    </section>
+
+
+    <section class="cards">
+
+
+        <!-- PROFILE -->
+
+        <a
+            href="{{ url_for('profile') }}"
+            class="action-card">
+
+            <div class="action-icon">
+                👤
+            </div>
+
+            <h3>
+                My Profile
+            </h3>
+
+            <p>
+                View and manage your CareerPilot AI profile.
+            </p>
+
+        </a>
+
+
+        <!-- RECOMMENDATION -->
+
+        <a
+            href="{{ url_for('recommendation') }}"
+            class="action-card">
+
+            <div class="action-icon">
+                🎯
+            </div>
+
+            <h3>
+                Career Recommendation
+            </h3>
+
+            <p>
+                Discover careers matching your interests
+                and skills.
+            </p>
+
+        </a>
+
+
+        <!-- COURSES -->
+
+        <a
+            href="{{ url_for('courses') }}"
+            class="action-card">
+
+            <div class="action-icon">
+                📚
+            </div>
+
+            <h3>
+                Courses
+            </h3>
+
+            <p>
+                Learn the skills needed for your target career.
+            </p>
+
+        </a>
+
+
+        <!-- ROADMAP -->
+
+        <a
+            href="{{ url_for('roadmap') }}"
+            class="action-card">
+
+            <div class="action-icon">
+                🛣️
+            </div>
+
+            <h3>
+                Learning Roadmap
+            </h3>
+
+            <p>
+                Follow your step-by-step path from beginner
+                to job ready.
+            </p>
+
+        </a>
+
+
+        <!-- PROGRESS -->
+
+        <a
+            href="{{ url_for('progress') }}"
+            class="action-card">
+
+            <div class="action-icon">
+                📈
+            </div>
+
+            <h3>
+                My Progress
+            </h3>
+
+            <p>
+                Track your completed skills and career readiness.
+            </p>
+
+        </a>
+
+
+        <!-- JOBS -->
+
+        <a
+            href="{{ url_for('jobs') }}"
+            class="action-card">
+
+            <div class="action-icon">
+                💼
+            </div>
+
+            <h3>
+                Jobs & Internships
+            </h3>
+
+            <p>
+                Explore career-related job and internship opportunities.
+            </p>
+
+        </a>
+
+
+        <!-- RESUME -->
+
+        <a
+            href="{{ url_for('resume') }}"
+            class="action-card">
+
+            <div class="action-icon">
+                📄
+            </div>
+
+            <h3>
+                Resume Builder
+            </h3>
+
+            <p>
+                Build a professional career-focused resume.
+            </p>
+
+        </a>
+
+
+        <!-- MOCK INTERVIEW -->
+
+        <a
+            href="{{ url_for('interview') }}"
+            class="action-card">
+
+            <div class="action-icon">
+                🎤
+            </div>
+
+            <h3>
+                Mock Interview
+            </h3>
+
+            <p>
+                Practice interview questions for your target career.
+            </p>
+
+        </a>
+
+
+        <!-- SKILL GAP -->
+
+        <a
+            href="{{ url_for('skill_gap') }}"
+            class="action-card">
+
+            <div class="action-icon">
+                📊
+            </div>
+
+            <h3>
+                Skill Gap Analyzer
+            </h3>
+
+            <p>
+                Compare your current skills with your
+                target career requirements.
+            </p>
+
+        </a>
+
+
+        <!-- AI CAREER ASSISTANT -->
+
+        <a
+            href="{{ url_for('chatbot') }}"
+            class="action-card">
+
+            <div class="action-icon">
+                🤖
+            </div>
+
+            <h3>
+                AI Career Assistant
+            </h3>
+
+            <p>
+                Ask CareerPilot AI for personalized
+                career guidance.
+            </p>
+
+        </a>
+        <a href="{{ url_for('preparation') }}">
+    🎯 Job Preparation
+        </a>
+
+
+    </section>
+        <a href="{{ url_for('projects') }}" class="action-card">
+            <div class="action-icon">🛠️</div>
+            <h3>Project Builder Lab</h3>
+            <p>Learn how to build portfolio projects step by step for your target career.</p>
+        </a>
+
+    <a href="{{ url_for('english_coach') }}"
+   class="action-card">
+
+    <div class="action-icon">
+        🗣️
+    </div>
+
+    <h3>
+        English Communication Coach
+    </h3>
+
+    <p>
+        Learn basic English and improve
+        your communication with AI.
+    </p>
+
+</a>
+<a href="{{ url_for('resume_builder') }}"
+   class="action-card">
+
+    <div class="action-icon">
+        📄
+    </div>
+
+    <h3>
+        AI Resume Builder
+    </h3>
+
+    <p>
+        Create a professional resume
+        using CareerPilot AI.
+    </p>
+
+</a>
+
+
+    <!-- ================= ACCOUNT SUMMARY ================= -->
+
+    <section class="profile-card">
+
+        <h2>
+            👤 Account Summary
+        </h2>
+
+
+        <div class="profile-row">
+
+            <span class="profile-label">
+                Name
+            </span>
+
+            <span class="profile-value">
+                {{ name }}
+            </span>
+
+        </div>
+
+
+        <div class="profile-row">
+
+            <span class="profile-label">
+                Email
+            </span>
+
+            <span class="profile-value">
+                {{ email }}
+            </span>
+
+        </div>
+
+
+        <div class="profile-row">
+
+            <span class="profile-label">
+                Recommended Career
+            </span>
+
+            <span class="profile-value">
+                {{ career|default("Not Assessed") }}
+            </span>
+
+        </div>
+
+
+        <div class="profile-row">
+
+            <span class="profile-label">
+                Skills Completed
+            </span>
+
+            <span class="profile-value">
+
+                {{ completed_count|default(0) }}
+                /
+                {{ total_skills|default(0) }}
+
+            </span>
+
+        </div>
+
+
+        <div class="profile-row">
+
+            <span class="profile-label">
+                Career Readiness
+            </span>
+
+            <span class="profile-value">
+
+                {{ progress|default(0) }}%
+
+            </span>
+
+        </div>
+
+    </section>
+
+
+</main>
+
+<!-- ================= FLOATING CHATBOT ================= -->
+
+<a
+    href="{{ url_for('chatbot') }}"
+    class="chatbot-button"
+    title="AI Career Assistant">
+
+    🤖
+
+</a>
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer class="footer">
+
+    🚀 CareerPilot AI
+
+    <br><br>
+
+    AI-Powered Career & Skill Recommendation Platform
+
+</footer>
+
+
+</body>
+
+</html>

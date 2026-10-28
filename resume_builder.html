@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AI Resume Builder | CareerPilot AI</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #080b1a;
+            color: white;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 6%;
+            background: #0d1128;
+            border-bottom: 1px solid #252c4d;
+        }
+
+        .logo {
+            color: #00e5ff;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 10px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: white;
+            background: #252c4d;
+            padding: 9px 15px;
+            border-radius: 8px;
+        }
+
+        .container {
+            width: 92%;
+            max-width: 1000px;
+            margin: 40px auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 40px;
+        }
+
+        .header span {
+            color: #00e5ff;
+        }
+
+        .header p {
+            color: #aeb3c8;
+        }
+
+        .form-card {
+            background: #111631;
+            border: 1px solid #252c4d;
+            border-radius: 22px;
+            padding: 30px;
+            animation: fadeUp 0.7s ease;
+        }
+
+        .section {
+            margin-bottom: 30px;
+        }
+
+        .section h2 {
+            color: #00e5ff;
+            margin-bottom: 18px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 18px;
+        }
+
+        .field {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .full {
+            grid-column: 1 / -1;
+        }
+
+        label {
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        input,
+        textarea,
+        select {
+            width: 100%;
+            padding: 13px;
+            border-radius: 10px;
+            border: 1px solid #252c4d;
+            background: #080b1a;
+            color: white;
+            outline: none;
+            font-size: 15px;
+        }
+
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        input:focus,
+        textarea:focus,
+        select:focus {
+            border-color: #00e5ff;
+        }
+
+        .hint {
+            color: #858ba3;
+            font-size: 13px;
+            margin-top: 6px;
+        }
+
+        .generate-area {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .generate-button {
+            border: none;
+            padding: 15px 35px;
+            border-radius: 12px;
+            background: #00e5ff;
+            color: #07101c;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .generate-button:hover {
+            transform: translateY(-2px);
+        }
+
+        .back {
+            display: block;
+            width: fit-content;
+            margin: 25px auto;
+            padding: 12px 20px;
+            text-decoration: none;
+            color: white;
+            background: #252c4d;
+            border-radius: 10px;
+        }
+
+        .error {
+            background: #451c2a;
+            border: 1px solid #ff6b81;
+            padding: 12px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            color: #ffb5c0;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(25px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media(max-width: 700px) {
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .full {
+                grid-column: auto;
+            }
+
+            .header h1 {
+                font-size: 30px;
+            }
+
+            .navbar {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+        }
+
+    </style>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/app-enhancements.css') }}">
+    <script src="{{ url_for('static', filename='css/app-enhancements.js') }}" defer></script>
+
+</head>
+
+<body>
+
+<nav class="navbar">
+
+    <div class="logo">
+        🚀 CareerPilot AI
+    </div>
+
+    <div class="nav-links">
+
+        <a href="{{ url_for('dashboard') }}">
+            Dashboard
+        </a>
+
+        <a href="{{ url_for('logout') }}">
+            Logout
+        </a>
+
+    </div>
+
+</nav>
+
+
+<div class="container">
+
+    <div class="header">
+
+        <h1>
+            📄 AI Resume <span>Builder</span>
+        </h1>
+
+        <p>
+            Enter your details and CareerPilot AI
+            will prepare your professional resume.
+        </p>
+
+    </div>
+
+
+    <div class="form-card">
+
+        {% if error %}
+
+        <div class="error">
+            {{ error }}
+        </div>
+
+        {% endif %}
+
+
+        <form method="POST"
+              action="{{ url_for('resume_builder') }}">
+
+
+            <!-- PERSONAL DETAILS -->
+
+            <div class="section">
+
+                <h2>
+                    👤 Personal Details
+                </h2>
+
+                <div class="grid">
+
+                    <div class="field">
+
+                        <label>
+                            Full Name *
+                        </label>
+
+                        <input
+                            type="text"
+                            name="full_name"
+                            placeholder="Enter your full name"
+                            value="{{ form_data.get('full_name', '') }}"
+                            required>
+
+                    </div>
+
+
+                    <div class="field">
+
+                        <label>
+                            Email *
+                        </label>
+
+                        <input
+                            type="email"
+                            name="email"
+                            placeholder="your@email.com"
+                            value="{{ form_data.get('email', '') }}"
+                            required>
+
+                    </div>
+
+
+                    <div class="field">
+
+                        <label>
+                            Phone Number
+                        </label>
+
+                        <input
+                            type="tel"
+                            name="phone"
+                            placeholder="+91 XXXXX XXXXX"
+                            value="{{ form_data.get('phone', '') }}">
+
+                    </div>
+
+
+                    <div class="field">
+
+                        <label>
+                            Location
+                        </label>
+
+                        <input
+                            type="text"
+                            name="location"
+                            placeholder="City, State"
+                            value="{{ form_data.get('location', '') }}">
+
+                    </div>
+
+
+                    <div class="field full">
+
+                        <label>
+                            LinkedIn Profile
+                        </label>
+
+                        <input
+                            type="url"
+                            name="linkedin"
+                            placeholder="https://linkedin.com/in/yourname"
+                            value="{{ form_data.get('linkedin', '') }}">
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- CAREER OBJECTIVE -->
+
+            <div class="section">
+
+                <h2>
+                    🎯 Career Information
+                </h2>
+
+                <div class="grid">
+
+                    <div class="field">
+
+                        <label>
+                            Target Career *
+                        </label>
+
+                        <select name="career" required>
+
+                            <option value="">
+                                Select Career
+                            </option>
+
+                            <option value="Data Analyst">
+                                Data Analyst
+                            </option>
+
+                            <option value="Software Developer">
+                                Software Developer
+                            </option>
+
+                            <option value="Data Scientist">
+                                Data Scientist
+                            </option>
+
+                            <option value="AI / ML Engineer">
+                                AI / ML Engineer
+                            </option>
+
+                            <option value="Web Developer">
+                                Web Developer
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="field">
+
+                        <label>
+                            Career Level
+                        </label>
+
+                        <select name="career_level">
+
+                            <option value="Fresher">
+                                Fresher
+                            </option>
+
+                            <option value="Entry Level">
+                                Entry Level
+                            </option>
+
+                            <option value="Experienced">
+                                Experienced
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="field full">
+
+                        <label>
+                            Career Objective
+                        </label>
+
+                        <textarea
+                            name="objective"
+                            placeholder="Example: Motivated Computer Science student seeking an opportunity to apply technical and analytical skills...">{{ form_data.get('objective', '') }}</textarea>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- EDUCATION -->
+
+            <div class="section">
+
+                <h2>
+                    🎓 Education
+                </h2>
+
+                <div class="grid">
+
+                    <div class="field">
+
+                        <label>
+                            Degree
+                        </label>
+
+                        <input
+                            type="text"
+                            name="degree"
+                            placeholder="B.Tech / B.Sc / MCA"
+                            value="{{ form_data.get('degree', '') }}">
+
+                    </div>
+
+
+                    <div class="field">
+
+                        <label>
+                            Specialization
+                        </label>
+
+                        <input
+                            type="text"
+                            name="specialization"
+                            placeholder="Computer Science"
+                            value="{{ form_data.get('specialization', '') }}">
+
+                    </div>
+
+
+                    <div class="field">
+
+                        <label>
+                            College / University
+                        </label>
+
+                        <input
+                            type="text"
+                            name="college"
+                            placeholder="College name"
+                            value="{{ form_data.get('college', '') }}">
+
+                    </div>
+
+
+                    <div class="field">
+
+                        <label>
+                            Graduation Year
+                        </label>
+
+                        <input
+                            type="number"
+                            name="graduation_year"
+                            placeholder="2027"
+                            value="{{ form_data.get('graduation_year', '') }}">
+
+                    </div>
+
+
+                    <div class="field">
+
+                        <label>
+                            CGPA / Percentage
+                        </label>
+
+                        <input
+                            type="text"
+                            name="percentage"
+                            placeholder="8.5 CGPA / 85%"
+                            value="{{ form_data.get('percentage', '') }}">
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- SKILLS -->
+
+            <div class="section">
+
+                <h2>
+                    🛠️ Skills
+                </h2>
+
+                <div class="field">
+
+                    <label>
+                        Technical & Soft Skills *
+                    </label>
+
+                    <textarea
+                        name="skills"
+                        placeholder="Python, SQL, Excel, HTML, CSS, Communication, Problem Solving..."
+                        required>{{ form_data.get('skills', '') }}</textarea>
+
+                    <div class="hint">
+                        Separate skills using commas.
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- PROJECTS -->
+
+            <div class="section">
+
+                <h2>
+                    💻 Projects
+                </h2>
+
+                <div class="field">
+
+                    <label>
+                        Project Details
+                    </label>
+
+                    <textarea
+                        name="projects"
+                        placeholder="Project name, technologies used, your contribution and result...">{{ form_data.get('projects', '') }}</textarea>
+
+                    <div class="hint">
+                        Mention your important academic or personal projects.
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- EXPERIENCE -->
+
+            <div class="section">
+
+                <h2>
+                    💼 Experience / Internship
+                </h2>
+
+                <div class="field">
+
+                    <label>
+                        Experience Details
+                    </label>
+
+                    <textarea
+                        name="experience"
+                        placeholder="Company, role, duration, responsibilities and achievements...">{{ form_data.get('experience', '') }}</textarea>
+
+                </div>
+
+            </div>
+
+
+            <!-- CERTIFICATIONS -->
+
+            <div class="section">
+
+                <h2>
+                    🏆 Certifications & Achievements
+                </h2>
+
+                <div class="field">
+
+                    <label>
+                        Certifications
+                    </label>
+
+                    <textarea
+                        name="certifications"
+                        placeholder="NPTEL, Coursera, Microsoft, Google, etc.">{{ form_data.get('certifications', '') }}</textarea>
+
+                </div>
+
+            </div>
+
+
+            <!-- LANGUAGES -->
+
+            <div class="section">
+
+                <h2>
+                    🌐 Languages
+                </h2>
+
+                <div class="field">
+
+                    <label>
+                        Languages Known
+                    </label>
+
+                    <input
+                        type="text"
+                        name="languages"
+                        placeholder="English, Telugu, Hindi..."
+                        value="{{ form_data.get('languages', '') }}">
+
+                </div>
+
+            </div>
+
+
+            <div class="generate-area">
+
+                <button
+                    type="submit"
+                    class="generate-button">
+
+                    🤖 Generate My Resume
+
+                </button>
+
+            </div>
+
+
+        </form>
+
+    </div>
+
+
+    <a href="{{ url_for('dashboard') }}"
+       class="back">
+
+        ← Back to Dashboard
+
+    </a>
+
+</div>
+
+</body>
+
+</html>

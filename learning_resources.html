@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Learning Resources | CareerPilot AI</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f4f7fb;
+            color: #222;
+        }
+
+        /* Navbar */
+        .navbar {
+            background: #1e3a8a;
+            color: white;
+            padding: 18px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+            font-size: 15px;
+        }
+
+        .nav-links a:hover {
+            text-decoration: underline;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            padding: 45px 20px 30px;
+        }
+
+        .header h1 {
+            font-size: 34px;
+            color: #1e3a8a;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 17px;
+        }
+
+        /* Search */
+        .search-box {
+            max-width: 600px;
+            margin: 0 auto 30px;
+            padding: 0 20px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 15px 18px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            font-size: 16px;
+            outline: none;
+        }
+
+        .search-box input:focus {
+            border-color: #1e3a8a;
+        }
+
+        /* Filter */
+        .filter-box {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .filter-box button {
+            border: none;
+            background: white;
+            color: #1e3a8a;
+            padding: 10px 18px;
+            margin: 5px;
+            border-radius: 20px;
+            cursor: pointer;
+            border: 1px solid #1e3a8a;
+            transition: 0.3s;
+        }
+
+        .filter-box button:hover,
+        .filter-box button.active {
+            background: #1e3a8a;
+            color: white;
+        }
+
+        /* Resources */
+        .resources-container {
+            width: 90%;
+            max-width: 1200px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            padding-bottom: 50px;
+        }
+
+        .resource-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            transition: 0.3s;
+        }
+
+        .resource-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+        }
+
+        .icon {
+            font-size: 40px;
+            margin-bottom: 15px;
+        }
+
+        .resource-card h2 {
+            color: #1e3a8a;
+            margin-bottom: 10px;
+        }
+
+        .resource-card p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .skill {
+            background: #e8efff;
+            color: #1e3a8a;
+            padding: 6px 10px;
+            border-radius: 15px;
+            font-size: 13px;
+        }
+
+        .learn-btn {
+            display: inline-block;
+            background: #1e3a8a;
+            color: white;
+            text-decoration: none;
+            padding: 11px 18px;
+            border-radius: 8px;
+            transition: 0.3s;
+        }
+
+        .learn-btn:hover {
+            background: #162d6b;
+        }
+
+        /* Footer */
+        footer {
+            background: #1e3a8a;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        /* Mobile */
+        @media (max-width: 600px) {
+
+            .navbar {
+                padding: 15px 20px;
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .nav-links a {
+                margin: 0 8px;
+            }
+
+            .header h1 {
+                font-size: 28px;
+            }
+
+            .resources-container {
+                width: 92%;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/app-enhancements.css') }}">
+    <script src="{{ url_for('static', filename='css/app-enhancements.js') }}" defer></script>
+
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+
+        <div class="logo">
+            🚀 CareerPilot AI
+        </div>
+
+        <div class="nav-links">
+            <a href="{{ url_for('dashboard') }}">Dashboard</a>
+            <a href="{{ url_for('recommendation') }}">Recommendations</a>
+            <a href="{{ url_for('learning_resources') }}">Resources</a>
+        </div>
+
+    </nav>
+
+
+    <!-- Header -->
+    <section class="header">
+
+        <h1>📚 Learning Resources</h1>
+
+        <p>
+            Build the skills you need for your dream career.
+        </p>
+
+    </section>
+
+
+    <!-- Search -->
+    <div class="search-box">
+
+        <input
+            type="text"
+            id="searchInput"
+            placeholder="🔍 Search job role or skill..."
+            onkeyup="searchResources()"
+        >
+
+    </div>
+
+
+    <!-- Filters -->
+    <div class="filter-box">
+
+        <button class="active" onclick="filterResources('all', this)">
+            All
+        </button>
+
+        <button onclick="filterResources('Data Analyst', this)">
+            📊 Data Analyst
+        </button>
+
+        <button onclick="filterResources('Data Scientist', this)">
+            🤖 Data Scientist
+        </button>
+
+        <button onclick="filterResources('Software Developer', this)">
+            💻 Software Developer
+        </button>
+
+        <button onclick="filterResources('Web Developer', this)">
+            🌐 Web Developer
+        </button>
+
+        <button onclick="filterResources('Cloud Engineer', this)">
+            ☁️ Cloud Engineer
+        </button>
+
+        <button onclick="filterResources('Cybersecurity', this)">
+            🔐 Cybersecurity
+        </button>
+
+    </div>
+
+
+    <!-- Resources -->
+    <div class="resources-container" id="resources">
+
+
+        <!-- Data Analyst -->
+        <div class="resource-card" data-role="Data Analyst">
+
+            <div class="icon">📊</div>
+
+            <h2>Data Analyst</h2>
+
+            <p>
+                Learn the essential tools and skills required
+                to become a successful Data Analyst.
+            </p>
+
+            <div class="skills">
+                <span class="skill">Excel</span>
+                <span class="skill">SQL</span>
+                <span class="skill">Python</span>
+                <span class="skill">Power BI</span>
+                <span class="skill">Statistics</span>
+            </div>
+
+            <a
+                href="https://www.youtube.com/results?search_query=data+analyst+course"
+                target="_blank"
+                class="learn-btn"
+            >
+                🎥 Start Learning
+            </a>
+
+        </div>
+
+
+        <!-- Data Scientist -->
+        <div class="resource-card" data-role="Data Scientist">
+
+            <div class="icon">🤖</div>
+
+            <h2>Data Scientist</h2>
+
+            <p>
+                Learn Python, statistics and machine learning
+                for a career in Data Science.
+            </p>
+
+            <div class="skills">
+                <span class="skill">Python</span>
+                <span class="skill">Statistics</span>
+                <span class="skill">Machine Learning</span>
+                <span class="skill">Pandas</span>
+            </div>
+
+            <a
+                href="https://www.youtube.com/results?search_query=data+science+course"
+                target="_blank"
+                class="learn-btn"
+            >
+                🎥 Start Learning
+            </a>
+
+        </div>
+
+
+        <!-- Software Developer -->
+        <div class="resource-card" data-role="Software Developer">
+
+            <div class="icon">💻</div>
+
+            <h2>Software Developer</h2>
+
+            <p>
+                Build strong programming and problem-solving
+                skills for software development.
+            </p>
+
+            <div class="skills">
+                <span class="skill">Java</span>
+                <span class="skill">Python</span>
+                <span class="skill">DSA</span>
+                <span class="skill">Git</span>
+            </div>
+
+            <a
+                href="https://www.youtube.com/results?search_query=software+development+course"
+                target="_blank"
+                class="learn-btn"
+            >
+                🎥 Start Learning
+            </a>
+
+        </div>
+
+
+        <!-- Web Developer -->
+        <div class="resource-card" data-role="Web Developer">
+
+            <div class="icon">🌐</div>
+
+            <h2>Web Developer</h2>
+
+            <p>
+                Learn how to build modern and responsive
+                websites and web applications.
+            </p>
+
+            <div class="skills">
+                <span class="skill">HTML</span>
+                <span class="skill">CSS</span>
+                <span class="skill">JavaScript</span>
+                <span class="skill">React</span>
+            </div>
+
+            <a
+                href="https://www.youtube.com/results?search_query=web+development+course"
+                target="_blank"
+                class="learn-btn"
+            >
+                🎥 Start Learning
+            </a>
+
+        </div>
+
+
+        <!-- Cloud Engineer -->
+        <div class="resource-card" data-role="Cloud Engineer">
+
+            <div class="icon">☁️</div>
+
+            <h2>Cloud Engineer</h2>
+
+            <p>
+                Learn cloud computing, Linux, networking and
+                cloud platforms.
+            </p>
+
+            <div class="skills">
+                <span class="skill">AWS</span>
+                <span class="skill">Linux</span>
+                <span class="skill">Docker</span>
+                <span class="skill">Networking</span>
+            </div>
+
+            <a
+                href="https://www.youtube.com/results?search_query=cloud+computing+aws+course"
+                target="_blank"
+                class="learn-btn"
+            >
+                🎥 Start Learning
+            </a>
+
+        </div>
+
+
+        <!-- Cybersecurity -->
+        <div class="resource-card" data-role="Cybersecurity">
+
+            <div class="icon">🔐</div>
+
+            <h2>Cybersecurity Analyst</h2>
+
+            <p>
+                Learn networking, security fundamentals and
+                cybersecurity tools.
+            </p>
+
+            <div class="skills">
+                <span class="skill">Networking</span>
+                <span class="skill">Linux</span>
+                <span class="skill">Security</span>
+                <span class="skill">SIEM</span>
+            </div>
+
+            <a
+                href="https://www.youtube.com/results?search_query=cybersecurity+course+for+beginners"
+                target="_blank"
+                class="learn-btn"
+            >
+                🎥 Start Learning
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <!-- Footer -->
+    <footer>
+
+        <p>
+            © 2026 CareerPilot AI | AI-Powered Career & Skill Recommendation Platform
+        </p>
+
+    </footer>
+
+
+    <!-- JavaScript -->
+    <script>
+
+        function filterResources(role, button) {
+
+            let cards = document.querySelectorAll(".resource-card");
+
+            let buttons = document.querySelectorAll(".filter-box button");
+
+            buttons.forEach(btn => {
+                btn.classList.remove("active");
+            });
+
+            button.classList.add("active");
+
+            cards.forEach(card => {
+
+                if (role === "all") {
+                    card.style.display = "block";
+                }
+                else if (card.dataset.role === role) {
+                    card.style.display = "block";
+                }
+                else {
+                    card.style.display = "none";
+                }
+
+            });
+
+        }
+
+
+        function searchResources() {
+
+            let input =
+                document.getElementById("searchInput")
+                .value
+                .toLowerCase();
+
+            let cards =
+                document.querySelectorAll(".resource-card");
+
+            cards.forEach(card => {
+
+                let text =
+                    card.innerText.toLowerCase();
+
+                if (text.includes(input)) {
+                    card.style.display = "block";
+                }
+                else {
+                    card.style.display = "none";
+                }
+
+            });
+
+        }
+
+    </script>
+
+</body>
+</html>

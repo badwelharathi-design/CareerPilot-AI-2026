@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>
+        Interview Result | CareerPilot AI
+    </title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+
+            margin: 0;
+
+            font-family: Arial, sans-serif;
+
+            background: #080b1a;
+
+            color: white;
+
+        }
+
+        .navbar {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            padding: 18px 6%;
+
+            background: #0d1128;
+
+            border-bottom:
+                1px solid #252c4d;
+
+        }
+
+        .logo {
+
+            color: #00e5ff;
+
+            font-size: 22px;
+
+            font-weight: bold;
+
+        }
+
+        .logout {
+
+            color: white;
+
+            text-decoration: none;
+
+            background: #252c4d;
+
+            padding: 9px 16px;
+
+            border-radius: 8px;
+
+        }
+
+        .container {
+
+            width: 90%;
+
+            max-width: 850px;
+
+            margin: 50px auto;
+
+        }
+
+        .header {
+
+            text-align: center;
+
+            margin-bottom: 30px;
+
+        }
+
+        .header h1 {
+
+            font-size: 40px;
+
+        }
+
+        .header span {
+
+            color: #00e5ff;
+
+        }
+
+        .header p {
+
+            color: #aeb3c8;
+
+        }
+
+        .result-card {
+
+            background: #111631;
+
+            border: 1px solid #252c4d;
+
+            border-radius: 22px;
+
+            padding: 35px;
+
+            text-align: center;
+
+            animation: fadeUp 0.8s ease;
+
+        }
+
+        .score {
+
+            width: 170px;
+
+            height: 170px;
+
+            border-radius: 50%;
+
+            border: 8px solid #00e5ff;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            margin: 20px auto;
+
+            font-size: 42px;
+
+            font-weight: bold;
+
+            color: #00e5ff;
+
+        }
+
+        .level {
+
+            font-size: 25px;
+
+            font-weight: bold;
+
+            margin: 15px;
+
+        }
+
+        .stats {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 15px;
+
+            margin-top: 25px;
+
+        }
+
+        .stat {
+
+            background: #080b1a;
+
+            padding: 20px;
+
+            border-radius: 14px;
+
+            border: 1px solid #252c4d;
+
+        }
+
+        .stat-number {
+
+            font-size: 28px;
+
+            color: #00e5ff;
+
+            font-weight: bold;
+
+        }
+
+        .feedback {
+
+            margin-top: 25px;
+
+            padding: 20px;
+
+            background: #0d1128;
+
+            border-radius: 14px;
+
+            color: #b5b9ca;
+
+            line-height: 1.7;
+
+        }
+
+        .buttons {
+
+            display: flex;
+
+            justify-content: center;
+
+            gap: 15px;
+
+            flex-wrap: wrap;
+
+            margin-top: 30px;
+
+        }
+
+        .button {
+
+            text-decoration: none;
+
+            padding: 13px 22px;
+
+            border-radius: 10px;
+
+            background: #00e5ff;
+
+            color: #07101c;
+
+            font-weight: bold;
+
+        }
+
+        .secondary {
+
+            background: #252c4d;
+
+            color: white;
+
+        }
+
+        @keyframes fadeUp {
+
+            from {
+
+                opacity: 0;
+
+                transform: translateY(30px);
+
+            }
+
+            to {
+
+                opacity: 1;
+
+                transform: translateY(0);
+
+            }
+
+        }
+
+        @media(max-width:600px) {
+
+            .header h1 {
+
+                font-size: 30px;
+
+            }
+
+            .stats {
+
+                grid-template-columns: 1fr;
+
+            }
+
+        }
+
+    </style>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/app-enhancements.css') }}">
+    <script src="{{ url_for('static', filename='css/app-enhancements.js') }}" defer></script>
+
+
+<style>
+.cp-navbar{position:sticky;top:0;z-index:9999;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:14px 4%;background:rgba(8,11,26,.96);backdrop-filter:blur(16px);border-bottom:1px solid rgba(103,232,249,.18);box-shadow:0 8px 30px rgba(0,0,0,.22);font-family:Arial,sans-serif}
+.cp-brand{color:#67e8f9;text-decoration:none;font-size:21px;font-weight:800;white-space:nowrap}.cp-brand span{color:#a78bfa}
+.cp-nav-links{display:flex;align-items:center;justify-content:flex-end;gap:7px;flex-wrap:wrap}.cp-nav-links a{color:#dbe4ff;text-decoration:none;padding:8px 10px;border-radius:9px;font-size:12px;font-weight:700;transition:.2s}.cp-nav-links a:hover{background:rgba(103,232,249,.12);color:#67e8f9;transform:translateY(-1px)}.cp-nav-links .cp-logout{background:rgba(167,139,250,.15);color:#e9ddff}
+@media(max-width:900px){.cp-navbar{align-items:flex-start;flex-direction:column}.cp-nav-links{justify-content:flex-start;width:100%}}
+@media(max-width:600px){.cp-nav-links a{font-size:11px;padding:7px 8px}}
+</style>
+</head>
+
+
+<body>
+<nav class="cp-navbar">
+  <a class="cp-brand" href="{{ url_for('dashboard') }}">🚀 CareerPilot <span>AI</span></a>
+  <div class="cp-nav-links">
+    <a href="{{ url_for('dashboard') }}">🏠 Dashboard</a>
+    <a href="{{ url_for('assessment') }}">🎯 Assessment</a>
+    <a href="{{ url_for('skill_gap') }}">📊 Skill Gap</a>
+    <a href="{{ url_for('roadmap') }}">🛣️ Roadmap</a>
+    <a href="{{ url_for('projects') }}">🛠️ Projects</a>
+    <a href="{{ url_for('preparation') }}">⚡ Job Prep</a>
+    <a href="{{ url_for('courses') }}">📚 Courses</a>
+    <a href="{{ url_for('chatbot') }}">🤖 AI Chat</a>
+    <a href="{{ url_for('profile') }}">👤 Profile</a>
+    <a class="cp-logout" href="{{ url_for('logout') }}">Logout</a>
+  </div>
+</nav>
+
+
+
+<nav class="navbar">
+
+    <div class="logo">
+
+        🚀 CareerPilot AI
+
+    </div>
+
+    <a href="{{ url_for('logout') }}"
+       class="logout">
+
+        Logout
+
+    </a>
+
+</nav>
+
+
+<div class="container">
+
+
+    <div class="header">
+
+        <h1>
+
+            🎤 Interview
+            <span>Result</span>
+
+        </h1>
+
+        <p>
+
+            Your CareerPilot AI mock interview
+            evaluation.
+
+        </p>
+
+    </div>
+
+
+    <div class="result-card">
+
+
+        <h2>
+
+            🎯 {{ career }}
+
+        </h2>
+
+
+        <div class="score">
+
+            {{ score }}%
+
+        </div>
+
+
+        <div class="level">
+
+            {{ level }}
+
+        </div>
+
+
+        <div class="stats">
+
+            <div class="stat">
+
+                <div class="stat-number">
+
+                    {{ answered }}
+
+                </div>
+
+                <div>
+
+                    Questions Answered
+
+                </div>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div class="stat-number">
+
+                    {{ total_questions }}
+
+                </div>
+
+                <div>
+
+                    Total Questions
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="feedback">
+
+            💡 <strong>Feedback</strong>
+
+            <br><br>
+
+            {{ feedback }}
+
+        </div>
+
+
+        <div class="buttons">
+
+            <a href="{{ url_for('interview') }}"
+               class="button">
+
+                🔄 Try Again
+
+            </a>
+
+            <a href="{{ url_for('dashboard') }}"
+               class="button secondary">
+
+                ← Dashboard
+
+            </a>
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+</body>
+
+</html>

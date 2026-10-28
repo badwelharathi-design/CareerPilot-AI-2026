@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Skill Gap Analysis | CareerPilot AI</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/dashboard.css') }}">
+
+    <style>
+
+        .skill-container {
+            width: 90%;
+            max-width: 1100px;
+            margin: 50px auto;
+        }
+
+        .skill-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .skill-header h1 {
+            font-size: 38px;
+        }
+
+        .skill-header span {
+            color: #00e5ff;
+        }
+
+        .skill-header p {
+            color: #aeb3c8;
+        }
+
+        .skill-card {
+            background: #111631;
+            border: 1px solid #252c4d;
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 25px;
+        }
+
+        .skill-card h2 {
+            margin-bottom: 20px;
+        }
+
+        .skill-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .skill-item {
+            padding: 18px;
+            border-radius: 12px;
+            background: #080b1a;
+            border: 1px solid #252c4d;
+        }
+
+        .skill-item h3 {
+            margin-bottom: 8px;
+        }
+
+        .skill-item p {
+            color: #aeb3c8;
+            line-height: 1.5;
+        }
+
+        .progress {
+            height: 10px;
+            background: #252c4d;
+            border-radius: 10px;
+            margin-top: 12px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 60%;
+            background: #00e5ff;
+        }
+
+        .missing {
+            border-left: 4px solid #ffcc66;
+        }
+
+        .recommended {
+            border-left: 4px solid #00e5ff;
+        }
+
+        .button {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 13px 22px;
+            border-radius: 10px;
+            background: #00e5ff;
+            color: #07101c;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        @media (max-width: 700px) {
+
+            .skill-list {
+                grid-template-columns: 1fr;
+            }
+
+            .skill-header h1 {
+                font-size: 30px;
+            }
+        }
+
+    </style>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/app-enhancements.css') }}">
+    <script src="{{ url_for('static', filename='css/app-enhancements.js') }}" defer></script>
+
+</head>
+
+
+<body>
+
+
+<!-- ================= NAVBAR ================= -->
+
+<nav class="navbar">
+
+    <div class="logo">
+        🚀 CareerPilot AI
+    </div>
+
+    <div class="nav-right">
+
+        <span>
+            👋 {{ session.get("user_name") }}
+        </span>
+
+        <a href="{{ url_for('logout') }}"
+           class="logout">
+            Logout
+        </a>
+
+    </div>
+
+</nav>
+
+
+<!-- ================= SKILL GAP ================= -->
+
+<div class="skill-container">
+
+
+    <div class="skill-header">
+
+        <h1>
+            Skill <span>Gap Analysis</span> 📊
+        </h1>
+
+        <p>
+            Understand your current skills and identify
+            what you need to learn for your career goal.
+        </p>
+
+    </div>
+
+
+    <!-- CURRENT SKILLS -->
+
+    <div class="skill-card">
+
+        <h2>
+            💻 Your Current Skills
+        </h2>
+
+        <div class="skill-list">
+
+            <div class="skill-item">
+
+                <h3>
+                    Current Skills
+                </h3>
+
+                <p>
+                    {{ session.get("skills", "No skills provided") }}
+                </p>
+
+                <div class="progress">
+
+                    <div class="progress-bar"></div>
+
+                </div>
+
+            </div>
+
+
+            <div class="skill-item">
+
+                <h3>
+                    🎓 Education
+                </h3>
+
+                <p>
+                    {{ session.get("education", "Not provided") }}
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- SKILLS TO DEVELOP -->
+
+    <div class="skill-card">
+
+        <h2>
+            ⚠️ Skills You Should Develop
+        </h2>
+
+        <div class="skill-list">
+
+
+            <div class="skill-item missing">
+
+                <h3>
+                    🐍 Python
+                </h3>
+
+                <p>
+                    Learn Python programming for data analysis,
+                    automation and AI applications.
+                </p>
+
+            </div>
+
+
+            <div class="skill-item missing">
+
+                <h3>
+                    🗄️ SQL
+                </h3>
+
+                <p>
+                    Learn database queries, joins,
+                    filtering and data manipulation.
+                </p>
+
+            </div>
+
+
+            <div class="skill-item missing">
+
+                <h3>
+                    📊 Data Visualization
+                </h3>
+
+                <p>
+                    Learn Power BI, Tableau or Python
+                    visualization libraries.
+                </p>
+
+            </div>
+
+
+            <div class="skill-item missing">
+
+                <h3>
+                    🤖 Machine Learning Basics
+                </h3>
+
+                <p>
+                    Understand basic machine learning
+                    concepts and algorithms.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- RECOMMENDED SKILLS -->
+
+    <div class="skill-card">
+
+        <h2>
+            🚀 Recommended Learning
+        </h2>
+
+        <div class="skill-list">
+
+
+            <div class="skill-item recommended">
+
+                <h3>
+                    1️⃣ Python
+                </h3>
+
+                <p>
+                    Beginner → Intermediate
+                </p>
+
+            </div>
+
+
+            <div class="skill-item recommended">
+
+                <h3>
+                    2️⃣ SQL
+                </h3>
+
+                <p>
+                    Beginner → Intermediate
+                </p>
+
+            </div>
+
+
+            <div class="skill-item recommended">
+
+                <h3>
+                    3️⃣ Excel / Power BI
+                </h3>
+
+                <p>
+                    Data analysis and visualization
+                </p>
+
+            </div>
+
+
+            <div class="skill-item recommended">
+
+                <h3>
+                    4️⃣ Machine Learning
+                </h3>
+
+                <p>
+                    Basic concepts and projects
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <a href="{{ url_for('roadmap') }}"
+           class="button">
+
+            🛣️ Create My Learning Roadmap →
+
+        </a>
+
+    </div>
+
+
+    <div style="text-align:center;">
+
+        <a href="{{ url_for('dashboard') }}"
+           class="button">
+
+            ← Back to Dashboard
+
+        </a>
+
+    </div>
+
+
+</div>
+
+
+</body>
+
+</html>

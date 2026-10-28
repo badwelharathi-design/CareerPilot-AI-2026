@@ -1,0 +1,1689 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>English Communication Coach | CareerPilot AI</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            min-height: 100vh;
+            color: #172033;
+            overflow-x: hidden;
+
+            background:
+                radial-gradient(circle at 10% 20%, rgba(96,165,250,.20), transparent 25%),
+                radial-gradient(circle at 90% 10%, rgba(168,85,247,.18), transparent 25%),
+                linear-gradient(135deg, #eef4ff, #f8f5ff, #eefbf8);
+        }
+
+        /* ================= FLOATING BACKGROUND ================= */
+
+        .orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(2px);
+            opacity: .35;
+            pointer-events: none;
+            z-index: -1;
+            animation: floatOrb 8s ease-in-out infinite;
+        }
+
+        .orb1 {
+            width: 180px;
+            height: 180px;
+            background: #60a5fa;
+            top: 15%;
+            left: -70px;
+        }
+
+        .orb2 {
+            width: 140px;
+            height: 140px;
+            background: #a78bfa;
+            right: -50px;
+            top: 45%;
+            animation-delay: 2s;
+        }
+
+        .orb3 {
+            width: 100px;
+            height: 100px;
+            background: #34d399;
+            bottom: 10%;
+            left: 15%;
+            animation-delay: 4s;
+        }
+
+        @keyframes floatOrb {
+            0%, 100% {
+                transform: translateY(0) translateX(0);
+            }
+
+            50% {
+                transform: translateY(-30px) translateX(20px);
+            }
+        }
+
+        /* ================= HEADER ================= */
+
+        header {
+            background: rgba(17,24,39,.94);
+            backdrop-filter: blur(12px);
+            color: white;
+            padding: 18px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,.15);
+            animation: slideDown .7s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .logo span {
+            color: #60a5fa;
+        }
+
+        .back {
+            color: white;
+            text-decoration: none;
+            padding: 9px 15px;
+            border-radius: 8px;
+            transition: .3s;
+        }
+
+        .back:hover {
+            background: rgba(255,255,255,.12);
+            transform: translateX(-4px);
+        }
+
+        /* ================= MAIN ================= */
+
+        .container {
+            width: 92%;
+            max-width: 950px;
+            margin: 45px auto;
+        }
+
+        .title {
+            text-align: center;
+            animation: fadeUp .8s ease;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .coach-icon {
+            width: 85px;
+            height: 85px;
+            margin: 0 auto 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 42px;
+
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
+            box-shadow: 0 12px 30px rgba(37,99,235,.3);
+
+            animation: coachPulse 2.5s infinite;
+        }
+
+        @keyframes coachPulse {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 12px 30px rgba(37,99,235,.3);
+            }
+
+            50% {
+                transform: scale(1.07);
+                box-shadow: 0 15px 40px rgba(124,58,237,.4);
+            }
+        }
+
+        .title h1 {
+            font-size: 34px;
+            margin-bottom: 10px;
+        }
+
+        .title p {
+            color: #64748b;
+            font-size: 17px;
+        }
+
+        /* ================= CARD ================= */
+
+        .card {
+            margin-top: 30px;
+            background: rgba(255,255,255,.88);
+            backdrop-filter: blur(15px);
+            padding: 32px;
+            border-radius: 24px;
+            box-shadow: 0 20px 50px rgba(15,23,42,.12);
+            border: 1px solid rgba(255,255,255,.8);
+            animation: cardAppear 1s ease;
+        }
+
+        @keyframes cardAppear {
+            from {
+                opacity: 0;
+                transform: scale(.96) translateY(25px);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            font-size: 17px;
+            margin-bottom: 10px;
+        }
+
+        /* ================= TEXTAREA ================= */
+
+        textarea {
+            width: 100%;
+            min-height: 150px;
+            resize: vertical;
+            border: 2px solid #e2e8f0;
+            border-radius: 14px;
+            padding: 17px;
+            font-size: 17px;
+            line-height: 1.6;
+            outline: none;
+            transition: .3s;
+            background: #fff;
+        }
+
+        textarea:focus {
+            border-color: #2563eb;
+            box-shadow: 0 0 0 4px rgba(37,99,235,.10);
+            transform: translateY(-2px);
+        }
+
+        /* ================= BUTTONS ================= */
+
+        .buttons,
+        .voice-buttons,
+        .result-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .buttons {
+            margin-top: 17px;
+        }
+
+        button {
+            border: none;
+            padding: 13px 20px;
+            border-radius: 11px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: .25s;
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 18px rgba(0,0,0,.12);
+        }
+
+        button:active {
+            transform: scale(.96);
+        }
+
+        .check-btn {
+            background: linear-gradient(135deg, #2563eb, #4f46e5);
+            color: white;
+        }
+
+        .clear-btn {
+            background: #334155;
+            color: white;
+        }
+
+        /* ================= VOICE AREA ================= */
+
+        .voice-section {
+            margin-top: 22px;
+            padding: 20px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, #f8faff, #faf5ff);
+            border: 1px solid #e5e7eb;
+        }
+
+        .voice-title {
+            font-weight: bold;
+            margin-bottom: 13px;
+        }
+
+        .speak-btn {
+            background: linear-gradient(135deg, #7c3aed, #9333ea);
+            color: white;
+        }
+
+        .listen-btn {
+            background: linear-gradient(135deg, #059669, #10b981);
+            color: white;
+        }
+
+        .stop-btn {
+            background: linear-gradient(135deg, #dc2626, #ef4444);
+            color: white;
+        }
+
+        /* Microphone animation */
+
+        .mic-active {
+            animation: micPulse 1s infinite;
+        }
+
+        @keyframes micPulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(124,58,237,.7);
+            }
+
+            70% {
+                box-shadow: 0 0 0 18px rgba(124,58,237,0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(124,58,237,0);
+            }
+        }
+
+        #voiceStatus {
+            margin-top: 12px;
+            min-height: 22px;
+            color: #2563eb;
+            font-weight: bold;
+        }
+
+        /* ================= LOADING ================= */
+
+        .loading {
+            display: none;
+            text-align: center;
+            margin: 25px 0;
+            color: #2563eb;
+            font-weight: bold;
+        }
+
+        .loader {
+            display: inline-block;
+            width: 25px;
+            height: 25px;
+            border: 3px solid #dbeafe;
+            border-top-color: #2563eb;
+            border-radius: 50%;
+            animation: spin .8s linear infinite;
+            vertical-align: middle;
+            margin-right: 8px;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* ================= ERROR ================= */
+
+        .error {
+            display: none;
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 10px;
+            background: #fee2e2;
+            color: #991b1b;
+            border-left: 5px solid #dc2626;
+            animation: shake .4s ease;
+        }
+
+        @keyframes shake {
+            0%,100% {
+                transform: translateX(0);
+            }
+
+            25% {
+                transform: translateX(-6px);
+            }
+
+            75% {
+                transform: translateX(6px);
+            }
+        }
+
+        /* ================= RESULT ================= */
+
+        .result {
+            display: none;
+            margin-top: 30px;
+            animation: resultAppear .7s ease;
+        }
+
+        @keyframes resultAppear {
+            from {
+                opacity: 0;
+                transform: translateY(25px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .box {
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 15px;
+            transition: .3s;
+        }
+
+        .box:hover {
+            transform: translateX(5px);
+        }
+
+        .incorrect {
+            background: #fff1f2;
+            border-left: 5px solid #ef4444;
+        }
+
+        .correct {
+            background: #ecfdf5;
+            border-left: 5px solid #10b981;
+        }
+
+        .explanation {
+            background: #eff6ff;
+            border-left: 5px solid #3b82f6;
+        }
+
+        .box h3 {
+            margin-bottom: 10px;
+        }
+
+        .correct-text {
+            font-size: 19px;
+            font-weight: bold;
+            color: #047857;
+        }
+
+        /* ================= SCORE ================= */
+
+        .score-card {
+            text-align: center;
+            margin: 28px auto;
+        }
+
+        .score-circle {
+            width: 125px;
+            height: 125px;
+            margin: auto;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+
+            background: conic-gradient(
+                #2563eb 0deg,
+                #2563eb 0deg,
+                #e5e7eb 0deg
+            );
+
+            position: relative;
+            animation: scorePop .8s ease;
+        }
+
+        .score-circle::before {
+            content: "";
+            position: absolute;
+            width: 95px;
+            height: 95px;
+            border-radius: 50%;
+            background: white;
+        }
+
+        .score-number,
+        .score-label {
+            position: relative;
+            z-index: 1;
+        }
+
+        .score-number {
+            font-size: 30px;
+            font-weight: bold;
+            color: #2563eb;
+        }
+
+        .score-label {
+            font-size: 12px;
+            color: #64748b;
+        }
+
+        @keyframes scorePop {
+            0% {
+                transform: scale(.5);
+                opacity: 0;
+            }
+
+            70% {
+                transform: scale(1.1);
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        /* ================= EXAMPLES ================= */
+
+        .examples {
+            margin-top: 25px;
+            padding: 20px;
+            border-radius: 15px;
+            background: #f8fafc;
+        }
+
+        .examples h3 {
+            margin-bottom: 12px;
+        }
+
+        .examples li {
+            margin: 10px 0 10px 20px;
+            line-height: 1.5;
+        }
+
+        /* ================= SPEAKING ANIMATION ================= */
+
+        .sound-wave {
+            display: none;
+            justify-content: center;
+            align-items: center;
+            gap: 4px;
+            height: 35px;
+            margin-top: 12px;
+        }
+
+        .sound-wave.active {
+            display: flex;
+        }
+
+        .sound-wave span {
+            width: 5px;
+            height: 12px;
+            background: #059669;
+            border-radius: 5px;
+            animation: wave .7s ease-in-out infinite alternate;
+        }
+
+        .sound-wave span:nth-child(2) {
+            animation-delay: .1s;
+        }
+
+        .sound-wave span:nth-child(3) {
+            animation-delay: .2s;
+        }
+
+        .sound-wave span:nth-child(4) {
+            animation-delay: .3s;
+        }
+
+        .sound-wave span:nth-child(5) {
+            animation-delay: .4s;
+        }
+
+        @keyframes wave {
+            from {
+                height: 8px;
+            }
+
+            to {
+                height: 30px;
+            }
+        }
+
+        /* ================= RESPONSIVE ================= */
+
+        @media (max-width: 600px) {
+
+            header {
+                padding: 15px 5%;
+            }
+
+            .logo {
+                font-size: 20px;
+            }
+
+            .container {
+                width: 94%;
+                margin: 25px auto;
+            }
+
+            .card {
+                padding: 20px;
+            }
+
+            .title h1 {
+                font-size: 26px;
+            }
+
+            .title p {
+                font-size: 15px;
+            }
+
+            .buttons button,
+            .voice-buttons button,
+            .result-buttons button {
+                width: 100%;
+            }
+
+            textarea {
+                font-size: 16px;
+            }
+        }
+
+    </style>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/app-enhancements.css') }}">
+    <script src="{{ url_for('static', filename='css/app-enhancements.js') }}" defer></script>
+
+</head>
+
+
+<body>
+
+    <!-- Background animation -->
+
+    <div class="orb orb1"></div>
+    <div class="orb orb2"></div>
+    <div class="orb orb3"></div>
+
+
+    <!-- ================= HEADER ================= -->
+
+    <header>
+
+        <div class="logo">
+            Career<span>Pilot</span> AI
+        </div>
+
+        <a
+            href="{{ url_for('dashboard') }}"
+            class="back">
+
+            ← Dashboard
+
+        </a>
+
+    </header>
+
+
+    <!-- ================= MAIN ================= -->
+
+    <div class="container">
+
+
+        <div class="title">
+
+            <div class="coach-icon">
+                🤖
+            </div>
+
+            <h1>
+                English Communication Coach
+            </h1>
+
+            <p>
+                Speak or type a sentence and improve
+                your English communication skills.
+            </p>
+
+        </div>
+
+
+        <!-- ================= CARD ================= -->
+
+        <div class="card">
+
+
+            <label for="sentence">
+
+                ✍️ Enter your English sentence
+
+            </label>
+
+
+            <textarea
+                id="sentence"
+                placeholder="Example: He go to college every day."
+            ></textarea>
+
+
+            <!-- MAIN BUTTONS -->
+
+            <div class="buttons">
+
+                <button
+                    type="button"
+                    class="check-btn"
+                    onclick="checkSentence()">
+
+                    🔍 Check Sentence
+
+                </button>
+
+
+                <button
+                    type="button"
+                    class="clear-btn"
+                    onclick="clearSentence()">
+
+                    🗑️ Clear
+
+                </button>
+
+            </div>
+
+
+            <!-- ================= VOICE ================= -->
+
+            <div class="voice-section">
+
+                <div class="voice-title">
+
+                    🎤 Voice Communication Practice
+
+                </div>
+
+
+                <div class="voice-buttons">
+
+                    <button
+                        id="micButton"
+                        type="button"
+                        class="speak-btn"
+                        onclick="startVoice()">
+
+                        🎤 Speak
+
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="listen-btn"
+                        onclick="speakCorrection()">
+
+                        🔊 Listen
+
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="stop-btn"
+                        onclick="stopSpeaking()">
+
+                        ⏹ Stop
+
+                    </button>
+
+                </div>
+
+
+                <p id="voiceStatus"></p>
+
+
+                <div
+                    id="soundWave"
+                    class="sound-wave">
+
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+
+                </div>
+
+            </div>
+
+
+            <!-- LOADING -->
+
+            <div
+                id="loading"
+                class="loading">
+
+                <span class="loader"></span>
+
+                Checking your sentence...
+
+            </div>
+
+
+            <!-- ERROR -->
+
+            <div
+                id="error"
+                class="error">
+            </div>
+
+
+            <!-- ================= RESULT ================= -->
+
+            <div
+                id="result"
+                class="result">
+
+
+                <!-- ORIGINAL -->
+
+                <div class="box incorrect">
+
+                    <h3>
+                        ❌ Your Sentence
+                    </h3>
+
+                    <p id="original"></p>
+
+                </div>
+
+
+                <!-- CORRECT -->
+
+                <div class="box correct">
+
+                    <h3>
+                        ✅ Correct Formation
+                    </h3>
+
+
+                    <p
+                        id="correctSentence"
+                        class="correct-text">
+                    </p>
+
+
+                    <div class="result-buttons"
+                         style="margin-top:15px;">
+
+                        <button
+                            type="button"
+                            class="listen-btn"
+                            onclick="speakCorrection()">
+
+                            🔊 Listen to Correct Sentence
+
+                        </button>
+
+
+                        <button
+                            type="button"
+                            class="stop-btn"
+                            onclick="stopSpeaking()">
+
+                            ⏹ Stop
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- SPEAKER WAVE -->
+
+                <div
+                    id="resultWave"
+                    class="sound-wave">
+
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+
+                </div>
+
+
+                <!-- EXPLANATION -->
+
+                <div class="box explanation">
+
+                    <h3>
+                        💡 Why?
+                    </h3>
+
+                    <p id="explanation"></p>
+
+                </div>
+
+
+                <!-- SCORE -->
+
+                <div class="score-card">
+
+                    <div
+                        id="scoreCircle"
+                        class="score-circle">
+
+                        <span
+                            id="scoreNumber"
+                            class="score-number">
+
+                            0
+
+                        </span>
+
+                        <span class="score-label">
+                            SCORE / 10
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- EXAMPLES -->
+
+                <div class="examples">
+
+                    <h3>
+                        📚 Practice Examples
+                    </h3>
+
+                    <ul id="examples"></ul>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================= JAVASCRIPT ================= -->
+
+    <script>
+
+        let recognition = null;
+
+        let speaking = false;
+
+
+        /* =================================================
+           VOICE INPUT
+        ================================================= */
+
+        function startVoice() {
+
+            const SpeechRecognition =
+                window.SpeechRecognition ||
+                window.webkitSpeechRecognition;
+
+
+            if (!SpeechRecognition) {
+
+                showError(
+                    "Voice recognition is not supported in this browser. Please use Google Chrome."
+                );
+
+                return;
+            }
+
+
+            if (recognition) {
+
+                try {
+                    recognition.stop();
+                } catch (e) {}
+
+            }
+
+
+            recognition =
+                new SpeechRecognition();
+
+
+            recognition.lang = "en-US";
+
+            recognition.continuous = false;
+
+            recognition.interimResults = false;
+
+            recognition.maxAlternatives = 1;
+
+
+            const micButton =
+                document.getElementById("micButton");
+
+
+            micButton.classList.add(
+                "mic-active"
+            );
+
+
+            document
+                .getElementById("voiceStatus")
+                .innerText =
+                "🎤 Listening... Speak now.";
+
+
+            recognition.onresult =
+                function(event) {
+
+                    const text =
+                        event
+                            .results[0][0]
+                            .transcript;
+
+
+                    document
+                        .getElementById("sentence")
+                        .value = text;
+
+
+                    document
+                        .getElementById("voiceStatus")
+                        .innerText =
+                        "✅ Voice captured successfully.";
+
+
+                    micButton.classList.remove(
+                        "mic-active"
+                    );
+
+                };
+
+
+            recognition.onerror =
+                function(event) {
+
+                    micButton.classList.remove(
+                        "mic-active"
+                    );
+
+
+                    let message =
+                        "❌ Voice recognition error.";
+
+
+                    if (
+                        event.error ===
+                        "not-allowed"
+                    ) {
+
+                        message =
+                            "❌ Microphone permission was denied.";
+
+                    }
+
+
+                    if (
+                        event.error ===
+                        "no-speech"
+                    ) {
+
+                        message =
+                            "❌ No speech detected. Please try again.";
+
+                    }
+
+
+                    document
+                        .getElementById(
+                            "voiceStatus"
+                        )
+                        .innerText =
+                        message;
+
+                };
+
+
+            recognition.onend =
+                function() {
+
+                    micButton.classList.remove(
+                        "mic-active"
+                    );
+
+                };
+
+
+            try {
+
+                recognition.start();
+
+            } catch (error) {
+
+                console.log(error);
+
+            }
+
+        }
+
+
+        /* =================================================
+           CHECK SENTENCE
+        ================================================= */
+
+        async function checkSentence() {
+
+            const sentence =
+                document
+                    .getElementById("sentence")
+                    .value
+                    .trim();
+
+
+            if (!sentence) {
+
+                showError(
+                    "Please type or speak a sentence first."
+                );
+
+                return;
+            }
+
+
+            hideError();
+
+
+            document
+                .getElementById("result")
+                .style.display =
+                "none";
+
+
+            document
+                .getElementById("loading")
+                .style.display =
+                "block";
+
+
+            try {
+
+                const response =
+                    await fetch(
+                        "{{ url_for('check_sentence') }}",
+                        {
+                            method: "POST",
+
+                            headers: {
+                                "Content-Type":
+                                    "application/json"
+                            },
+
+                            body: JSON.stringify({
+                                sentence: sentence
+                            })
+                        }
+                    );
+
+
+                const data =
+                    await response.json();
+
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        data.error ||
+                        "Unable to check sentence."
+                    );
+
+                }
+
+
+                /* ORIGINAL */
+
+                document
+                    .getElementById("original")
+                    .innerText =
+                    data.original;
+
+
+                /* CORRECT */
+
+                document
+                    .getElementById(
+                        "correctSentence"
+                    )
+                    .innerText =
+                    data.correct;
+
+
+                /* EXPLANATION */
+
+                document
+                    .getElementById(
+                        "explanation"
+                    )
+                    .innerText =
+                    data.explanation;
+
+
+                /* EXAMPLES */
+
+                const examples =
+                    document
+                        .getElementById(
+                            "examples"
+                        );
+
+
+                examples.innerHTML = "";
+
+
+                if (
+                    data.examples &&
+                    data.examples.length
+                ) {
+
+                    data.examples.forEach(
+                        function(example) {
+
+                            const li =
+                                document
+                                    .createElement(
+                                        "li"
+                                    );
+
+
+                            li.innerText =
+                                example;
+
+
+                            examples.appendChild(
+                                li
+                            );
+
+                        }
+                    );
+
+                }
+
+
+                /* SCORE */
+
+                let score =
+                    Number(data.score);
+
+
+                if (
+                    isNaN(score)
+                ) {
+
+                    score = 0;
+
+                }
+
+
+                score =
+                    Math.max(
+                        0,
+                        Math.min(10, score)
+                    );
+
+
+                document
+                    .getElementById(
+                        "scoreNumber"
+                    )
+                    .innerText = "0";
+
+
+                document
+                    .getElementById(
+                        "scoreCircle"
+                    )
+                    .style.background =
+                    "conic-gradient(#2563eb 0deg, #e5e7eb 0deg)";
+
+
+                /* SHOW RESULT */
+
+                document
+                    .getElementById(
+                        "result"
+                    )
+                    .style.display =
+                    "block";
+
+
+                /* ANIMATE SCORE */
+
+                animateScore(score);
+
+
+            } catch (error) {
+
+                console.error(error);
+
+                showError(
+                    error.message ||
+                    "Something went wrong."
+                );
+
+            } finally {
+
+                document
+                    .getElementById(
+                        "loading"
+                    )
+                    .style.display =
+                    "none";
+
+            }
+
+        }
+
+
+        /* =================================================
+           SCORE ANIMATION
+        ================================================= */
+
+        function animateScore(target) {
+
+            let current = 0;
+
+
+            const scoreNumber =
+                document
+                    .getElementById(
+                        "scoreNumber"
+                    );
+
+
+            const scoreCircle =
+                document
+                    .getElementById(
+                        "scoreCircle"
+                    );
+
+
+            const timer =
+                setInterval(
+                    function() {
+
+                        current += 0.1;
+
+
+                        if (
+                            current >= target
+                        ) {
+
+                            current = target;
+
+                            clearInterval(
+                                timer
+                            );
+
+                        }
+
+
+                        const rounded =
+                            current.toFixed(1);
+
+
+                        scoreNumber.innerText =
+                            rounded;
+
+
+                        const degrees =
+                            (current / 10) * 360;
+
+
+                        scoreCircle.style.background =
+                            `conic-gradient(
+                                #2563eb ${degrees}deg,
+                                #e5e7eb ${degrees}deg
+                            )`;
+
+                    },
+                    25
+                );
+
+        }
+
+
+        /* =================================================
+           SPEAKER
+        ================================================= */
+
+        function speakCorrection() {
+
+            const text =
+                document
+                    .getElementById(
+                        "correctSentence"
+                    )
+                    .innerText
+                    .trim();
+
+
+            if (!text) {
+
+                showError(
+                    "Please check a sentence first."
+                );
+
+                return;
+            }
+
+
+            if (
+                !("speechSynthesis" in window)
+            ) {
+
+                showError(
+                    "Text-to-speech is not supported in this browser."
+                );
+
+                return;
+            }
+
+
+            window
+                .speechSynthesis
+                .cancel();
+
+
+            const speech =
+                new SpeechSynthesisUtterance(
+                    text
+                );
+
+
+            speech.lang = "en-US";
+
+            speech.rate = 0.8;
+
+            speech.pitch = 1;
+
+            speech.volume = 1;
+
+
+            speaking = true;
+
+
+            document
+                .getElementById(
+                    "voiceStatus"
+                )
+                .innerText =
+                "🔊 Speaking the correct sentence...";
+
+
+            document
+                .getElementById(
+                    "resultWave"
+                )
+                .classList.add(
+                    "active"
+                );
+
+
+            speech.onend =
+                function() {
+
+                    speaking = false;
+
+
+                    document
+                        .getElementById(
+                            "voiceStatus"
+                        )
+                        .innerText =
+                        "✅ Finished speaking.";
+
+
+                    document
+                        .getElementById(
+                            "resultWave"
+                        )
+                        .classList.remove(
+                            "active"
+                        );
+
+                };
+
+
+            speech.onerror =
+                function() {
+
+                    speaking = false;
+
+
+                    document
+                        .getElementById(
+                            "resultWave"
+                        )
+                        .classList.remove(
+                            "active"
+                        );
+
+
+                    document
+                        .getElementById(
+                            "voiceStatus"
+                        )
+                        .innerText =
+                        "❌ Speaker error.";
+
+                };
+
+
+            window
+                .speechSynthesis
+                .speak(speech);
+
+        }
+
+
+        /* =================================================
+           STOP SPEAKER
+        ================================================= */
+
+        function stopSpeaking() {
+
+            if (
+                "speechSynthesis" in window
+            ) {
+
+                window
+                    .speechSynthesis
+                    .cancel();
+
+            }
+
+
+            speaking = false;
+
+
+            document
+                .getElementById(
+                    "resultWave"
+                )
+                .classList.remove(
+                    "active"
+                );
+
+
+            document
+                .getElementById(
+                    "voiceStatus"
+                )
+                .innerText =
+                "⏹ Speaker stopped.";
+
+        }
+
+
+        /* =================================================
+           ERROR
+        ================================================= */
+
+        function showError(message) {
+
+            const error =
+                document
+                    .getElementById(
+                        "error"
+                    );
+
+
+            error.innerText =
+                message;
+
+
+            error.style.display =
+                "block";
+
+
+            document
+                .getElementById(
+                    "loading"
+                )
+                .style.display =
+                "none";
+
+        }
+
+
+        function hideError() {
+
+            document
+                .getElementById(
+                    "error"
+                )
+                .style.display =
+                "none";
+
+        }
+
+
+        /* =================================================
+           CLEAR
+        ================================================= */
+
+        function clearSentence() {
+
+            document
+                .getElementById(
+                    "sentence"
+                )
+                .value = "";
+
+
+            document
+                .getElementById(
+                    "result"
+                )
+                .style.display =
+                "none";
+
+
+            document
+                .getElementById(
+                    "error"
+                )
+                .style.display =
+                "none";
+
+
+            document
+                .getElementById(
+                    "voiceStatus"
+                )
+                .innerText = "";
+
+
+            document
+                .getElementById(
+                    "scoreNumber"
+                )
+                .innerText = "0";
+
+
+            stopSpeaking();
+
+        }
+
+
+        /* =================================================
+           CTRL + ENTER
+        ================================================= */
+
+        document
+            .getElementById(
+                "sentence"
+            )
+            .addEventListener(
+                "keydown",
+                function(event) {
+
+                    if (
+                        event.ctrlKey &&
+                        event.key === "Enter"
+                    ) {
+
+                        checkSentence();
+
+                    }
+
+                }
+            );
+
+    </script>
+
+</body>
+
+</html>

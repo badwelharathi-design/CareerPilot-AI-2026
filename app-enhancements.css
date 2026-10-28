@@ -1,0 +1,119 @@
+/* CareerPilot AI — Aurora Motion Design System */
+:root {
+  --cp-bg: #070a18;
+  --cp-panel: rgba(17, 22, 49, .72);
+  --cp-line: rgba(110, 231, 255, .18);
+  --cp-cyan: #67e8f9;
+  --cp-violet: #a78bfa;
+  --cp-pink: #f0abfc;
+  --cp-green: #86efac;
+  --cp-text: #f8fbff;
+  --cp-muted: #aeb7cf;
+}
+html { scroll-behavior: smooth; }
+body {
+  background:
+    radial-gradient(circle at 15% 10%, rgba(103,232,249,.12), transparent 30%),
+    radial-gradient(circle at 85% 15%, rgba(167,139,250,.13), transparent 30%),
+    radial-gradient(circle at 50% 90%, rgba(240,171,252,.08), transparent 35%),
+    var(--cp-bg) !important;
+  color: var(--cp-text);
+  overflow-x: hidden;
+}
+body::before, body::after {
+  content:""; position:fixed; width:260px; height:260px; border-radius:50%;
+  filter:blur(70px); opacity:.16; pointer-events:none; z-index:-1;
+  animation: cpDrift 13s ease-in-out infinite alternate;
+}
+body::before { background:#22d3ee; left:-100px; top:30%; }
+body::after { background:#8b5cf6; right:-100px; bottom:10%; animation-delay:-5s; }
+.navbar, nav {
+  backdrop-filter: blur(18px);
+  background: rgba(7,10,24,.72) !important;
+  border-bottom:1px solid var(--cp-line) !important;
+  box-shadow:0 10px 40px rgba(0,0,0,.18);
+}
+.logo { text-shadow:0 0 20px rgba(103,232,249,.35); }
+.dashboard-card, .card, .recommendation-card, .assessment-card, .job-card, .result, .question-card, .test-header, .progress-container, .role-card, .role, .step-card {
+  background:linear-gradient(145deg, rgba(20,27,58,.82), rgba(10,14,34,.72)) !important;
+  border:1px solid var(--cp-line) !important;
+  backdrop-filter:blur(16px);
+  box-shadow:0 18px 55px rgba(0,0,0,.22);
+}
+.dashboard-card, .card, .job-card, .role-card, .role {
+  animation: cpReveal .75s both;
+}
+.dashboard-card:hover, .card:hover, .job-card:hover, .role-card:hover, .role:hover {
+  transform:translateY(-9px) scale(1.015) !important;
+  border-color:rgba(103,232,249,.55) !important;
+  box-shadow:0 22px 65px rgba(34,211,238,.12), 0 0 0 1px rgba(167,139,250,.08);
+}
+button, .main-button, .submit-button, .apply-button {
+  background:linear-gradient(100deg, #67e8f9, #a78bfa, #f0abfc) !important;
+  background-size:200% 200% !important;
+  color:#07101c !important;
+  box-shadow:0 10px 35px rgba(103,232,249,.18);
+  animation:cpGradient 5s ease infinite;
+}
+button:hover, .main-button:hover, .submit-button:hover, .apply-button:hover {
+  transform:translateY(-3px) scale(1.02);
+  box-shadow:0 14px 40px rgba(167,139,250,.24);
+}
+input, textarea, select {
+  background:rgba(4,7,20,.72) !important;
+  border-color:rgba(103,232,249,.16) !important;
+  transition:.25s ease;
+}
+input:focus, textarea:focus, select:focus {
+  border-color:var(--cp-cyan) !important;
+  box-shadow:0 0 0 4px rgba(103,232,249,.08), 0 0 30px rgba(103,232,249,.08);
+}
+section:not(.hero) { position:relative; }
+section:not(.hero)::before {
+  content:""; position:absolute; left:50%; top:0; width:70%; height:1px; transform:translateX(-50%);
+  background:linear-gradient(90deg, transparent, rgba(103,232,249,.28), rgba(167,139,250,.28), transparent);
+}
+.recommendation-header h1 span, .header span, .career, .welcome h1 span {
+  background:linear-gradient(90deg,#67e8f9,#a78bfa,#f0abfc);
+  -webkit-background-clip:text; background-clip:text; color:transparent !important;
+}
+.field-hint { display:block; color:#8f9ab5; margin-top:9px; line-height:1.5; }
+.target-career-group select { box-shadow:inset 0 0 35px rgba(103,232,249,.025); }
+@keyframes cpReveal { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
+@keyframes cpGradient { 0%,100%{background-position:0% 50%} 50%{background-position:100% 50%} }
+@keyframes cpDrift { from{transform:translate(0,-20px) scale(1)} to{transform:translate(80px,30px) scale(1.18)} }
+@media (prefers-reduced-motion: reduce) { *,*::before,*::after{animation:none !important;transition:none !important;scroll-behavior:auto !important;} }
+
+/* Premium roadmap */
+.roadmap-page { max-width:1180px !important; }
+.roadmap-page .title h1, .roadmap-page .selected-role h2 {
+  background:linear-gradient(90deg,#67e8f9,#a78bfa,#f0abfc); -webkit-background-clip:text; color:transparent !important;
+}
+.roadmap-page .roadmap::before {
+  width:6px !important; background:linear-gradient(#67e8f9,#a78bfa,#f0abfc) !important;
+  box-shadow:0 0 24px rgba(103,232,249,.28);
+}
+.roadmap-page .step-number {
+  background:linear-gradient(135deg,#67e8f9,#8b5cf6) !important;
+  box-shadow:0 0 0 6px rgba(7,10,24,.95),0 0 28px rgba(103,232,249,.3);
+}
+.roadmap-page .step-card { position:relative; overflow:hidden; }
+.roadmap-page .step-card::after {
+  content:""; position:absolute; inset:auto -30px -45px auto; width:110px; height:110px; border-radius:50%;
+  background:radial-gradient(circle,rgba(103,232,249,.18),transparent 70%);
+}
+.roadmap-page .progress { background:#11182f !important; }
+.roadmap-page .progress-bar { background:linear-gradient(90deg,#67e8f9,#8b5cf6,#f0abfc) !important; box-shadow:0 0 18px rgba(103,232,249,.35); }
+
+/* Job preparation arena */
+.prep-page .test-header { border-radius:24px !important; }
+.prep-page .timer { color:#fda4af !important; text-shadow:0 0 18px rgba(251,113,133,.3); }
+.prep-page .question-card { border-radius:26px !important; position:relative; overflow:hidden; }
+.prep-page .question-card::before {
+  content:"MISSION MODE"; position:absolute; top:18px; right:20px; padding:7px 11px; border-radius:999px;
+  font-size:10px; letter-spacing:2px; color:#67e8f9; background:rgba(103,232,249,.07); border:1px solid rgba(103,232,249,.16);
+}
+.prep-page .option { background:rgba(9,14,32,.72) !important; border-color:rgba(103,232,249,.12) !important; transition:.22s; }
+.prep-page .option:hover { transform:translateX(5px); border-color:rgba(103,232,249,.45) !important; background:rgba(103,232,249,.06) !important; }
+.prep-page .progress { background:#10162c !important; }
+.prep-page .progress > div { background:linear-gradient(90deg,#67e8f9,#a78bfa) !important; box-shadow:0 0 18px rgba(167,139,250,.3); }

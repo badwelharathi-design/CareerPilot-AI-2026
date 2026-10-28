@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Student Profile | CareerPilot AI</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/profile.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/app-enhancements.css') }}">
+    <script src="{{ url_for('static', filename='css/app-enhancements.js') }}" defer></script>
+
+</head>
+
+<body>
+
+    <div class="profile-page">
+
+        <div class="profile-card">
+
+            <div class="profile-icon">👤</div>
+
+            <h1>Student Profile</h1>
+            {% if saved %}<p style="color:green;font-weight:bold;">Profile saved successfully ✅</p>{% endif %}
+            {% if error %}<p style="color:red;font-weight:bold;">{{ error }}</p>{% endif %}
+
+            <p>Tell CareerPilot AI about yourself</p>
+
+            <form method="POST" action="{{ url_for('profile') }}">
+
+                <label>Full Name</label>
+                <input
+                    type="text"
+                    name="full_name"
+                    value="{{ profile.get('name', name or '') }}"
+                    placeholder="Enter your name"
+                    required
+                >
+
+                <label>Education</label>
+                <select name="education" required>
+                    <option value="">Select Education</option>
+                    <option value="B.Tech" {% if profile.get('education') == 'B.Tech' %}selected{% endif %}>B.Tech</option>
+                    <option>B.Sc</option>
+                    <option>BCA</option>
+                    <option>MCA</option>
+                    <option>M.Tech</option>
+                    <option>Other</option>
+                </select>
+
+                <label>Branch</label>
+                <select name="branch" required>
+                    <option value="">Select Branch</option>
+                    <option value="CSE" {% if profile.get('branch') == 'CSE' %}selected{% endif %}>CSE</option>
+                    <option>IT</option>
+                    <option>ECE</option>
+                    <option>EEE</option>
+                    <option>Mechanical</option>
+                    <option>Civil</option>
+                    <option>Other</option>
+                </select>
+
+                <label>Year of Study</label>
+                <select name="year_of_study" required>
+                    <option value="">Select Year</option>
+                    <option>1st Year</option>
+                    <option>2nd Year</option>
+                    <option value="3rd Year" {% if profile.get('year_of_study') == '3rd Year' %}selected{% endif %}>3rd Year</option>
+                    <option>4th Year</option>
+                </select>
+
+                <label>Career Interest</label>
+                <select name="career_interest" required>
+                    <option value="">Select Interest</option>
+                    <option>Software Development</option>
+                    <option value="Data Science" {% if profile.get('career_interest') == 'Data Science' %}selected{% endif %}>Data Science</option>
+                    <option>Artificial Intelligence</option>
+                    <option>Cyber Security</option>
+                    <option>Cloud Computing</option>
+                    <option>Web Development</option>
+                    <option>Not Sure</option>
+                </select>
+
+                <label>Programming Skills</label>
+
+                <div class="skills">
+
+                    <label>
+                        <input type="checkbox" name="programming_skills" value="Python" {% if 'Python' in profile.get('programming_skills', '') %}checked{% endif %}>
+                        Python
+                    </label>
+
+                    <label>
+                        <input type="checkbox" name="programming_skills" value="Java" {% if 'Java' in profile.get('programming_skills', '') %}checked{% endif %}>
+                        Java
+                    </label>
+
+                    <label>
+                        <input type="checkbox" name="programming_skills" value="C" {% if 'C' in profile.get('programming_skills', '') %}checked{% endif %}>
+                        C
+                    </label>
+
+                    <label>
+                        <input type="checkbox" name="programming_skills" value="SQL" {% if 'SQL' in profile.get('programming_skills', '') %}checked{% endif %}>
+                        SQL
+                    </label>
+
+                    <label>
+                        <input type="checkbox" name="programming_skills" value="JavaScript" {% if 'JavaScript' in profile.get('programming_skills', '') %}checked{% endif %}>
+                        JavaScript
+                    </label>
+
+                </div>
+
+                <label>About You</label>
+
+                <textarea name="about" placeholder="Tell us about your interests, strengths and goals..." rows="5">{{ profile.get('about', '') }}</textarea>
+
+                <button type="submit">
+                    Save Profile 🚀
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>
+        Career Recommendation | CareerPilot AI
+    </title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/dashboard.css') }}">
+
+    <style>
+
+        /* =========================
+           PAGE
+        ========================= */
+
+        .recommendation-container {
+
+            width: 90%;
+            max-width: 1100px;
+
+            margin: 50px auto;
+
+        }
+
+
+        /* =========================
+           HEADER
+        ========================= */
+
+        .recommendation-header {
+
+            text-align: center;
+
+            margin-bottom: 40px;
+
+            animation: fadeDown 0.8s ease;
+
+        }
+
+        .recommendation-header h1 {
+
+            font-size: 40px;
+
+            margin-bottom: 12px;
+
+        }
+
+        .recommendation-header span {
+
+            color: #00e5ff;
+
+        }
+
+        .recommendation-header p {
+
+            color: #aeb3c8;
+
+            font-size: 16px;
+
+        }
+
+
+        /* =========================
+           CARD
+        ========================= */
+
+        .recommendation-card {
+
+            background: #111631;
+
+            border: 1px solid #252c4d;
+
+            border-radius: 20px;
+
+            padding: 30px;
+
+            margin-bottom: 25px;
+
+            animation: fadeUp 0.8s ease;
+
+        }
+
+        .recommendation-card h2 {
+
+            margin-bottom: 10px;
+
+        }
+
+
+        /* =========================
+           TOP CAREER
+        ========================= */
+
+        .top-career {
+
+            text-align: center;
+
+            padding: 35px;
+
+            border: 1px solid #00e5ff;
+
+            border-radius: 20px;
+
+            background: #0d1229;
+
+            margin-bottom: 25px;
+
+        }
+
+        .top-career-icon {
+
+            font-size: 55px;
+
+            margin-bottom: 15px;
+
+        }
+
+        .top-career h2 {
+
+            font-size: 30px;
+
+            color: #00e5ff;
+
+            margin-bottom: 12px;
+
+        }
+
+        .match-score {
+
+            font-size: 45px;
+
+            font-weight: bold;
+
+            color: #00e5ff;
+
+            margin: 15px 0;
+
+        }
+
+        .match-text {
+
+            color: #aeb3c8;
+
+        }
+
+
+        /* =========================
+           PROGRESS
+        ========================= */
+
+        .progress {
+
+            width: 100%;
+
+            height: 12px;
+
+            background: #252c4d;
+
+            border-radius: 20px;
+
+            overflow: hidden;
+
+            margin-top: 15px;
+
+        }
+
+        .progress-bar {
+
+            height: 100%;
+
+            width: 0;
+
+            background: #00e5ff;
+
+            border-radius: 20px;
+
+            animation: progressAnimation 1.5s ease forwards;
+
+        }
+
+
+        /* =========================
+           CAREER LIST
+        ========================= */
+
+        .career-item {
+
+            background: #080b1a;
+
+            border: 1px solid #252c4d;
+
+            border-radius: 15px;
+
+            padding: 20px;
+
+            margin-bottom: 15px;
+
+            transition: 0.3s;
+
+        }
+
+        .career-item:hover {
+
+            transform: translateY(-4px);
+
+            border-color: #00e5ff;
+
+        }
+
+        .career-top {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            gap: 15px;
+
+        }
+
+        .career-name {
+
+            font-size: 20px;
+
+            font-weight: bold;
+
+        }
+
+        .percentage {
+
+            color: #00e5ff;
+
+            font-weight: bold;
+
+            font-size: 18px;
+
+        }
+
+
+        /* =========================
+           USER INFORMATION
+        ========================= */
+
+        .info-grid {
+
+            display: grid;
+
+            grid-template-columns:
+
+                repeat(3, 1fr);
+
+            gap: 20px;
+
+        }
+
+        .info-box {
+
+            background: #080b1a;
+
+            border: 1px solid #252c4d;
+
+            border-radius: 15px;
+
+            padding: 20px;
+
+        }
+
+        .info-box h3 {
+
+            color: #00e5ff;
+
+            margin-bottom: 10px;
+
+        }
+
+        .info-box p {
+
+            color: #b5b9ca;
+
+            line-height: 1.6;
+
+            word-break: break-word;
+
+        }
+
+
+        /* =========================
+           BUTTONS
+        ========================= */
+
+        .button-row {
+
+            display: flex;
+
+            justify-content: center;
+
+            gap: 15px;
+
+            flex-wrap: wrap;
+
+            margin-top: 30px;
+
+        }
+
+        .action-button {
+
+            display: inline-block;
+
+            text-decoration: none;
+
+            padding: 14px 22px;
+
+            border-radius: 10px;
+
+            background: #00e5ff;
+
+            color: #07101c;
+
+            font-weight: bold;
+
+            transition: 0.3s;
+
+        }
+
+        .action-button:hover {
+
+            transform: translateY(-3px);
+
+            box-shadow:
+                0 10px 25px
+                rgba(0, 229, 255, 0.2);
+
+        }
+
+        .secondary-button {
+
+            background: #252c4d;
+
+            color: white;
+
+        }
+
+
+        /* =========================
+           ANIMATIONS
+        ========================= */
+
+        @keyframes fadeDown {
+
+            from {
+
+                opacity: 0;
+
+                transform:
+                    translateY(-25px);
+
+            }
+
+            to {
+
+                opacity: 1;
+
+                transform:
+                    translateY(0);
+
+            }
+
+        }
+
+
+        @keyframes fadeUp {
+
+            from {
+
+                opacity: 0;
+
+                transform:
+                    translateY(30px);
+
+            }
+
+            to {
+
+                opacity: 1;
+
+                transform:
+                    translateY(0);
+
+            }
+
+        }
+
+
+        @keyframes progressAnimation {
+
+            from {
+
+                width: 0;
+
+            }
+
+            to {
+
+                width: var(--progress);
+
+            }
+
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 800px) {
+
+            .recommendation-header h1 {
+
+                font-size: 30px;
+
+            }
+
+            .info-grid {
+
+                grid-template-columns: 1fr;
+
+            }
+
+            .career-top {
+
+                padding: 25px;
+
+            }
+
+            .match-score {
+
+                font-size: 38px;
+
+            }
+
+        }
+
+    </style>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/app-enhancements.css') }}">
+    <script src="{{ url_for('static', filename='css/app-enhancements.js') }}" defer></script>
+
+
+<style>
+.cp-navbar{position:sticky;top:0;z-index:9999;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:14px 4%;background:rgba(8,11,26,.96);backdrop-filter:blur(16px);border-bottom:1px solid rgba(103,232,249,.18);box-shadow:0 8px 30px rgba(0,0,0,.22);font-family:Arial,sans-serif}
+.cp-brand{color:#67e8f9;text-decoration:none;font-size:21px;font-weight:800;white-space:nowrap}.cp-brand span{color:#a78bfa}
+.cp-nav-links{display:flex;align-items:center;justify-content:flex-end;gap:7px;flex-wrap:wrap}.cp-nav-links a{color:#dbe4ff;text-decoration:none;padding:8px 10px;border-radius:9px;font-size:12px;font-weight:700;transition:.2s}.cp-nav-links a:hover{background:rgba(103,232,249,.12);color:#67e8f9;transform:translateY(-1px)}.cp-nav-links .cp-logout{background:rgba(167,139,250,.15);color:#e9ddff}
+@media(max-width:900px){.cp-navbar{align-items:flex-start;flex-direction:column}.cp-nav-links{justify-content:flex-start;width:100%}}
+@media(max-width:600px){.cp-nav-links a{font-size:11px;padding:7px 8px}}
+</style>
+</head>
+
+
+<body>
+<nav class="cp-navbar">
+  <a class="cp-brand" href="{{ url_for('dashboard') }}">🚀 CareerPilot <span>AI</span></a>
+  <div class="cp-nav-links">
+    <a href="{{ url_for('dashboard') }}">🏠 Dashboard</a>
+    <a href="{{ url_for('assessment') }}">🎯 Assessment</a>
+    <a href="{{ url_for('skill_gap') }}">📊 Skill Gap</a>
+    <a href="{{ url_for('roadmap') }}">🛣️ Roadmap</a>
+    <a href="{{ url_for('projects') }}">🛠️ Projects</a>
+    <a href="{{ url_for('preparation') }}">⚡ Job Prep</a>
+    <a href="{{ url_for('courses') }}">📚 Courses</a>
+    <a href="{{ url_for('chatbot') }}">🤖 AI Chat</a>
+    <a href="{{ url_for('profile') }}">👤 Profile</a>
+    <a class="cp-logout" href="{{ url_for('logout') }}">Logout</a>
+  </div>
+</nav>
+
+
+
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
+
+<nav class="navbar">
+
+    <div class="logo">
+
+        🚀 CareerPilot AI
+
+    </div>
+
+
+    <div class="nav-right">
+
+        <span>
+
+            👋 {{ session.get("user_name") }}
+
+        </span>
+
+
+        <a href="{{ url_for('logout') }}"
+           class="logout">
+
+            Logout
+
+        </a>
+
+    </div>
+
+</nav>
+
+
+
+<!-- =====================================================
+     MAIN CONTAINER
+===================================================== -->
+
+<div class="recommendation-container">
+
+
+    <!-- HEADER -->
+
+    <div class="recommendation-header">
+
+        <h1>
+
+            Your Career
+            <span>Recommendations</span>
+            🎯
+
+        </h1>
+
+        <p>
+
+            CareerPilot AI analyzed your
+            skills, interests and career goal.
+
+        </p>
+
+    </div>
+
+
+
+    <!-- =================================================
+         TOP RECOMMENDATION
+    ================================================== -->
+
+    <div class="top-career">
+
+
+        <div class="top-career-icon">
+
+            🚀
+
+        </div>
+
+
+        <h2>
+
+            {{ recommended_career }}
+
+        </h2>
+
+
+        <p class="match-text">
+
+            Best career match for your profile
+
+        </p>
+
+
+        <div class="match-score">
+
+            {{ match_percentage }}%
+
+        </div>
+
+
+        <p class="match-text">
+
+            Career Match Score
+
+        </p>
+
+
+        <div class="progress">
+
+            <div
+                class="progress-bar"
+                style="--progress: {{ match_percentage }}%;">
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- =================================================
+         TOP 3 CAREERS
+    ================================================== -->
+
+    <div class="recommendation-card">
+
+        <h2>
+
+            🏆 Top Career Matches
+
+        </h2>
+
+
+        <p style="
+            color:#aeb3c8;
+            margin-bottom:20px;
+        ">
+
+            These careers are ranked according
+            to your assessment.
+
+        </p>
+
+
+        {% for result in results %}
+
+
+        <div class="career-item">
+
+
+            <div class="career-top">
+
+
+                <div class="career-name">
+
+                    {% if loop.index == 1 %}
+
+                        🥇
+
+                    {% elif loop.index == 2 %}
+
+                        🥈
+
+                    {% elif loop.index == 3 %}
+
+                        🥉
+
+                    {% else %}
+
+                        {{ loop.index }}.
+
+                    {% endif %}
+
+                    {{ result.career }}
+
+                </div>
+
+
+                <div class="percentage">
+
+                    {{ result.percentage }}%
+
+                </div>
+
+
+            </div>
+
+
+            <div class="progress">
+
+                <div
+                    class="progress-bar"
+                    style="
+                        --progress:
+                        {{ result.percentage }}%;
+                    ">
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+        {% endfor %}
+
+
+    </div>
+
+
+
+    <!-- =================================================
+         USER PROFILE INFORMATION
+    ================================================== -->
+
+    <div class="recommendation-card">
+
+        <h2>
+
+            🧠 Your Assessment Summary
+
+        </h2>
+
+
+        <br>
+
+
+        <div class="info-grid">
+
+
+            <!-- SKILLS -->
+
+            <div class="info-box">
+
+                <h3>
+
+                    💻 Skills
+
+                </h3>
+
+                <p>
+
+                    {{ skills if skills
+                       else "Not provided" }}
+
+                </p>
+
+            </div>
+
+
+            <!-- INTERESTS -->
+
+            <div class="info-box">
+
+                <h3>
+
+                    ❤️ Interests
+
+                </h3>
+
+                <p>
+
+                    {{ interests if interests
+                       else "Not provided" }}
+
+                </p>
+
+            </div>
+
+
+            <!-- CAREER GOAL -->
+
+            <div class="info-box">
+
+                <h3>
+
+                    🎯 Career Goal
+
+                </h3>
+
+                <p>
+
+                    {{ career_goal if career_goal
+                       else "Not provided" }}
+
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =================================================
+         WHY THIS CAREER
+    ================================================== -->
+
+    <div class="recommendation-card">
+
+        <h2>
+
+            💡 Why This Career?
+
+        </h2>
+
+
+        <p style="
+            color:#b5b9ca;
+            line-height:1.8;
+            margin-top:15px;
+        ">
+
+            Based on the skills and interests you
+            entered during the assessment,
+            <strong style="color:#00e5ff;">
+                {{ recommended_career }}
+            </strong>
+            is currently your strongest career match.
+
+            Continue developing the skills identified
+            in your Skill Gap Analysis to improve your
+            career readiness.
+
+        </p>
+
+    </div>
+
+
+
+    <!-- =================================================
+         ACTION BUTTONS
+    ================================================== -->
+
+    <div class="button-row">
+
+
+        <a href="{{ url_for('skill_gap') }}"
+           class="action-button">
+
+            📊 Analyze Skill Gap
+
+        </a>
+
+
+        <a href="{{ url_for('roadmap') }}"
+           class="action-button">
+
+            🛣️ View Learning Roadmap
+
+        </a>
+<a href="{{ url_for('career_insights') }}"
+   class="action-button">
+
+    🤖 Why This Career?
+
+</a>
+
+        <a href="{{ url_for('assessment') }}"
+           class="action-button secondary-button">
+
+            🔄 Retake Assessment
+
+        </a>
+
+
+        <a href="{{ url_for('dashboard') }}"
+           class="action-button secondary-button">
+
+            ← Dashboard
+
+        </a>
+
+
+    </div>
+
+
+</div>
+
+
+</body>
+
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Projects | CareerPilot AI</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/app-enhancements.css') }}">
+<style>
+body{margin:0;font-family:Arial,sans-serif;background:#080b18;color:#eef2ff}.wrap{max-width:1100px;margin:auto;padding:45px 22px}.top{display:flex;justify-content:space-between;gap:20px;align-items:center;margin-bottom:30px}.badge{display:inline-block;padding:8px 14px;border:1px solid rgba(103,232,249,.3);border-radius:999px;color:#67e8f9;letter-spacing:1.5px;font-size:12px}.hero{padding:30px;border-radius:25px;margin-bottom:28px;background:linear-gradient(135deg,rgba(25,31,70,.95),rgba(67,24,82,.75));border:1px solid rgba(255,255,255,.1)}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(310px,1fr));gap:20px}.project{padding:25px;border-radius:22px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);transition:.25s}.project:hover{transform:translateY(-6px);border-color:#67e8f9}.stack{color:#a5b4fc;font-weight:bold}.steps{padding-left:20px;line-height:1.8}.back{color:#67e8f9;text-decoration:none}
+</style>
+
+<style>
+.cp-navbar{position:sticky;top:0;z-index:9999;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:14px 4%;background:rgba(8,11,26,.96);backdrop-filter:blur(16px);border-bottom:1px solid rgba(103,232,249,.18);box-shadow:0 8px 30px rgba(0,0,0,.22);font-family:Arial,sans-serif}
+.cp-brand{color:#67e8f9;text-decoration:none;font-size:21px;font-weight:800;white-space:nowrap}.cp-brand span{color:#a78bfa}
+.cp-nav-links{display:flex;align-items:center;justify-content:flex-end;gap:7px;flex-wrap:wrap}.cp-nav-links a{color:#dbe4ff;text-decoration:none;padding:8px 10px;border-radius:9px;font-size:12px;font-weight:700;transition:.2s}.cp-nav-links a:hover{background:rgba(103,232,249,.12);color:#67e8f9;transform:translateY(-1px)}.cp-nav-links .cp-logout{background:rgba(167,139,250,.15);color:#e9ddff}
+@media(max-width:900px){.cp-navbar{align-items:flex-start;flex-direction:column}.cp-nav-links{justify-content:flex-start;width:100%}}
+@media(max-width:600px){.cp-nav-links a{font-size:11px;padding:7px 8px}}
+</style>
+</head>
+<body class="prep-page">
+<nav class="cp-navbar">
+  <a class="cp-brand" href="{{ url_for('dashboard') }}">🚀 CareerPilot <span>AI</span></a>
+  <div class="cp-nav-links">
+    <a href="{{ url_for('dashboard') }}">🏠 Dashboard</a>
+    <a href="{{ url_for('assessment') }}">🎯 Assessment</a>
+    <a href="{{ url_for('skill_gap') }}">📊 Skill Gap</a>
+    <a href="{{ url_for('roadmap') }}">🛣️ Roadmap</a>
+    <a href="{{ url_for('projects') }}">🛠️ Projects</a>
+    <a href="{{ url_for('preparation') }}">⚡ Job Prep</a>
+    <a href="{{ url_for('courses') }}">📚 Courses</a>
+    <a href="{{ url_for('chatbot') }}">🤖 AI Chat</a>
+    <a href="{{ url_for('profile') }}">👤 Profile</a>
+    <a class="cp-logout" href="{{ url_for('logout') }}">Logout</a>
+  </div>
+</nav>
+
+<div class="wrap">
+<div class="top"><a class="back" href="{{ url_for('dashboard') }}">← Dashboard</a><span class="badge">🛠️ PROJECT BUILD LAB</span></div>
+<div class="hero"><h1>🚀 Build Projects for {{ career }}</h1><p>Step-by-step project ideas to turn your skills into a portfolio. Choose a project and follow every stage from idea → build → test → GitHub.</p></div>
+<div class="grid">
+{% for name, stack, steps in projects %}
+<div class="project">
+<h2>{{ name }}</h2><p class="stack">{{ stack }}</p>
+<h3>Build Steps</h3>
+<ol class="steps">{% for step in steps %}<li>{{ step }}</li>{% endfor %}</ol>
+</div>
+{% endfor %}
+</div>
+</div>
+</body>
+</html>

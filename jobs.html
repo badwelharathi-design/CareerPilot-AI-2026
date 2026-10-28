@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>
+        Jobs & Internships | CareerPilot AI
+    </title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/dashboard.css') }}">
+
+    <style>
+
+        .jobs-container {
+
+            width: 90%;
+            max-width: 1100px;
+
+            margin: 50px auto;
+
+        }
+
+        .header {
+
+            text-align: center;
+
+            margin-bottom: 45px;
+
+            animation: fadeDown 0.8s ease;
+
+        }
+
+        .header h1 {
+
+            font-size: 42px;
+
+        }
+
+        .header span {
+
+            color: #00e5ff;
+
+        }
+
+        .header p {
+
+            color: #aeb3c8;
+
+        }
+
+        .career {
+
+            color: #00e5ff;
+
+            margin-top: 12px;
+
+        }
+
+        .jobs-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 22px;
+
+        }
+
+        .job-card {
+
+            background: #111631;
+
+            border: 1px solid #252c4d;
+
+            border-radius: 20px;
+
+            padding: 25px;
+
+            transition: 0.3s;
+
+            animation: fadeUp 0.8s ease;
+
+        }
+
+        .job-card:hover {
+
+            transform: translateY(-6px);
+
+            border-color: #00e5ff;
+
+        }
+
+        .job-icon {
+
+            font-size: 42px;
+
+            margin-bottom: 15px;
+
+        }
+
+        .job-card h2 {
+
+            margin-bottom: 10px;
+
+        }
+
+        .company {
+
+            color: #00e5ff;
+
+            margin-bottom: 15px;
+
+        }
+
+        .job-info {
+
+            display: flex;
+
+            gap: 10px;
+
+            flex-wrap: wrap;
+
+            margin-bottom: 15px;
+
+        }
+
+        .tag {
+
+            padding: 7px 12px;
+
+            border-radius: 20px;
+
+            background: #252c4d;
+
+            color: #b5b9ca;
+
+            font-size: 13px;
+
+        }
+
+        .skills {
+
+            color: #aeb3c8;
+
+            line-height: 1.7;
+
+        }
+
+        .apply-button {
+
+            display: inline-block;
+
+            margin-top: 20px;
+
+            padding: 12px 20px;
+
+            border-radius: 10px;
+
+            background: #00e5ff;
+
+            color: #07101c;
+
+            text-decoration: none;
+
+            font-weight: bold;
+
+        }
+
+        .buttons {
+
+            display: flex;
+
+            justify-content: center;
+
+            gap: 15px;
+
+            flex-wrap: wrap;
+
+            margin-top: 35px;
+
+        }
+
+        .button {
+
+            padding: 13px 22px;
+
+            border-radius: 10px;
+
+            background: #252c4d;
+
+            color: white;
+
+            text-decoration: none;
+
+        }
+
+        @keyframes fadeDown {
+
+            from {
+
+                opacity: 0;
+
+                transform: translateY(-25px);
+
+            }
+
+            to {
+
+                opacity: 1;
+
+                transform: translateY(0);
+
+            }
+
+        }
+
+        @keyframes fadeUp {
+
+            from {
+
+                opacity: 0;
+
+                transform: translateY(25px);
+
+            }
+
+            to {
+
+                opacity: 1;
+
+                transform: translateY(0);
+
+            }
+
+        }
+
+        @media(max-width:700px) {
+
+            .jobs-grid {
+
+                grid-template-columns: 1fr;
+
+            }
+
+            .header h1 {
+
+                font-size: 30px;
+
+            }
+
+        }
+
+    
+        .cp-free-hub{margin:0 auto 28px;padding:22px 24px;border:1px solid rgba(103,232,249,.18);border-radius:22px;background:linear-gradient(135deg,rgba(103,232,249,.07),rgba(167,139,250,.07));box-shadow:0 18px 50px rgba(0,0,0,.18);}
+        .cp-hub-title{font-weight:800;letter-spacing:1.5px;color:#67e8f9;margin-bottom:8px;}
+        .cp-free-hub p{color:#aeb3c8;margin-bottom:15px;}
+        .cp-hub-links{display:flex;gap:10px;flex-wrap:wrap;}
+        .cp-hub-links a{padding:10px 14px;border-radius:12px;text-decoration:none;color:white;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);transition:.2s;}
+        .cp-hub-links a:hover{transform:translateY(-2px);border-color:rgba(103,232,249,.4);}
+    </style>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/app-enhancements.css') }}">
+    <script src="{{ url_for('static', filename='css/app-enhancements.js') }}" defer></script>
+
+</head>
+
+
+<body>
+
+
+<!-- NAVBAR -->
+
+<nav class="navbar">
+
+    <div class="logo">
+
+        🚀 CareerPilot AI
+
+    </div>
+
+    <div class="nav-right">
+
+        <span>
+
+            👋 {{ session.get("user_name") }}
+
+        </span>
+
+        <a href="{{ url_for('logout') }}"
+           class="logout">
+
+            Logout
+
+        </a>
+
+    </div>
+
+</nav>
+
+
+<!-- MAIN -->
+
+<div class="jobs-container">
+
+
+    <div class="header">
+
+        <h1>
+
+            💼 Jobs &
+            <span>Internships</span>
+
+        </h1>
+
+        <p>
+
+            Opportunities related to your
+            recommended career.
+
+        </p>
+
+        <h2 class="career">
+
+            🎯 {{ career }}
+
+        </h2>
+
+    </div>
+
+
+    <div class="cp-free-hub">
+        <div class="cp-hub-title">🆓 FREE OPPORTUNITY HUB</div>
+        <p>Browse internships, entry-level jobs and practice opportunities without paying CareerPilot for access.</p>
+        <div class="cp-hub-links">
+            <a href="https://internshala.com/internships/" target="_blank" rel="noopener noreferrer">🎓 Internships</a>
+            <a href="https://www.linkedin.com/jobs/" target="_blank" rel="noopener noreferrer">💼 Jobs</a>
+            <a href="https://www.hackerrank.com/domains" target="_blank" rel="noopener noreferrer">🧪 Coding Tests</a>
+            <a href="https://www.freecodecamp.org/learn/" target="_blank" rel="noopener noreferrer">📚 Free Learning</a>
+        </div>
+    </div>
+
+    <!-- JOBS -->
+
+    <div class="jobs-grid">
+
+        {% for job in jobs %}
+
+        <div class="job-card">
+
+            <div class="job-icon">
+
+                {% if job.type == "Internship" %}
+
+                    🎓
+
+                {% else %}
+
+                    💼
+
+                {% endif %}
+
+            </div>
+
+            <h2>
+
+                {{ job.title }}
+
+            </h2>
+
+            <div class="company">
+
+                {{ job.company }}
+
+            </div>
+
+            <div class="job-info">
+
+                <span class="tag">
+
+                    {{ job.type }}
+
+                </span>
+
+                <span class="tag">
+
+                    {{ job.level }}
+
+                </span>
+
+            </div>
+
+            <p class="skills">
+
+                <strong>
+
+                    Required Skills:
+
+                </strong>
+
+                {{ job.skills }}
+
+            </p>
+
+            <a href="https://www.linkedin.com/jobs/search/?keywords={{ career|urlencode }}" target="_blank" rel="noopener noreferrer"
+               class="apply-button">
+
+                View Opportunity →
+
+            </a>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+
+    <!-- BUTTONS -->
+
+    <div class="buttons">
+
+        <a href="{{ url_for('progress') }}"
+           class="button">
+
+            📈 My Progress
+
+        </a>
+
+        <a href="{{ url_for('roadmap') }}"
+           class="button">
+
+            🛣️ Roadmap
+
+        </a>
+
+        <a href="{{ url_for('dashboard') }}"
+           class="button">
+
+            ← Dashboard
+
+        </a>
+
+    </div>
+
+
+</div>
+
+
+</body>
+
+</html>

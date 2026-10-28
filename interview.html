@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>
+        Mock Interview | CareerPilot AI
+    </title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+
+            margin: 0;
+
+            font-family: Arial, sans-serif;
+
+            background: #080b1a;
+
+            color: white;
+
+        }
+
+        .navbar {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            padding: 18px 6%;
+
+            background: #0d1128;
+
+            border-bottom:
+                1px solid #252c4d;
+
+        }
+
+        .logo {
+
+            color: #00e5ff;
+
+            font-size: 22px;
+
+            font-weight: bold;
+
+        }
+
+        .logout {
+
+            color: white;
+
+            text-decoration: none;
+
+            padding: 9px 16px;
+
+            border-radius: 8px;
+
+            background: #252c4d;
+
+        }
+
+        .container {
+
+            width: 90%;
+
+            max-width: 900px;
+
+            margin: 45px auto;
+
+        }
+
+        .header {
+
+            text-align: center;
+
+            margin-bottom: 35px;
+
+        }
+
+        .header h1 {
+
+            font-size: 40px;
+
+        }
+
+        .header span {
+
+            color: #00e5ff;
+
+        }
+
+        .header p {
+
+            color: #aeb3c8;
+
+        }
+
+        .career {
+
+            color: #00e5ff;
+
+            font-weight: bold;
+
+        }
+
+        .interview-card {
+
+            background: #111631;
+
+            border:
+                1px solid #252c4d;
+
+            border-radius: 20px;
+
+            padding: 30px;
+
+            animation: fadeUp 0.7s ease;
+
+        }
+
+        .question-number {
+
+            color: #00e5ff;
+
+            font-weight: bold;
+
+            margin-bottom: 12px;
+
+        }
+
+        .question {
+
+            font-size: 24px;
+
+            line-height: 1.5;
+
+            margin-bottom: 25px;
+
+        }
+
+        textarea {
+
+            width: 100%;
+
+            min-height: 180px;
+
+            resize: vertical;
+
+            padding: 15px;
+
+            border-radius: 12px;
+
+            border:
+                1px solid #252c4d;
+
+            background: #080b1a;
+
+            color: white;
+
+            font-size: 16px;
+
+            outline: none;
+
+        }
+
+        textarea:focus {
+
+            border-color: #00e5ff;
+
+        }
+
+        .buttons {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            gap: 15px;
+
+            margin-top: 20px;
+
+        }
+
+        button {
+
+            border: none;
+
+            padding: 13px 22px;
+
+            border-radius: 10px;
+
+            background: #00e5ff;
+
+            color: #07101c;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+        }
+
+        button:hover {
+
+            transform: translateY(-2px);
+
+        }
+
+        .secondary {
+
+            background: #252c4d;
+
+            color: white;
+
+        }
+
+        .progress {
+
+            margin-bottom: 25px;
+
+        }
+
+        .progress-track {
+
+            width: 100%;
+
+            height: 10px;
+
+            background: #252c4d;
+
+            border-radius: 20px;
+
+            overflow: hidden;
+
+        }
+
+        .progress-fill {
+
+            height: 100%;
+
+            width: 20%;
+
+            background: #00e5ff;
+
+            transition: width 0.4s ease;
+
+        }
+
+        .tip {
+
+            margin-top: 25px;
+
+            padding: 15px;
+
+            border-radius: 12px;
+
+            background: #0d1128;
+
+            color: #aeb3c8;
+
+            line-height: 1.6;
+
+        }
+
+        @keyframes fadeUp {
+
+            from {
+
+                opacity: 0;
+
+                transform:
+                    translateY(25px);
+
+            }
+
+            to {
+
+                opacity: 1;
+
+                transform:
+                    translateY(0);
+
+            }
+
+        }
+
+        @media(max-width:600px) {
+
+            .header h1 {
+
+                font-size: 30px;
+
+            }
+
+            .question {
+
+                font-size: 20px;
+
+            }
+
+            .buttons {
+
+                flex-direction: column;
+
+            }
+
+            button {
+
+                width: 100%;
+
+            }
+
+        }
+
+    </style>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/app-enhancements.css') }}">
+    <script src="{{ url_for('static', filename='css/app-enhancements.js') }}" defer></script>
+
+</head>
+
+
+<body>
+
+
+<nav class="navbar">
+
+    <div class="logo">
+
+        🚀 CareerPilot AI
+
+    </div>
+
+    <a href="{{ url_for('logout') }}"
+       class="logout">
+
+        Logout
+
+    </a>
+
+</nav>
+
+
+<div class="container">
+
+
+    <div class="header">
+
+        <h1>
+
+            🎤 Mock
+            <span>Interview</span>
+
+        </h1>
+
+        <p>
+
+            Practice interview questions
+            for your recommended career.
+
+        </p>
+
+        <div class="career">
+
+            🎯 {{ career }}
+
+        </div>
+
+    </div>
+
+
+    <div class="interview-card">
+
+
+        <div class="progress">
+
+            <div id="questionCount">
+
+                Question 1 of {{ questions|length }}
+
+            </div>
+
+            <br>
+
+            <div class="progress-track">
+
+                <div
+                    id="progressFill"
+                    class="progress-fill">
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="question-number">
+
+            INTERVIEW QUESTION
+
+        </div>
+
+
+        <div
+            id="question"
+            class="question">
+
+            {{ questions[0] }}
+
+        </div>
+
+
+        <textarea
+            id="answer"
+            placeholder="Type your answer here..."></textarea>
+
+
+        <div class="buttons">
+
+            <button
+                type="button"
+                class="secondary"
+                onclick="previousQuestion()">
+
+                ← Previous
+
+            </button>
+
+
+            <button
+                type="button"
+                onclick="nextQuestion()">
+
+                Next →
+
+            </button>
+
+        </div>
+
+
+        <div class="tip">
+
+            💡 <strong>Interview Tip:</strong>
+
+            Keep your answer clear and structured.
+            Give examples whenever possible.
+
+        </div>
+
+    </div>
+
+
+    <div class="buttons"
+         style="margin-top:30px;">
+
+        <button
+            type="button"
+            onclick="window.location.href='{{ url_for('dashboard') }}'">
+
+            ← Dashboard
+
+        </button>
+
+    </div>
+
+
+</div>
+<script>
+
+const questions = {{ questions | tojson }};
+
+let currentQuestion = 0;
+
+let answers = new Array(
+    questions.length
+).fill("");
+
+
+const questionElement =
+    document.getElementById("question");
+
+const answerElement =
+    document.getElementById("answer");
+
+const countElement =
+    document.getElementById("questionCount");
+
+const progressElement =
+    document.getElementById("progressFill");
+
+
+function showQuestion() {
+
+    questionElement.textContent =
+        questions[currentQuestion];
+
+    answerElement.value =
+        answers[currentQuestion];
+
+    countElement.textContent =
+        "Question " +
+        (currentQuestion + 1) +
+        " of " +
+        questions.length;
+
+    const percentage =
+        ((currentQuestion + 1) /
+        questions.length) * 100;
+
+    progressElement.style.width =
+        percentage + "%";
+}
+
+
+function saveAnswer() {
+
+    answers[currentQuestion] =
+        answerElement.value;
+}
+
+
+function nextQuestion() {
+
+    saveAnswer();
+
+    if (
+        currentQuestion <
+        questions.length - 1
+    ) {
+
+        currentQuestion++;
+
+        showQuestion();
+
+    } else {
+
+        submitInterview();
+
+    }
+}
+
+
+function previousQuestion() {
+
+    saveAnswer();
+
+    if (currentQuestion > 0) {
+
+        currentQuestion--;
+
+        showQuestion();
+
+    }
+}
+
+
+function submitInterview() {
+
+    saveAnswer();
+
+    const form =
+        document.createElement("form");
+
+    form.method = "POST";
+
+    form.action =
+        "{{ url_for('interview_result') }}";
+
+
+    answers.forEach(function(answer) {
+
+        const input =
+            document.createElement("input");
+
+        input.type = "hidden";
+
+        input.name = "answers";
+
+        input.value = answer;
+
+        form.appendChild(input);
+
+    });
+
+
+    document.body.appendChild(form);
+
+    form.submit();
+
+}
+
+
+showQuestion();
+
+</script>
+
+
+
+</body>
+
+</html>

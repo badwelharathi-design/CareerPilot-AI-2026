@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>
+        My Progress | CareerPilot AI
+    </title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/dashboard.css') }}">
+
+    <style>
+
+        .container {
+
+            width: 90%;
+            max-width: 1000px;
+
+            margin: 50px auto;
+
+        }
+
+        .header {
+
+            text-align: center;
+
+            margin-bottom: 40px;
+
+        }
+
+        .header h1 {
+
+            font-size: 40px;
+
+        }
+
+        .header span {
+
+            color: #00e5ff;
+
+        }
+
+        .header p {
+
+            color: #aeb3c8;
+
+        }
+
+        .career {
+
+            color: #00e5ff;
+
+            margin-top: 10px;
+
+        }
+
+        .card {
+
+            background: #111631;
+
+            border: 1px solid #252c4d;
+
+            border-radius: 20px;
+
+            padding: 30px;
+
+            margin-bottom: 25px;
+
+            animation: fadeUp 0.7s ease;
+
+        }
+
+        .progress-number {
+
+            text-align: center;
+
+            font-size: 50px;
+
+            font-weight: bold;
+
+            color: #00e5ff;
+
+            margin: 20px 0;
+
+        }
+
+        .progress {
+
+            width: 100%;
+
+            height: 15px;
+
+            background: #252c4d;
+
+            border-radius: 20px;
+
+            overflow: hidden;
+
+        }
+
+        .progress-bar {
+
+            height: 100%;
+
+            width: {{ percentage }}%;
+
+            background: #00e5ff;
+
+            transition: width 1.5s ease;
+
+        }
+
+        .skill-list {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 15px;
+
+            margin-top: 20px;
+
+        }
+
+        .skill {
+
+            padding: 18px;
+
+            border-radius: 12px;
+
+            background: #080b1a;
+
+            border: 1px solid #252c4d;
+
+        }
+
+        .completed {
+
+            border-left: 4px solid #22c55e;
+
+        }
+
+        .pending {
+
+            border-left: 4px solid #ffcc66;
+
+        }
+
+        .skill-title {
+
+            font-weight: bold;
+
+            font-size: 18px;
+
+        }
+
+        .skill-description {
+
+            color: #aeb3c8;
+
+            margin-top: 7px;
+
+            font-size: 14px;
+
+        }
+
+        .buttons {
+
+            display: flex;
+
+            justify-content: center;
+
+            gap: 15px;
+
+            flex-wrap: wrap;
+
+            margin-top: 30px;
+
+        }
+
+        .button {
+
+            padding: 14px 22px;
+
+            border-radius: 10px;
+
+            background: #00e5ff;
+
+            color: #07101c;
+
+            text-decoration: none;
+
+            font-weight: bold;
+
+        }
+
+        .secondary {
+
+            background: #252c4d;
+
+            color: white;
+
+        }
+
+        @keyframes fadeUp {
+
+            from {
+
+                opacity: 0;
+
+                transform:
+                    translateY(25px);
+
+            }
+
+            to {
+
+                opacity: 1;
+
+                transform:
+                    translateY(0);
+
+            }
+
+        }
+
+        @media(max-width:700px) {
+
+            .skill-list {
+
+                grid-template-columns: 1fr;
+
+            }
+
+            .header h1 {
+
+                font-size: 30px;
+
+            }
+
+        }
+
+    </style>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/app-enhancements.css') }}">
+    <script src="{{ url_for('static', filename='css/app-enhancements.js') }}" defer></script>
+
+</head>
+
+
+<body>
+
+
+<nav class="navbar">
+
+    <div class="logo">
+
+        🚀 CareerPilot AI
+
+    </div>
+
+
+    <div class="nav-right">
+
+        <span>
+
+            👋 {{ session.get("user_name") }}
+
+        </span>
+
+
+        <a href="{{ url_for('logout') }}"
+           class="logout">
+
+            Logout
+
+        </a>
+
+    </div>
+
+</nav>
+
+
+<div class="container">
+
+
+    <!-- HEADER -->
+
+    <div class="header">
+
+        <h1>
+
+            📈 My <span>Progress</span>
+
+        </h1>
+
+        <p>
+
+            Track your career preparation progress.
+
+        </p>
+
+        <h2 class="career">
+
+            {{ career }}
+
+        </h2>
+
+    </div>
+
+
+    <!-- PROGRESS -->
+
+    <div class="card">
+
+        <h2>
+
+            🎯 Career Readiness
+
+        </h2>
+
+        <div class="progress-number">
+
+            {{ percentage }}%
+
+        </div>
+
+        <div class="progress">
+
+            <div class="progress-bar"></div>
+
+        </div>
+
+        <p style="
+            text-align:center;
+            color:#aeb3c8;
+            margin-top:15px;
+        ">
+
+            {{ completed|length }}
+            of
+            {{ total }}
+            skills completed
+
+        </p>
+
+    </div>
+
+
+    <!-- COMPLETED -->
+
+    <div class="card">
+
+        <h2>
+
+            ✅ Completed Skills
+
+        </h2>
+
+
+        <div class="skill-list">
+
+            {% if completed %}
+
+                {% for skill in completed %}
+
+                <div class="skill completed">
+
+                    <div class="skill-title">
+
+                        ✅ {{ skill }}
+
+                    </div>
+
+                    <div class="skill-description">
+
+                        Skill already identified
+                        in your profile.
+
+                    </div>
+
+                </div>
+
+                {% endfor %}
+
+            {% else %}
+
+                <p style="color:#aeb3c8;">
+
+                    No skills completed yet.
+
+                </p>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+
+    <!-- PENDING -->
+
+    <div class="card">
+
+        <h2>
+
+            📚 Skills To Learn
+
+        </h2>
+
+
+        <div class="skill-list">
+
+            {% if pending %}
+
+                {% for skill in pending %}
+
+                <div class="skill pending">
+
+                    <div class="skill-title">
+
+                        📚 {{ skill }}
+
+                    </div>
+
+                    <div class="skill-description">
+
+                        Add this skill to improve
+                        your career readiness.
+
+                    </div>
+
+                </div>
+
+                {% endfor %}
+
+            {% else %}
+
+                <p style="color:#22c55e;">
+
+                    🎉 All recommended skills
+                    are completed!
+
+                </p>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+
+    <!-- BUTTONS -->
+
+    <div class="buttons">
+
+        <a href="{{ url_for('courses') }}"
+           class="button">
+
+            📚 Courses
+
+        </a>
+
+        <a href="{{ url_for('roadmap') }}"
+           class="button">
+
+            🛣️ Roadmap
+
+        </a>
+
+        <a href="{{ url_for('dashboard') }}"
+           class="button secondary">
+
+            ← Dashboard
+
+        </a>
+
+    </div>
+{% for skill in pending %}
+
+<div class="skill pending">
+
+    <div class="skill-title">
+
+        📚 {{ skill }}
+
+    </div>
+
+    <div class="skill-description">
+
+        Learn this skill to improve
+        your career readiness.
+
+    </div>
+
+    <form method="POST"
+          action="{{ url_for('complete_skill') }}"
+          style="margin-top:15px;">
+
+        <input
+            type="hidden"
+            name="skill"
+            value="{{ skill }}"
+        >
+
+        <button
+            type="submit"
+            style="
+                padding:10px 16px;
+                border:none;
+                border-radius:8px;
+                background:#00e5ff;
+                color:#07101c;
+                font-weight:bold;
+                cursor:pointer;
+            ">
+
+            ✓ Mark Completed
+
+        </button>
+
+    </form>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+
+</body>
+
+</html>

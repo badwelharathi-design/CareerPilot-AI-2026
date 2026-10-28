@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>
+        Courses & Resources | CareerPilot AI
+    </title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/dashboard.css') }}">
+
+    <style>
+
+        .courses-container {
+
+            width: 90%;
+            max-width: 1100px;
+
+            margin: 50px auto;
+
+        }
+
+        .header {
+
+            text-align: center;
+
+            margin-bottom: 45px;
+
+        }
+
+        .header h1 {
+
+            font-size: 40px;
+
+        }
+
+        .header span {
+
+            color: #00e5ff;
+
+        }
+
+        .header p {
+
+            color: #aeb3c8;
+
+        }
+
+        .career {
+
+            color: #00e5ff;
+
+            margin-top: 12px;
+
+        }
+
+        .course-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 22px;
+
+        }
+
+        .course-card {
+
+            background: #111631;
+
+            border: 1px solid #252c4d;
+
+            border-radius: 20px;
+
+            padding: 25px;
+
+            transition: 0.3s;
+
+            animation: fadeUp 0.7s ease;
+
+        }
+
+        .course-card:hover {
+
+            transform: translateY(-6px);
+
+            border-color: #00e5ff;
+
+        }
+
+        .course-icon {
+
+            font-size: 40px;
+
+            margin-bottom: 15px;
+
+        }
+
+        .course-card h2 {
+
+            margin-bottom: 10px;
+
+        }
+
+        .course-card p {
+
+            color: #aeb3c8;
+
+            line-height: 1.6;
+
+            min-height: 55px;
+
+        }
+
+        .tag {
+
+            display: inline-block;
+
+            margin-top: 15px;
+
+            padding: 6px 12px;
+
+            border-radius: 20px;
+
+            background: #252c4d;
+
+            color: #00e5ff;
+
+            font-size: 13px;
+
+        }
+
+        .learn-button {
+
+            display: inline-block;
+
+            margin-top: 20px;
+
+            padding: 12px 20px;
+
+            border-radius: 10px;
+
+            background: #00e5ff;
+
+            color: #07101c;
+
+            text-decoration: none;
+
+            font-weight: bold;
+
+        }
+
+        .bottom-buttons {
+
+            display: flex;
+
+            justify-content: center;
+
+            gap: 15px;
+
+            flex-wrap: wrap;
+
+            margin-top: 35px;
+
+        }
+
+        .bottom-button {
+
+            padding: 13px 22px;
+
+            border-radius: 10px;
+
+            background: #252c4d;
+
+            color: white;
+
+            text-decoration: none;
+
+        }
+
+        @keyframes fadeUp {
+
+            from {
+
+                opacity: 0;
+
+                transform: translateY(25px);
+
+            }
+
+            to {
+
+                opacity: 1;
+
+                transform: translateY(0);
+
+            }
+
+        }
+
+        @media(max-width:700px) {
+
+            .course-grid {
+
+                grid-template-columns: 1fr;
+
+            }
+
+            .header h1 {
+
+                font-size: 30px;
+
+            }
+
+        }
+
+    </style>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/app-enhancements.css') }}">
+    <script src="{{ url_for('static', filename='css/app-enhancements.js') }}" defer></script>
+
+</head>
+
+
+<body>
+
+
+<!-- NAVBAR -->
+
+<nav class="navbar">
+
+    <div class="logo">
+
+        🚀 CareerPilot AI
+
+    </div>
+
+    <div class="nav-right">
+
+        <span>
+
+            👋 {{ session.get("user_name") }}
+
+        </span>
+
+        <a href="{{ url_for('logout') }}"
+           class="logout">
+
+            Logout
+
+        </a>
+
+    </div>
+
+</nav>
+
+
+<!-- MAIN -->
+
+<div class="courses-container">
+
+
+    <div class="header">
+
+        <h1>
+
+            📚 Learning
+            <span>Resources</span>
+
+        </h1>
+
+        <p>
+
+            Recommended resources for your career path
+
+        </p>
+
+        <h2 class="career">
+
+            {{ career }}
+
+        </h2>
+
+    </div>
+
+
+    <!-- COURSES -->
+
+    <div class="course-grid">
+
+        {% for resource in resources %}
+
+        <div class="course-card">
+
+
+            <div class="course-icon">
+
+                {% if resource.skill == "Python" %}
+                    🐍
+
+                {% elif resource.skill == "SQL" %}
+                    🗄️
+
+                {% elif resource.skill == "Excel" %}
+                    📊
+
+                {% elif resource.skill == "Power BI" %}
+                    📈
+
+                {% elif resource.skill == "Statistics" %}
+                    📐
+
+                {% elif resource.skill == "Machine Learning" %}
+                    🤖
+
+                {% elif resource.skill == "Deep Learning" %}
+                    🧠
+
+                {% elif resource.skill == "HTML" %}
+                    🌐
+
+                {% elif resource.skill == "CSS" %}
+                    🎨
+
+                {% elif resource.skill == "JavaScript" %}
+                    ⚡
+
+                {% elif resource.skill == "React" %}
+                    ⚛️
+
+                {% elif resource.skill == "Git" %}
+                    🔧
+
+                {% else %}
+                    📚
+
+                {% endif %}
+
+            </div>
+
+
+            <h2>
+
+                {{ resource.skill }}
+
+            </h2>
+
+
+            <p>
+
+                {{ resource.description }}
+
+            </p>
+
+
+            <span class="tag">
+
+                {{ resource.type }}
+
+            </span>
+
+
+            <br>
+
+
+            <a href="{{ resource.youtube_url }}"
+               target="_blank"
+               rel="noopener noreferrer"
+               class="learn-button">
+
+                ▶ Start Learning on YouTube →
+
+            </a>
+
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+
+    <!-- BUTTONS -->
+
+    <div class="bottom-buttons">
+
+        <a href="{{ url_for('skill_gap') }}"
+           class="bottom-button">
+
+            ← Skill Gap
+
+        </a>
+
+        <a href="{{ url_for('roadmap') }}"
+           class="bottom-button">
+
+            🛣️ Roadmap
+
+        </a>
+
+        <a href="{{ url_for('dashboard') }}"
+           class="bottom-button">
+
+            🏠 Dashboard
+
+        </a>
+
+    </div>
+
+
+</div>
+
+
+</body>
+
+</html>

@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Career Assessment | CareerPilot AI</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/dashboard.css') }}">
+
+    <style>
+
+        .assessment-container {
+            max-width: 850px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+
+        .assessment-header {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .assessment-header h1 {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+
+        .assessment-header span {
+            color: #00e5ff;
+        }
+
+        .assessment-header p {
+            color: #aeb3c8;
+        }
+
+        .assessment-card {
+            background: #111631;
+            border: 1px solid #252c4d;
+            border-radius: 20px;
+            padding: 35px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 14px;
+
+            border: 1px solid #30385f;
+            border-radius: 10px;
+
+            background: #080b1a;
+            color: white;
+
+            font-size: 15px;
+            outline: none;
+        }
+
+        .form-group textarea {
+            min-height: 110px;
+            resize: vertical;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            border-color: #00e5ff;
+        }
+
+        .submit-button {
+            width: 100%;
+
+            padding: 15px;
+
+            border: none;
+            border-radius: 12px;
+
+            background: #00e5ff;
+            color: #07101c;
+
+            font-size: 16px;
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition: 0.3s;
+        }
+
+        .submit-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 229, 255, 0.2);
+        }
+
+        .back-button {
+            display: block;
+
+            text-align: center;
+
+            margin-top: 20px;
+
+            color: #aeb3c8;
+            text-decoration: none;
+        }
+
+        .back-button:hover {
+            color: #00e5ff;
+        }
+
+    </style>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/app-enhancements.css') }}">
+    <script src="{{ url_for('static', filename='css/app-enhancements.js') }}" defer></script>
+
+</head>
+
+
+<body>
+
+
+<!-- ================= NAVBAR ================= -->
+
+<nav class="navbar">
+
+    <div class="logo">
+        🚀 CareerPilot AI
+    </div>
+
+    <div class="nav-right">
+
+        <span>
+            👋 {{ session.get("user_name") }}
+        </span>
+
+        <a href="{{ url_for('logout') }}"
+           class="logout">
+            Logout
+        </a>
+
+    </div>
+
+</nav>
+
+
+<!-- ================= ASSESSMENT ================= -->
+
+<div class="assessment-container">
+
+
+    <div class="assessment-header">
+
+        <h1>
+            Career <span>Assessment</span> 🧠
+        </h1>
+
+        <p>
+            Tell us about yourself so CareerPilot AI
+            can understand your career interests.
+        </p>
+
+    </div>
+
+
+    <div class="assessment-card">
+
+
+        <form method="POST"
+              action="{{ url_for('assessment') }}">
+
+
+            <!-- EDUCATION -->
+
+            <div class="form-group">
+
+                <label>
+                    🎓 Education
+                </label>
+
+                <select name="education" required>
+
+                    <option value="">
+                        Select your education
+                    </option>
+
+                    <option value="B.Tech">
+                        B.Tech
+                    </option>
+
+                    <option value="B.Sc">
+                        B.Sc
+                    </option>
+
+                    <option value="B.Com">
+                        B.Com
+                    </option>
+
+                    <option value="BBA">
+                        BBA
+                    </option>
+
+                    <option value="M.Tech">
+                        M.Tech
+                    </option>
+
+                    <option value="MBA">
+                        MBA
+                    </option>
+
+                    <option value="Other">
+                        Other
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- SKILLS -->
+
+            <div class="form-group">
+
+                <label>
+                    💻 Your Skills
+                </label>
+
+                <textarea
+                    name="skills"
+                    placeholder="Example: Python, Java, SQL, Excel, HTML, CSS..."
+                    required></textarea>
+
+            </div>
+
+
+            <!-- INTERESTS -->
+
+            <div class="form-group">
+
+                <label>
+                    ❤️ Your Interests
+                </label>
+
+                <textarea
+                    name="interests"
+                    placeholder="Example: Artificial Intelligence, Data Science, Web Development..."
+                    required></textarea>
+
+            </div>
+
+
+            <!-- STRENGTHS -->
+
+            <div class="form-group">
+
+                <label>
+                    ⭐ Your Strengths
+                </label>
+
+                <textarea
+                    name="strengths"
+                    placeholder="Example: Problem solving, communication, creativity, leadership..."
+                    required></textarea>
+
+            </div>
+
+
+            <!-- TARGET CAREER -->
+
+            <div class="form-group target-career-group">
+
+                <label>
+                    🎯 Target Career
+                </label>
+
+                <select name="career_goal" required>
+                    <option value="">Choose the career you want to analyze</option>
+                    <option value="Software Developer">💻 Software Developer</option>
+                    <option value="Web Developer">🌐 Web Developer</option>
+                    <option value="Data Analyst">📊 Data Analyst</option>
+                    <option value="Data Scientist">🔬 Data Scientist</option>
+                    <option value="Data Engineer">🛠️ Data Engineer</option>
+                    <option value="AI/ML Engineer">🤖 AI/ML Engineer</option>
+                    <option value="Cybersecurity Analyst">🔐 Cybersecurity Analyst</option>
+                    <option value="Cloud Engineer">☁️ Cloud Engineer</option>
+                    <option value="DevOps Engineer">⚙️ DevOps Engineer</option>
+                    <option value="Business Analyst">📈 Business Analyst</option>
+                    <option value="UI/UX Designer">🎨 UI/UX Designer</option>
+                    <option value="Database Administrator">🗄️ Database Administrator</option>
+                </select>
+
+                <small class="field-hint">CareerPilot will analyze <strong>this career only</strong> — it will not choose a different career for you.</small>
+
+            </div>
+
+
+            <!-- SUBMIT -->
+
+            <button
+                type="submit"
+                class="submit-button">
+
+                Generate My Career Recommendation 🚀
+
+            </button>
+
+
+        </form>
+
+
+        <a
+            href="{{ url_for('dashboard') }}"
+            class="back-button">
+
+            ← Back to Dashboard
+
+        </a>
+
+
+    </div>
+
+</div>
+
+
+</body>
+
+</html>

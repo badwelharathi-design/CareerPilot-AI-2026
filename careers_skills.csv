@@ -1,0 +1,73 @@
+career_id,career_name,skill_id,skill,required_level,weight
+1,Software Developer,1,Programming,60,16.67
+1,Software Developer,2,Data Structures,60,16.67
+1,Software Developer,3,OOP,60,16.67
+1,Software Developer,4,DBMS,60,16.67
+1,Software Developer,5,Git,60,16.67
+1,Software Developer,6,Problem Solving,60,16.67
+2,Web Developer,7,HTML,60,16.67
+2,Web Developer,8,CSS,60,16.67
+2,Web Developer,9,JavaScript,60,16.67
+2,Web Developer,10,React,60,16.67
+2,Web Developer,5,Git,60,16.67
+2,Web Developer,11,Web Development,60,16.67
+3,Data Analyst,12,Excel,60,16.67
+3,Data Analyst,13,SQL,60,16.67
+3,Data Analyst,14,Statistics,60,16.67
+3,Data Analyst,15,Power BI,60,16.67
+3,Data Analyst,16,Python,60,16.67
+3,Data Analyst,17,Data Visualization,60,16.67
+4,Data Scientist,16,Python,60,16.67
+4,Data Scientist,14,Statistics,60,16.67
+4,Data Scientist,18,Machine Learning,60,16.67
+4,Data Scientist,13,SQL,60,16.67
+4,Data Scientist,19,Pandas,60,16.67
+4,Data Scientist,17,Data Visualization,60,16.67
+5,Data Engineer,16,Python,60,16.67
+5,Data Engineer,13,SQL,60,16.67
+5,Data Engineer,20,ETL,60,16.67
+5,Data Engineer,21,Databases,60,16.67
+5,Data Engineer,22,Cloud,60,16.67
+5,Data Engineer,23,Apache Spark,60,16.67
+6,AI/ML Engineer,16,Python,60,16.67
+6,AI/ML Engineer,18,Machine Learning,60,16.67
+6,AI/ML Engineer,24,Deep Learning,60,16.67
+6,AI/ML Engineer,25,TensorFlow,60,16.67
+6,AI/ML Engineer,26,PyTorch,60,16.67
+6,AI/ML Engineer,27,Mathematics,60,16.67
+7,Cybersecurity Analyst,28,Networking,60,16.67
+7,Cybersecurity Analyst,29,Linux,60,16.67
+7,Cybersecurity Analyst,30,Cybersecurity,60,16.67
+7,Cybersecurity Analyst,31,Cryptography,60,16.67
+7,Cybersecurity Analyst,32,Ethical Hacking,60,16.67
+7,Cybersecurity Analyst,33,Security Tools,60,16.67
+8,Cloud Engineer,29,Linux,60,16.67
+8,Cloud Engineer,28,Networking,60,16.67
+8,Cloud Engineer,34,AWS,60,16.67
+8,Cloud Engineer,35,Azure,60,16.67
+8,Cloud Engineer,36,Docker,60,16.67
+8,Cloud Engineer,37,Cloud Computing,60,16.67
+9,DevOps Engineer,29,Linux,60,16.67
+9,DevOps Engineer,5,Git,60,16.67
+9,DevOps Engineer,36,Docker,60,16.67
+9,DevOps Engineer,38,Kubernetes,60,16.67
+9,DevOps Engineer,39,CI/CD,60,16.67
+9,DevOps Engineer,22,Cloud,60,16.67
+10,Business Analyst,12,Excel,60,16.67
+10,Business Analyst,13,SQL,60,16.67
+10,Business Analyst,40,Business Analysis,60,16.67
+10,Business Analyst,41,Communication,60,16.67
+10,Business Analyst,15,Power BI,60,16.67
+10,Business Analyst,6,Problem Solving,60,16.67
+11,UI/UX Designer,42,Figma,60,16.67
+11,UI/UX Designer,43,UI Design,60,16.67
+11,UI/UX Designer,44,UX Research,60,16.67
+11,UI/UX Designer,45,Prototyping,60,16.67
+11,UI/UX Designer,46,Graphic Design,60,16.67
+11,UI/UX Designer,41,Communication,60,16.67
+12,Database Administrator,13,SQL,60,16.67
+12,Database Administrator,4,DBMS,60,16.67
+12,Database Administrator,47,Database Administration,60,16.67
+12,Database Administrator,29,Linux,60,16.67
+12,Database Administrator,48,Backup and Recovery,60,16.67
+12,Database Administrator,49,Database Security,60,16.67

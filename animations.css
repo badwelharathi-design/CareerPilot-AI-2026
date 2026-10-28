@@ -1,0 +1,84 @@
+/* Hero animation */
+
+.hero-content {
+    animation: slideLeft 1.2s ease;
+}
+
+.ai-container {
+    animation: fadeIn 1.5s ease;
+}
+
+.robot {
+    animation: floatRobot 3s ease-in-out infinite;
+}
+
+.circle {
+    animation: rotateCircle 8s linear infinite;
+}
+
+button {
+    transition: 0.3s;
+    animation: pulse 2s infinite;
+}
+
+.card {
+    transition: 0.4s;
+}
+
+.card:hover {
+    transform: translateY(-15px);
+}
+
+@keyframes slideLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-80px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes floatRobot {
+    0%, 100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-25px);
+    }
+}
+
+@keyframes rotateCircle {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        box-shadow: 0 0 10px #00e5ff;
+    }
+
+    50% {
+        box-shadow: 0 0 30px #00e5ff;
+    }
+}

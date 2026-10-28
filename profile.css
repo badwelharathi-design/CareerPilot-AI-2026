@@ -1,0 +1,120 @@
+.profile-page {
+    min-height: 100vh;
+
+    display: flex;
+    justify-content: center;
+
+    padding: 60px 20px;
+
+    background:
+        radial-gradient(circle at top, #182451, #080b1a);
+}
+
+.profile-card {
+    width: 600px;
+
+    padding: 40px;
+
+    background: #111631;
+
+    border-radius: 25px;
+
+    box-shadow: 0 0 40px rgba(0, 229, 255, 0.15);
+
+    animation: profileAppear 0.8s ease;
+}
+
+.profile-icon {
+    text-align: center;
+    font-size: 60px;
+
+    animation: floatRobot 3s ease-in-out infinite;
+}
+
+.profile-card h1 {
+    text-align: center;
+    font-size: 35px;
+}
+
+.profile-card > p {
+    text-align: center;
+    color: #aaaec0;
+    margin-bottom: 30px;
+}
+
+.profile-card label {
+    display: block;
+    margin: 15px 0 8px;
+    color: #d9dce8;
+}
+
+.profile-card input,
+.profile-card select,
+.profile-card textarea {
+    width: 100%;
+
+    padding: 14px;
+
+    border-radius: 10px;
+
+    border: 1px solid #303755;
+
+    background: #080b1a;
+
+    color: white;
+
+    outline: none;
+}
+
+.profile-card input:focus,
+.profile-card select:focus,
+.profile-card textarea:focus {
+    border-color: #00e5ff;
+
+    box-shadow: 0 0 12px rgba(0, 229, 255, 0.2);
+}
+
+.skills {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 10px;
+}
+
+.skills label {
+    padding: 12px;
+
+    margin: 0;
+
+    background: #080b1a;
+
+    border-radius: 10px;
+
+    cursor: pointer;
+}
+
+.skills input {
+    width: auto;
+
+    margin-right: 8px;
+}
+
+.profile-card button {
+    width: 100%;
+
+    margin-top: 30px;
+}
+
+@keyframes profileAppear {
+
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
